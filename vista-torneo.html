@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RoboJudge - Resultados</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="vista-torneo-page">
+    <header class="navbar">
+        <div class="logo">ROBOJUDGE</div>
+        <nav>
+            <a href="torneo.html">Torneos</a>
+            <a href="#">Calendario</a>
+            <a href="#">Historial</a>
+        </nav>
+        <!-- <div class="user-menu">
+            <span>Juez Principal</span> <i class="fa-solid fa-chevron-down"></i>
+        </div> -->
+    </header>
+
+    <div class="main-layout">
+        <aside class="sidebar">
+            <div class="tournament-card">
+                <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=300" alt="Campeonato">
+                <div class="tournament-info">
+                    <h3>Cargando Torneo...</h3>
+                    <p><i class="fa-solid fa-location-dot"></i> Lima, Perú</p>
+                </div>
+            </div>
+
+            <nav class="side-nav">
+                <button class="nav-item" onclick="showSection('encuentros')">
+                    <i class="fa-solid fa-table-cells-large"></i> Encuentros
+                </button>
+                <button class="nav-item" onclick="showSection('participantes')">
+                    <i class="fa-solid fa-users"></i> Participantes
+                </button>
+                <button class="nav-item active" onclick="showSection('resultados')">
+                    <i class="fa-solid fa-trophy"></i> Ver Resultados
+                </button>
+                <button id="btn-reglamento" class="nav-item" onclick="window.location.href='reglamento_torneo.html' + window.location.search">
+                    <i class="fa-solid fa-book-open"></i> Revisar Reglamento
+                </button>
+            </nav>
+        </aside>
+
+        <main class="content">
+            <div id="resultados" class="content-section">
+                <div class="content-card">
+                <div class="content-header">
+                    <h2><i class="fa-solid fa-list-check cyan-text"></i> Resultados del Torneo</h2>
+                    <div class="round-tabs">
+                        <button>Octavos</button>
+                        <button class="active">Cuartos</button>
+                        <button>Semifinal</button>
+                        <button>Final</button>
+                    </div>
+                </div>
+
+                <div class="results-section">
+
+                    <div class="section-label">MIS TURNOS - ELIMINATORIAS</div>
+                    
+                    <div class="match-card live">
+                        <div class="match-status">
+                            <span class="badge-live">proximos</span>
+                            <small>Ronda 2</small>
+                        </div>
+                        <div class="team team-a">
+                            <img src="https://i.pravatar.cc/40?u=a1" alt="CyberValkyrie">
+                            <div class="team-meta">
+                                <strong>CyberValkyrie</strong>
+                                <small>Team Alpha</small>
+                            </div>
+                        </div>
+                        <div class="score">2 : 1</div>
+                        <div class="team team-b">
+                            <div class="team-meta text-right">
+                                <strong>MechaRonin</strong>
+                                <small>Tokyo Labs</small>
+                            </div>
+                            <img src="https://i.pravatar.cc/40?u=b1" alt="MechaRonin">
+                        </div>
+                    </div>
+
+
+
+                    <div class="section-label">EN VIVO - GRUPO A</div>
+                    
+                    <div class="match-card live">
+                        <div class="match-status">
+                            <span class="badge-live">EN VIVO</span>
+                            <small>Ronda 2</small>
+                        </div>
+                        <div class="team team-a">
+                            <img src="https://i.pravatar.cc/40?u=a1" alt="CyberValkyrie">
+                            <div class="team-meta">
+                                <strong>CyberValkyrie</strong>
+                                <small>Team Alpha</small>
+                            </div>
+                        </div>
+                        <div class="score">2 : 1</div>
+                        <div class="team team-b">
+                            <div class="team-meta text-right">
+                                <strong>MechaRonin</strong>
+                                <small>Tokyo Labs</small>
+                            </div>
+                            <img src="https://i.pravatar.cc/40?u=b1" alt="MechaRonin">
+                        </div>
+                    </div>
+
+                    <div class="section-label mt-30">RESULTADOS FINALES - ELIMINATORIAS</div>
+
+                    <div class="match-card finished">
+                        <div class="match-status">
+                            <span class="badge-finished">FINALIZADO</span>
+                            <small>10:30 AM</small>
+                        </div>
+                        <div class="team">
+                            <img src="https://i.pravatar.cc/40?u=a2" alt="Titan">
+                            <div class="team-meta"><strong>TitanX-01</strong><small>Univ. Nacional</small></div>
+                        </div>
+                        <div class="score">3 : 0</div>
+                        <div class="team">
+                            <div class="team-meta text-right"><strong>SparkBot</strong><small>Tech Institute</small></div>
+                            <img src="https://i.pravatar.cc/40?u=b2" alt="Spark">
+                        </div>
+                    </div>
+
+                    <div class="match-card finished">
+                        <div class="match-status">
+                            <span class="badge-finished">FINALIZADO</span>
+                            <small>09:45 AM</small>
+                        </div>
+                        <div class="team">
+                            <img src="https://i.pravatar.cc/40?u=a3" alt="Iron">
+                            <div class="team-meta"><strong>IronGiant</strong><small>RoboCorp</small></div>
+                        </div>
+                        <div class="score">1 : 2</div>
+                        <div class="team">
+                            <div class="team-meta text-right"><strong>DesertStorm</strong><small>Cairo Tech</small></div>
+                            <img src="https://i.pravatar.cc/40?u=b3" alt="Desert">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+            <!-- Sección Encuentros (Bracket) -->
+            <div id="encuentros" class="content-section" style="display: none;">
+                <div class="content-card" style="overflow-x: auto;">
+                    <div class="content-header">
+                        <h2><i class="fa-solid fa-sitemap cyan-text"></i> Llave de Eliminatorias</h2>
+                        <div style="display: flex; gap: 10px;">
+                            <button class="btn-primary" id="btn-insertar-competidores">
+                                <i class="fa-solid fa-user-plus"></i> Insertar Competidores
+                            </button>
+                            <button class="btn-primary" id="btn-iniciar-torneo">
+                                <i class="fa-solid fa-play"></i> Iniciar
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="bracket-container" style="padding: 20px 0;">
+                        <div class="side side-left">
+                            <div class="round octavos">
+                                <div class="matchup"><div class="team">Robot 1</div><div class="team">Robot 2</div></div>
+                                <div class="matchup"><div class="team">Robot 3</div><div class="team">Robot 4</div></div>
+                                <div class="matchup"><div class="team">Robot 5</div><div class="team">Robot 6</div></div>
+                                <div class="matchup"><div class="team">Robot 7</div><div class="team">Robot 8</div></div>
+                            </div>
+                            <div class="round cuartos">
+                                <div class="matchup"><div class="team">Ganador 1-2</div><div class="team">Ganador 3-4</div></div>
+                                <div class="matchup"><div class="team">Ganador 5-6</div><div class="team">Ganador 7-8</div></div>
+                            </div>
+                            <div class="round semifinal">
+                                <div class="matchup"><div class="team">Finalista A1</div><div class="team">Finalista A2</div></div>
+                            </div>
+                        </div>
+
+                        <div class="bracket-center">
+                            <div class="final-match-box">
+                                <div class="trophy-container">
+                                    <i class="fas fa-trophy"></i>
+                                </div>
+                                <div class="champion-card">
+                                    <h3>CAMPEÓN</h3>
+                                    <div class="winner-slot">???</div>
+                                </div>
+                                <div class="finalists-box" style="margin-top: 30px; display: none;">
+                                    <h4 style="color: #ffd700; text-align: center; margin-bottom: 15px; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;">Finales</h4>
+                                    <div class="finalist-cards" style="display: flex; flex-direction: column; gap: 12px;">
+                                        <div class="finalist-card" id="finalist-left" style="background: linear-gradient(135deg, #161b22 0%, #0d1117 100%); border: 1px solid #30363d; border-radius: 8px; padding: 12px; text-align: center; cursor: pointer; transition: all 0.3s;">
+                                            <div style="font-size: 0.75rem; color: #8b949e; margin-bottom: 4px;">Semifinal Izquierda</div>
+                                            <div style="font-size: 0.9rem; font-weight: 600; color: #c9d1d9;">???</div>
+                                        </div>
+                                        <div class="finalist-card" id="finalist-right" style="background: linear-gradient(135deg, #161b22 0%, #0d1117 100%); border: 1px solid #30363d; border-radius: 8px; padding: 12px; text-align: center; cursor: pointer; transition: all 0.3s;">
+                                            <div style="font-size: 0.75rem; color: #8b949e; margin-bottom: 4px;">Semifinal Derecha</div>
+                                            <div style="font-size: 0.9rem; font-weight: 600; color: #c9d1d9;">???</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="side side-right">
+                            <div class="round semifinal">
+                                <div class="matchup"><div class="team">Finalista B1</div><div class="team">Finalista B2</div></div>
+                            </div>
+                            <div class="round cuartos">
+                                <div class="matchup"><div class="team">Ganador 9-10</div><div class="team">Ganador 11-12</div></div>
+                                <div class="matchup"><div class="team">Ganador 13-14</div><div class="team">Ganador 15-16</div></div>
+                            </div>
+                            <div class="round octavos">
+                                <div class="matchup"><div class="team">Robot 9</div><div class="team">Robot 10</div></div>
+                                <div class="matchup"><div class="team">Robot 11</div><div class="team">Robot 12</div></div>
+                                <div class="matchup"><div class="team">Robot 13</div><div class="team">Robot 14</div></div>
+                                <div class="matchup"><div class="team">Robot 15</div><div class="team">Robot 16</div></div>
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Placeholders para otras secciones -->
+            <div id="participantes" class="content-section" style="display: none;">
+                <div class="content-card">
+                    <h2>Participantes</h2>
+                    <div id="participantes-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 20px;">
+                        <p style="color: #8b949e;">Cargando participantes...</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="reglamento" class="content-section" style="display: none;">
+                <div class="content-card">
+                    <h2>Reglamento</h2>
+                    <p style="color: #8b949e;">Reglamento del torneo...</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+   <!--  <script src="js/vista-torneo.js"></script> -->
+    <script src="js/resultados-torneo.js"></script>
+
+
+
+    
+<script src="js/vista-torneo-rapido.js"></script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil - Titán Prime</title>
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="perfil.css">
+    <link rel="stylesheet" href="css/datosRobot.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="datos-robot">
+    
+    <header class="header">
+     <div class="logo">ROBOTech</div>
+      <nav class="nav">
+        <ul id="nav-links">
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="torneo.html">Torneos</a></li>
+          <li><a href="ranking.html" class="active">Ranking</a></li>
+          <li><a href="noticias.html">Noticias</a></li>
+          <li><a href="login.html" class="btn-login">Iniciar sesión</a></li>
+          <li><a href="registro.html" class="btn-register">Registrarme</a></li>
+        </ul>
+      </nav>
+    </header>
+    <div class="main-layout">
+        <main class="content">
+            <a href="#" class="back-link">← Volver al Ranking</a>
+
+            <section class="hero">
+                <img src="https://i.pravatar.cc/150?img=12" alt="Titán Prime" class="robot-img">
+                <div class="hero-info">
+                    <span class="badge-rank">🏆 RANKING MUNDIAL #1</span>
+                    <h1>Titán Prime</h1>
+                    <div class="meta">
+                        <span><i class="fa-solid fa-microchip"></i> Combate 1kg</span>
+                        <span><i class="fa-solid fa-circle-check"></i> Habilitado para Torneo</span>
+                        <span><i class="fa-solid fa-flag"></i> Perú</span>
+                    </div>
+                    <div class="actions">
+                        <button class="btn-cyan"><i class="fa-solid fa-share-nodes"></i> Compartir perfil</button>
+                        <button class="btn-dark"><i class="fa-regular fa-star"></i> Seguir</button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="stats-grid">
+                <div class="stat-card">
+                    <small>PUNTUACIÓN TOTAL</small>
+                    <div class="val cyan">2.450</div>
+                </div>
+                <div class="stat-card">
+                    <small>RÉCORD HISTÓRICO</small>
+                    <div class="val">18 - 2</div>
+                    <div class="sub green">90% de tasa de victorias</div>
+                </div>
+                <div class="stat-card">
+                    <small>VICTORIAS POR KO</small>
+                    <div class="val">12</div>
+                </div>
+                <div class="stat-card">
+                    <small>RACHA ACTUAL</small>
+                    <div class="val">7 W</div>
+                    <div class="sub yellow">Imbatible</div>
+                </div>
+            </section>
+
+            <section class="history">
+                <div class="section-header">
+                    <h2>Historial de Combates</h2>
+                    <a href="#" class="cyan-text">Ver todo</a>
+                </div>
+                <table class="history-table">
+                    <thead>
+                        <tr>
+                            <th>RESULTADO</th>
+                            <th>OPONENTE</th>
+                            <th>EVENTO</th>
+                            <th>FECHA</th>
+                        </tr>
+                    </thead>
+                    <tbody id="history-body">
+                        </tbody>
+                </table>
+            </section>
+        </main>
+
+        <aside class="sidebar">
+            <div class="side-section">
+                <h3>Club y Equipo</h3>
+                <div class="club-card">
+                    <div class="club-header">
+                        <div class="club-logo">Arkansas</div>
+                        <div>
+                            <strong>Robótica Alfa</strong><br>
+                            <small>Lima, Perú</small>
+                        </div>
+                    </div>
+                    <div class="team-member">
+                        <img src="https://i.pravatar.cc/30?img=5" alt="Sarah">
+                        <div><strong>Sarah Jen</strong><br><small>Piloto Principal</small></div>
+                    </div>
+                    <div class="team-member">
+                        <img src="https://i.pravatar.cc/30?img=8" alt="Carlos">
+                        <div><strong>Carlos M.</strong><br><small>Mecánico</small></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="side-section">
+                <h3>Especificaciones</h3>
+                <ul class="specs-list">
+                    <li><span>Peso</span> <strong>998 g / 1000 g</strong></li>
+                    <li><span>Arma</span> <strong>Spinner vertical</strong></li>
+                    <li><span>Motor Arma</span> <strong>2836 Sin escobillas</strong></li>
+                    <li><span>Tracción</span> <strong>4x4 N20</strong></li>
+                    <li><span>Material</span> <strong>Aluminio 7075</strong></li>
+                    <li><span>Batería</span> <strong>4S 850 mAh</strong></li>
+                </ul>
+            </div>
+        </aside>
+    </div>
+
+    <script src="js/datosTop.js"></script>
+</body>
+</html>

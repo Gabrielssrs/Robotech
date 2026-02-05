@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Perfil del Competidor - Luis Pérez</title>
+    <link rel="stylesheet" href="css/styles.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo">ROBOTech</div>
+        <nav class="nav">
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="torneo.html">Torneos</a></li>
+                <li><a href="ranking.html">Ranking</a></li>
+                <li><a href="noticias.html">Noticias</a></li>
+                <li class="nav-profile-name">Luis "IronBot" Pérez</li> 
+                <li><a href="login.html" class="btn-logout">Cerrar Sesión</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <div class="profile-container competitor-page">
+
+            <section class="personal-info-section section-box">
+                <h2 class="box-title">Información personal</h2>
+                <button class="btn-main edit-profile-btn small-float-btn">Editar perfil</button>
+                
+                <div class="info-grid personal-grid">
+                    <div class="data-photo competitor-photo">
+                        <img id="profile-avatar-img" src="https://via.placeholder.com/100x100?text=Avatar" alt="Foto de Perfil" class="profile-image competitor-avatar">
+                    </div>
+                    <div class="data-item">
+                        <span class="label">Nombre completo</span>
+                        <span class="value" id="profile-name-value">**Luis Pérez**</span>
+                    </div>
+                    <div class="data-item">
+                        <span class="label">Alias</span>
+                        <span class="value" id="profile-alias-value">**IronBot**</span>
+                    </div>
+                    <div class="data-item">
+                        <span class="label">Club</span>
+                        <span class="value" id="profile-club-value">**RoboTech Titans**</span>
+                    </div>
+                    <div class="data-item">
+                        <span class="label">DNI</span>
+                        <span class="value" id="profile-dni-value">74563218</span>
+                    </div>
+                    <div class="data-item">
+                        <span class="label">Teléfono</span>
+                        <span class="value" id="profile-phone-value">+51 912 345 678</span>
+                    </div>
+                    <div class="data-item">
+                        <span class="label">Correo</span>
+                        <span class="value" id="profile-email-value">luisperez@robotech.com</span>
+                    </div>
+                    <div class="data-item status-item">
+                        <span class="label">Estado</span>
+                        <span class="value status active" id="profile-status-value">Activo</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="robots-section section-box">
+                <div class="section-header" style="display:flex; justify-content:space-between; align-items:center; gap:12px;">
+                    <h2 class="box-title">Robots registrados</h2>
+                    <div>
+                        <a href="torneo.html" class="view-tournaments-btn btn-tournaments">Ver Torneos</a>
+                        <a href="agregar_robot.html" class="btn-main add-robot-btn">Agregar nuevo robot (+)</a>
+                    </div>
+                </div>
+
+                <div class="table-responsive" style="overflow:auto;">
+                    <table class="robots-table wide-table">
+                        <thead>
+                            <tr>
+                                <th>Imagen</th>
+                                <th>Nombre del Robot</th>
+                                <th>Categoría</th>
+                                <th>Estado</th>
+                                <th>Puntos</th>
+                                <th>Fecha Creación</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="robots-table-body">
+                            </tbody>
+                    </table>
+                </div>
+            </section>
+            
+            <!-- <section class="tournament-history-section section-box">
+                <h2 class="box-title">Historial de torneos</h2>
+                <div class="table-responsive">
+                    <table class="history-table">
+                        <thead>
+                            <tr>
+                                <th>Nombre del torneo</th>
+                                <th>Fecha</th>
+                                <th>Posición obtenida</th>
+                                <th>Puntos ganados</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>**Torneo Nacional 2024**</td>
+                                <td>15/06/2024</td>
+                                <td>2° lugar</td>
+                                <td class="points-gain">+450</td>
+                                <td class="actions"><button class="btn-action details">Ver detalles</button></td>
+                            </tr>
+                            <tr>
+                                <td>**Robotech Challenge**</td>
+                                <td>10/03/2025</td>
+                                <td>1° lugar</td>
+                                <td class="points-gain">+750</td>
+                                <td class="actions"><button class="btn-action details">Ver detalles</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+ -->
+            <section class="performance-section section-box">
+                <h2 class="box-title">Rendimiento: puntos por torneo</h2>
+                <div class="chart-placeholder">
+                    Chart Placeholder (Gráfico de rendimiento)
+                </div>
+            </section>
+        </div>
+    </main>
+    
+    <div id="crud-robot-modal" class="modal">
+        <div class="modal-content form-container">
+            <span class="close-btn robot-close-btn">&times;</span>
+            <h2 id="robot-modal-title">Agregar Nuevo Robot</h2>
+            <form id="robot-form">
+                <input type="hidden" id="robot-id">
+                
+                <div class="form-group">
+                    <label for="robot-nombre">Nombre del Robot</label>
+                    <input type="text" id="robot-nombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="robot-categoria">Categoría</label>
+                    <select id="robot-categoria" required>
+                        <!-- Las opciones se llenarán dinámicamente con JS -->
+                        <option value="" disabled selected>Cargando...</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="robot-estado">Estado</label>
+                    <select id="robot-estado" required>
+                        <option value="Activo">Activo</option>
+                        <option value="En Reparación">En Reparación</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="robot-puntos">Puntos</label>
+                    <input type="number" id="robot-puntos" value="0" min="0" required>
+                </div>
+                
+                <button type="submit" class="btn-main" id="save-robot-btn">Guardar Robot</button>
+            </form>
+        </div>
+    </div>
+    
+    <div id="edit-profile-info-modal" class="modal">
+        <div class="modal-content form-container">
+            <span class="close-btn profile-info-close-btn">&times;</span>
+            <h2 id="profile-info-modal-title">Editar Perfil</h2>
+            <form id="profile-edit-form">
+                <div class="form-group">
+                    <label for="profile-edit-name">Nombre completo</label>
+                    <input type="text" id="profile-edit-name" required placeholder="Solo letras y espacios">
+                    <span class="error" style="display:none;"></span>
+                </div>
+                <div class="form-group">
+                    <label for="profile-edit-alias">Alias</label>
+                    <input type="text" id="profile-edit-alias" required>
+                </div>
+                <div class="form-group">
+                    <label for="profile-edit-dni">DNI</label>
+                    <input type="text" id="profile-edit-dni" required maxlength="8" inputmode="numeric" pattern="\d{8}" placeholder="8 dígitos">
+                    <span class="error" style="display:none;"></span>
+                </div>
+                <div class="form-group">
+                    <label for="profile-edit-phone">Teléfono</label>
+                    <input type="text" id="profile-edit-phone" maxlength="9" inputmode="numeric" placeholder="9 dígitos">
+                    <span class="error" style="display:none;"></span>
+                </div>
+                <div class="form-group">
+                    <label for="profile-edit-status">Estado</label>
+                    <!-- Estado solo se muestra; no es editable por el competidor -->
+                    <input type="text" id="profile-edit-status" readonly>
+                    <small class="hint">El estado solo puede ser modificado por el club.</small>
+                </div>
+                <div class="form-group">
+                    <label for="profile-edit-avatar-file">Subir Foto de Perfil (desde tu laptop)</label>
+                    <input type="file" id="profile-edit-avatar-file" accept="image/*">
+                    <small>Selecciona una imagen. Si no se selecciona, se mantendrá la foto actual.</small>
+                </div>
+                <button type="submit" class="btn-main">Guardar Perfil</button>
+                <div id="profile-edit-feedback" class="form-feedback-message" style="display:none;margin-top:10px;"></div>
+            </form>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-about">
+                <h3>ROBOTech</h3>
+                <p>Innovación, competencia y pasión por la robótica.  
+                Únete a nuestra comunidad y lleva tus habilidades al siguiente nivel.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Enlaces útiles</h4>
+                <ul>
+                    <li><a href="#">Términos y condiciones</a></li>
+                    <li><a href="#">Política de privacidad</a></li>
+                    <li><a href="#">Preguntas frecuentes</a></li>
+                    <li><a href="#">Contacto</a></li>
+                </ul>
+            </div>
+            <div class="footer-social">
+                <h4>Síguenos</h4>
+                <div class="social-icons">
+                    <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook"></a>
+                    <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram"></a>
+                    <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/twitter.svg" alt="Twitter"></a>
+                    <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube"></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 ROBOTech | Innovación y competencia robótica</p>
+        </div>
+    </footer>
+
+    <script src="js/perfilcompetidor.js"></script> 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Agregar Robot - ROBOTech</title>
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/otro.css" />
+</head>
+<body>
+    <header class="header">
+        <div class="logo">ROBOTech</div>
+        <nav class="nav">
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="torneo.html">Torneos</a></li>
+                <li><a href="ranking.html">Ranking</a></li>
+                <li><a href="noticias.html">Noticias</a></li>
+                <li class="nav-profile-name">Mi Perfil</li>
+                <li><a href="login.html" class="btn-logout">Cerrar Sesión</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <section class="section-box">
+                <h1 class="box-title">Agregar Nuevo Robot</h1>
+
+                <div class="multi-step-container">
+                    <div class="stepper-tabs">
+                        <button class="stepper-tab active" data-step="0"><span class="step-num">1</span> Detalles</button>
+                        <button class="stepper-tab" data-step="1"><span class="step-num">2</span> Movilidad</button>
+                        <button class="stepper-tab" data-step="2"><span class="step-num">3</span> Características</button>
+                    </div>
+                    <div class="steps-progress">
+                        <div class="steps-progress-bar" aria-hidden>
+                            <div class="steps-progress-fill" style="width:33.3333%"></div>
+                        </div>
+                    </div>
+
+                    <form id="robot-multiform" class="multi-step-form">
+                        <div class="steps-viewport">
+                            <div class="steps-track">
+                                <!-- Step 1: Detalles -->
+                                <div class="step">
+                                    <div class="card">
+                                    <div class="form-row two-cols">
+                                        <div class="form-group">
+                                            <label for="r-nombre">Nombre del Robot</label>
+                                            <input type="text" id="r-nombre" name="nombre" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="r-categoria">Categoría de Competición</label>
+                                            <select id="r-categoria" name="categoriaId" required>
+                                                <option value="" disabled selected>Seleccione una categoría...</option>
+                                                <!-- Se llena dinámicamente -->
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="r-fecha">Fecha de creación</label>
+                                            <input type="date" id="r-fecha" name="fechaCreacion" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group full-width-group">
+                                        <label for="r-descripcion">Descripción</label>
+                                        <textarea id="r-descripcion" name="descripcion" required></textarea>
+                                    </div>
+
+                                    <div class="form-row two-cols">
+                                        <div class="form-group">
+                                            <label for="r-arma1">Arma principal</label>
+                                            <input type="text" id="r-arma1" name="armaPrincipal">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="r-arma2">Arma secundaria</label>
+                                            <input type="text" id="r-arma2" name="armaSecundaria">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="r-alcance">Alcance (m)</label>
+                                        <input type="number" id="r-alcance" name="alcance" min="0">
+                                    </div>
+                                    </div>
+                                </div>
+
+                                <!-- Step 2: Movilidad -->
+                                <div class="step">
+                                    <div class="card">
+                                    <div class="form-row two-cols">
+                                        <div class="form-group">
+                                            <label for="r-vel-max" id="lbl-vel-max">Velocidad máxima (km/h)</label>
+                                            <input type="number" id="r-vel-max" name="velocidadMaxima" min="0">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="r-traccion">Tipo de tracción</label>
+                                            <select id="r-traccion" name="traccion">
+                                                <option value="Ruedas">Ruedas</option>
+                                                <option value="Orugas">Orugas</option>
+                                                <option value="Hibrido">Híbrido</option>
+                                                <option value="Otro">Otro</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row two-cols">
+                                        <div class="form-group">
+                                            <label for="r-agilidad">Agilidad</label>
+                                            <select id="r-agilidad" name="agilidad">
+                                                <option value="Alta">Alta</option>
+                                                <option value="Media">Media</option>
+                                                <option value="Baja">Baja</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="r-terreno">Terreno ideal</label>
+                                            <input type="text" id="r-terreno" name="terrenoIdeal">
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+
+                                <!-- Step 3: Características -->
+                                <div class="step">
+                                    <div class="card">
+                                    <div class="form-row two-cols">
+                                        <div class="form-group">
+                                            <label for="r-material">Material principal</label>
+                                            <input type="text" id="r-material" name="material">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="r-peso" id="lbl-peso">Peso (kg)</label>
+                                            <input type="number" id="r-peso" name="pesoKg" min="0" step="0.1">    
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row two-cols">
+                                        <div class="form-group">
+                                            <label for="r-altura" id="lbl-altura">Altura (cm)</label>
+                                            <input type="number" id="r-altura" name="alturaCm" min="0" step="0.1">  
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="r-ancho" id="lbl-ancho">Ancho (cm)</label>
+                                            <input type="number" id="r-ancho" name="anchoCm" min="0" step="0.1">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row two-cols">
+                                        <div class="form-group">
+                                            <label for="r-fuente">Fuente de poder</label>
+                                            <input type="text" id="r-fuente" name="fuentePoder">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="r-blindaje">Blindaje</label>
+                                            <input type="text" id="r-blindaje" name="blindaje">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group full-width-group">
+                                        <label for="r-especial">Característica especial</label>
+                                        <textarea id="r-especial" name="caracteristicaEspecial"></textarea>
+                                    </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn-secondary" id="prev-step">Anterior</button>
+                            <button type="button" class="btn-main" id="next-step">Siguiente</button>
+                            <button type="submit" class="btn-main" id="submit-robot">Guardar Robot</button>
+                        </div>
+                        <div id="robot-feedback" class="form-feedback-message inline" style="display:none;">
+                            <div class="feedback-icon">✓</div>
+                            <div class="feedback-text">Robot guardado con éxito.</div>
+                        </div>
+                    </form>
+
+                </div>
+
+                <div style="margin-top:20px;">
+                    <a href="perfil_competidor.html" class="btn-secondary">Volver al Perfil</a>
+                </div>
+
+            </section>
+        </div>
+    </main>
+
+    <script src="js/agregar-robot.js"></script>
+</body>
+</html>

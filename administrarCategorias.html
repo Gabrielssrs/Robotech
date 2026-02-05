@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Administrar Categorías - ROBOTech Admin</title>
+    <link rel="stylesheet" href="css/styles.css" /> 
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    
+    <header class="header admin-header">
+        <div class="logo">ROBOTech Admin</div>
+        <nav class="nav">
+            <ul>
+                <li><a href="perfiladmin.html">Dashboard</a></li> 
+                <li><a href="#" class="active">Categorías</a></li> 
+                <li><a href="login.html" class="btn-logout">Cerrar Sesión</a></li> 
+            </ul>
+        </nav>
+    </header>
+
+    <section class="section admin-dashboard-content">
+        
+        <h1 class="admin-title">Gestión de Categorías</h1>
+        <p class="admin-subtitle">Define y gestiona las categorías de competición utilizadas en los torneos oficiales (Reglamento, Peso, Dimensiones).</p>
+        
+        <section class="admin-filters-search">
+            <div class="admin-filters-container">
+                <a href="#" class="admin-filter-tab active">Activas (6)</a>
+                <a href="#" class="admin-filter-tab suspended-tab">Inactivas (2)</a>
+                
+                <a href="#" class="admin-filter-tab filter-dropdown">Tipo de Robot</a>
+                
+                <input type="text" placeholder="Buscar categoría, peso o ID..." class="search-input-admin">
+            </div>
+        </section>
+
+        <div class="management-card full-width-card admin-table-card">
+            <div class="table-responsive admin-table-container">
+                <table class="competitors-table club-management-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre de Categoría</th>
+                            <th>Tipo de competicon</th>
+                            <th>Peso Máx.</th>
+                            <th>Ancho Max.</th>
+                            <th>Alto Máx.</th>
+                            <th>Largo Máx.</th>
+                            <th>Arma Principal</th>
+                            <th>Velocidad Maxima</th>
+                            <th>Terreno</th>
+                            <th>Traccion</th>
+                            <th>Material</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                <tbody></tbody>
+                </table>
+            </div>
+            
+            <div class="management-actions table-footer-actions">
+                <a href="crearCategorias.html" class="btn-main small-btn">Crear Nueva Categoría (+)</a>
+            </div>
+            
+        </div>
+        
+    </section>
+
+    <footer class="footer admin-footer">
+        <div class="footer-container">
+            <div class="footer-about">
+                <h3>About</h3>
+                <p>ROBOTech Admin es la consola para gestionar clubes, jueces y torneos de robótica.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Links</h4>
+                <ul>
+                    <li><a href="#">Soporte</a></li>
+                    <li><a href="#">Políticas</a></li>
+                    <li><a href="#">Estado del sistema</a></li>
+                </ul>
+            </div>
+            <div class="footer-social">
+                <h4>Social</h4>
+                <ul>
+                    <li><a href="#">X / Twitter</a></li>
+                    <li><a href="#">LinkedIn</a></li>
+                    <li><a href="#">GitHub</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 ROBOTech | Consola de Administración</p>
+        </div>
+
+            <!-- Modal para editar categoría -->
+    <div id="edit-category-modal" class="modal">
+        <div class="modal-content form-container">
+            <span class="close-btn" id="close-category-modal">&times;</span>
+            <h2>Editar Categoría</h2>
+            <form id="edit-category-form">
+                <input type="hidden" id="edit-cat-id" name="id">
+                <div class="form-grid">
+                    <div class="form-column">
+                        <div class="form-group">
+                            <label for="edit-cat-nombre">Nombre</label>
+                            <input type="text" id="edit-cat-nombre" name="nombre" required>
+                        </div>
+                        <!-- CAMPO AÑADIDO -->
+                        <div class="form-group">
+                            <label for="edit-cat-tipo">Tipo de Competición</label>
+                            <input type="text" id="edit-cat-tipo" name="tipoCompeticion" required>
+                        </div>
+                        <!-- Peso / Ancho / Alto en la misma línea -->
+                        <div class="form-row three-cols">
+                            <div class="form-group">
+                                <label for="edit-cat-peso">Peso Máx. (kg)</label>
+                                <input type="number" id="edit-cat-peso" name="pesoMaximoKg" step="0.1" min="0">
+                            </div>
+                            <div class="form-group">
+                                <label for="edit-cat-ancho">Ancho Máx. (cm)</label>
+                                <input type="number" id="edit-cat-ancho" name="anchoMaximoCm" step="0.1" min="0">
+                            </div>
+                            <div class="form-group">
+                                <label for="edit-cat-alto">Alto Máx. (cm)</label>
+                                <input type="number" id="edit-cat-alto" name="altoMaximoCm" step="0.1" min="0">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-column">
+                        <!-- Largo / Velocidad en la misma línea -->
+                        <div class="form-row two-cols">
+                            <div class="form-group">
+                                <label for="edit-cat-largo">Largo Máx. (cm)</label>
+                                <input type="number" id="edit-cat-largo" name="largoMaximoCm" step="0.1" min="0">
+                            </div>
+                            <div class="form-group">
+                                <label for="edit-cat-vel">Velocidad Máx. (km/h)</label>
+                                <input type="number" id="edit-cat-vel" name="velocidadMaximaPermitidaKmh" step="0.1" min="0">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-cat-arma">Arma Principal</label>
+                            <input type="text" id="edit-cat-arma" name="armaPrincipalPermitida">
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-cat-vel">Velocidad Máx. (km/h)</label>
+                            <input type="number" id="edit-cat-vel" name="velocidadMaximaPermitidaKmh" step="0.1" min="0">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="edit-cat-terreno">Terreno</label>
+                    <input type="text" id="edit-cat-terreno" name="terrenoCompeticion">
+                </div>
+                <div class="form-group">
+                    <label for="edit-cat-traccion">Tracción Permitida</label>
+                    <input type="text" id="edit-cat-traccion" name="tipoTraccionPermitido">
+                </div>
+                <div class="form-group">
+                    <label for="edit-cat-materiales">Materiales Permitidos</label>
+                    <textarea id="edit-cat-materiales" name="materialesPermitidos" rows="3"></textarea>
+                </div>
+                <!-- CAMPO AÑADIDO -->
+                <div class="form-group">
+                    <label for="edit-cat-descripcion">Descripción</label>
+                    <textarea id="edit-cat-descripcion" name="descripcion" rows="3"></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary modal-cancel" id="cancel-category-edit">Cancelar</button>
+                    <button type="submit" class="btn-main">Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    </footer>
+        
+    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="js/admin-categorias.js"></script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Torneos - Competidor | ROBOTech</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    .page-header { display:flex; justify-content:space-between; align-items:center; margin:18px 0; }
+    .table { width:100%; max-width:1200px; margin: 0 auto; border-collapse:collapse; border-radius:8px; overflow:hidden; }
+    .table th, .table td { padding:12px 14px; border-bottom:1px solid rgba(255,255,255,0.04); text-align:left; }
+    .table thead th { background:linear-gradient(180deg,#1b1b1b,#121212); color:#fff; font-weight:600; }
+    .actions { display:flex; gap:8px; justify-content:flex-end; }
+    .btn-main { background:#3fb36b; color:#fff; border:none; padding:8px 12px; border-radius:6px; cursor:pointer; }
+    .btn-secondary { background:transparent; color:#cfcfcf; border:1px solid rgba(255,255,255,0.06); padding:8px 12px; border-radius:6px; cursor:pointer; }
+    @media (max-width:800px) { .table th, .table td { padding:10px 8px; font-size:0.9rem; } }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="logo">ROBOTech</div>
+    <nav class="nav"><ul><li><a href="index.html">Inicio</a></li><li><a href="perfil_competidor.html">Mi Perfil</a></li></ul></nav>
+  </header>
+
+  <main class="container">
+    <div class="page-header">
+      <h2>Torneos disponibles</h2>
+      <div>
+        <a href="perfil_competidor.html" class="btn-secondary">Volver al perfil</a>
+      </div>
+    </div>
+
+    <div style="overflow:auto;">
+      <table id="torneos-table" class="table">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Fecha Inicio</th>
+            <th>Fecha Fin</th>
+            <th>Categoría</th>
+            <th>Estado</th>
+            <th>Inscripción</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <!-- Modal details are shown with SweetAlert2 -->
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-about"><h3>ROBOTech</h3><p>Innovación, competencia y pasión por la robótica.</p></div>
+      <div class="footer-links"><h4>Enlaces útiles</h4><ul><li><a href="#">Términos</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><p>© 2025 ROBOTech</p></div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="js/torneos-competidor.js"></script>
+</body>
+</html>

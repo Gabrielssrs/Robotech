@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RoboJudge - Selección de Torneos</title>
+    <link rel="stylesheet" href="css/torneo-juez.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="torneo-juez-theme">
+       <header class="header">
+        <div class="logo">ROBOTech</div>
+        <nav class="nav">
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="torneo.html">Torneos</a></li>
+                <li><a href="ranking.html">Ranking</a></li>
+                <li><a href="noticias.html">Noticias</a></li>
+                <li class="nav-profile-name"><a href="perfil-juez.html" class="active">Mi Perfil Juez</a></li> 
+                <li><a href="login.html" class="btn-logout">Cerrar Sesión</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="main-container">
+        <aside class="sidebar">
+            <div class="side-item active">
+                <i class="fa-solid fa-chart-simple"></i> Estadísticas
+            </div>
+        </aside>
+
+        <main class="content">
+            <div class="content-header">
+                <h2><i class="fa-solid fa-wave-square pulse-icon"></i> Torneos Disponibles para Puntuación</h2>
+                <a href="perfil-juez.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Volver al Dashboard</a>
+            </div>
+            <p class="subtitle">Selecciona un torneo para iniciar la herramienta de puntuación en vivo.</p>
+
+            <div class="tournament-list">
+                <div class="list-labels">
+                    <span>TORNEO</span>
+                    <span>FECHA</span>
+                    <span>CATEGORÍA ASIGNADA</span>
+                    <span>ESTADO</span>
+                    <span>ACCIÓN</span>
+                </div>
+
+                <div class="t-row">
+                    <div class="col-info">
+                        <strong>Copa Primavera Perú</strong>
+                        <small>Lima, Perú</small>
+                    </div>
+                    <div class="col-date"><i class="fa-regular fa-calendar"></i> Hoy, 05/09/2025</div>
+                    <div class="col-cat">Velocidad (Mini)</div>
+                    <div class="col-status"><span class="badge live"><i class="fa-solid fa-tower-broadcast"></i> En Vivo</span></div>
+                    <div class="col-action">
+                        <a href="reglamento_torneo.html" class="btn-reglas"><i class="fa-solid fa-book"></i> Reglas</a>
+                        <a href="panel_Puntuacion.html" class="btn-puntuar"><i class="fa-solid fa-play"></i> Puntuar</a>
+                    </div>
+                </div>
+
+                <div class="t-row">
+                    <div class="col-info">
+                        <strong>Campeonato Nacional 2025</strong>
+                        <small>Arena 1, Costa Verde</small>
+                    </div>
+                    <div class="col-date"><i class="fa-regular fa-calendar"></i> 20/11/2025</div>
+                    <div class="col-cat">Combate (1kg)</div>
+                    <div class="col-status"><span class="badge upcoming"><i class="fa-regular fa-clock"></i> Próximo</span></div>
+                    <div class="col-action">
+                        <a href="reglamento_torneo.html" class="btn-reglas"><i class="fa-solid fa-book"></i> Reglas</a>
+                        <button class="btn-disabled" disabled>Espera</button>
+                    </div>
+                </div>
+
+                <div class="t-row">
+                    <div class="col-info">
+                        <strong>Torneo Regional Norte</strong>
+                        <small>Trujillo, Perú</small>
+                    </div>
+                    <div class="col-date"><i class="fa-regular fa-calendar"></i> 10/06/2025</div>
+                    <div class="col-cat">Seguidor de Línea</div>
+                    <div class="col-status"><span class="badge finished"><i class="fa-regular fa-circle-check"></i> Finalizado</span></div>
+                    <div class="col-action">
+                        <a href="reglamento_torneo.html" class="btn-reglas"><i class="fa-solid fa-book"></i> Reglas</a>
+                        <button class="btn-outline">Ver Resultados</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/torneo-juez.js"></script> 
+
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Solicitudes de Retiro - ROBOTech Admin</title>
+    <link rel="stylesheet" href="css/styles.css" /> 
+</head>
+<body>
+
+    <header class="header admin-header">
+        <div class="logo">ROBOTech Admin</div>
+        <nav class="nav">
+            <ul>
+                <li><a href="perfiladmin.html">Dashboard</a></li>
+                <li><a href="adminclubes.html">Clubes</a></li>
+                <li><a href="login.html" class="btn-logout">Cerrar Sesión</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="section admin-dashboard-content">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+            <div>
+                <h1 class="admin-title">Solicitudes de Retiro</h1>
+                <p class="admin-subtitle">Listado de solicitudes de retiro presentadas por clubes/competidores.</p>
+            </div>
+            <a href="perfiladmin.html" class="btn-secondary">← Volver al Dashboard</a>
+        </div>
+
+        <div class="management-card full-width-card admin-table-card">
+            <h2 style="color: #00bfff; margin-bottom: 12px; font-size: 1.2rem;">Solicitudes pendientes</h2>
+            <div class="table-responsive admin-table-container">
+                <table class="table requests-table">
+                    <thead>
+                        <tr>
+                            <th>Correo Club</th>
+                            <th>Motivo del Retiro</th>
+                            <th>Correo Competidor</th>
+                            <th>Código de Retiro</th>
+                            <th>Estado de Solicitud</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody id="requests-body">
+                        <tr><td colspan="5" style="text-align:center;">Cargando solicitudes...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </section>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-about">
+                <h3>ROBOTech</h3>
+                <p>Innovación, competencia y pasión por la robótica.</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 ROBOTech</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="js/solicitudes-retiro.js"></script>
+</body>
+</html>

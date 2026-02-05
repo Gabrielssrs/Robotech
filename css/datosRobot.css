@@ -1,0 +1,145 @@
+.datos-robot {
+    --bg-dark: #090c10;
+    --bg-card: #161b22;
+    --cyan: #00d2ff;
+    --text-white: #ffffff;
+    --text-dim: #8b949e;
+    --green: #238636;
+    --border: #30363d;
+    background-color: var(--bg-dark);
+    color: var(--text-white);
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+}
+
+/* Navbar */
+.datos-robot .navbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 40px;
+    background: #0d1117;
+    border-bottom: 1px solid var(--border);
+    align-items: center;
+}
+
+/* Layout */
+.datos-robot .main-layout {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 30px;
+    padding: 40px;
+    max-width: 1400px;
+    margin: auto;
+}
+
+/* Hero Section */
+.datos-robot .hero {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.datos-robot .robot-img {
+    width: 180px;
+    height: 180px;
+    border-radius: 12px;
+    object-fit: cover;
+}
+
+.datos-robot .badge-rank {
+    background: rgba(255, 171, 0, 0.15);
+    color: #ffab00;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.datos-robot .meta { margin: 15px 0; color: var(--text-dim); }
+.datos-robot .meta span { margin-right: 15px; }
+
+.datos-robot .actions button {
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.datos-robot .btn-cyan { background: var(--cyan); border: none; }
+.datos-robot .btn-dark { background: transparent; border: 1px solid var(--border); color: var(--text-white); }
+
+/* Stats Grid */
+.datos-robot .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-bottom: 40px;
+}
+
+.datos-robot .stat-card {
+    background: var(--bg-card);
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+}
+
+.datos-robot .stat-card .val { font-size: 2rem; font-weight: bold; margin: 10px 0; }
+.datos-robot .val.cyan { color: var(--cyan); }
+.datos-robot .sub { font-size: 0.8rem; }
+.datos-robot .green { color: #3fb950; }
+.datos-robot .yellow { color: #d29922; }
+
+/* Table */
+.datos-robot .history-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.datos-robot .history-table th { text-align: left; color: var(--text-dim); padding: 10px; font-size: 0.8rem; }
+.datos-robot .history-table td { padding: 15px 10px; border-bottom: 1px solid var(--border); }
+
+/* Sidebar */
+.datos-robot .side-section { margin-bottom: 30px; }
+.datos-robot .club-card { background: var(--bg-card); padding: 20px; border-radius: 12px; }
+.datos-robot .club-header { display: flex; gap: 15px; margin-bottom: 20px; }
+.datos-robot .club-logo { background: #000; padding: 10px; border-radius: 8px; font-weight: bold; }
+
+.datos-robot .team-member { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; }
+.datos-robot .team-member img { border-radius: 50%; }
+
+.datos-robot .specs-list { list-style: none; padding: 0; }
+.datos-robot .specs-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.9rem;
+}
+.datos-robot .specs-list span { color: var(--text-dim); }
+
+/* Responsive */
+@media (max-width: 980px) {
+    .datos-robot .main-layout { grid-template-columns: 1fr; padding: 20px; }
+    .datos-robot .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .datos-robot .robot-img { width: 140px; height: 140px; }
+}
+
+/* Small visual helpers */
+.datos-robot .back-link { display:inline-block; margin-bottom: 18px; color:var(--text-dim); text-decoration:none; }
+.datos-robot .section-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+.datos-robot .cyan-text { color: var(--cyan); }
+
+/* Reset link appearance: remove underline and browser link colors, keep grey text */
+.datos-robot a { color: var(--text-dim); text-decoration: none; }
+.datos-robot a:visited { color: var(--text-dim); }
+.datos-robot a:hover { color: #f0f6f8; text-decoration: none; }
+.datos-robot a:focus { outline: 2px dashed rgba(0,210,255,0.2); outline-offset: 2px; }
+
+/* Header styling for datos-robot pages (reinforce or adapt site header) */
+.datos-robot .header { position: sticky; top: 0; width: 100%; background-color: rgba(15,15,25,0.9); display:flex; justify-content:space-between; align-items:center; padding: 12px 40px; backdrop-filter: blur(8px); z-index: 100; }
+.datos-robot .header .logo { font-size:1.3rem; font-weight:700; color: var(--cyan); }
+.datos-robot .header .nav ul { display:flex; gap:16px; list-style:none; margin:0; padding:0; align-items:center; }
+.datos-robot .header .nav a { color: var(--text-dim); text-decoration:none; padding:6px 8px; }
+.datos-robot .header .nav a.active { color: #fff; border-bottom: 2px solid var(--cyan); padding-bottom:4px; }

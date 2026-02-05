@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Crear Categoría - ROBOTech Admin</title>
+    <link rel="stylesheet" href="css/styles.css" /> 
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    
+    <header class="header admin-header">
+        <div class="logo">ROBOTech Admin</div>
+        <nav class="nav">
+            <ul>
+                <li><a href="perfiladmin.html">Dashboard</a></li> 
+                <li><a href="admin_categorias.html" class="active">Categorías</a></li> 
+                <li><a href="login.html" class="btn-logout">Cerrar Sesión</a></li> 
+            </ul>
+        </nav>
+    </header>
+
+    <section class="section admin-dashboard-content">
+        
+        <h1 class="admin-title">Crear Nueva Categoría</h1>
+        <p class="admin-subtitle">Define las reglas y especificaciones para una nueva categoría de competición.</p>
+        
+        <div class="management-card full-width-card">
+            <form id="create-category-form" class="admin-form">
+                
+                <div class="form-grid">
+                    <!-- Columna 1 -->
+                    <div class="form-column">
+                        <div class="form-group">
+                            <label for="nombre">Nombre de Categoría</label>
+                            <input type="text" id="nombre" name="nombre" placeholder="Ej: Combate Peso Pesado" required>
+                        </div>
+
+                        <!-- CAMPO MODIFICADO A INPUT TEXT -->
+                        <div class="form-group">
+                            <label for="tipoCompeticion">Tipo de Competición</label>
+                            <input type="text" id="tipoCompeticion" name="tipoCompeticion" placeholder="Ej: Combate, Sumo, Carrera" required>
+                        </div>
+
+                        <!-- Peso y Ancho en la misma línea -->
+                        <div class="form-row two-cols">
+                            <div class="form-group">
+                                <label for="pesoMaximoKg">Peso Máximo (kg)</label>
+                                <input type="number" id="pesoMaximoKg" name="pesoMaximoKg" placeholder="Ej: 120" step="0.1">
+                            </div>
+                            <div class="form-group">
+                                <label for="anchoMaximoCm">Ancho Máximo (cm)</label>
+                                <input type="number" id="anchoMaximoCm" name="anchoMaximoCm" placeholder="Ej: 100" step="0.1">
+                            </div>
+                        </div>
+
+                        <!-- Alto y Largo en la misma línea -->
+                        <div class="form-row two-cols">
+                            <div class="form-group">
+                                <label for="altoMaximoCm">Alto Máximo (cm)</label>
+                                <input type="number" id="altoMaximoCm" name="altoMaximoCm" placeholder="Ej: 100" step="0.1">
+                            </div>
+                            <div class="form-group">
+                                <label for="largoMaximoCm">Largo Máximo (cm)</label>
+                                <input type="number" id="largoMaximoCm" name="largoMaximoCm" placeholder="Ej: 80" step="0.1">
+                            </div>
+                        </div>
+                    </div>
+    
+                    <!-- Columna 2 -->
+                    <div class="form-column">
+                        <div class="form-group">
+                            <label for="velocidadMaximaPermitidaKmh">Velocidad Máxima (km/h)</label>
+                            <input type="number" id="velocidadMaximaPermitidaKmh" name="velocidadMaximaPermitidaKmh" placeholder="Ej: 25" step="0.5">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="armaPrincipalPermitida">Arma Principal Permitida</label>
+                            <input type="text" id="armaPrincipalPermitida" name="armaPrincipalPermitida" placeholder="Ej: Solo impacto, sin fuego">
+                        </div>
+    
+                        <div class="form-group">
+                            <label for="terrenoCompeticion">Terreno de Competición</label>
+                            <input type="text" id="terrenoCompeticion" name="terrenoCompeticion" placeholder="Ej: Arena de acero">
+                        </div>
+    
+                        <div class="form-group">
+                            <label for="tipoTraccionPermitido">Tracción Permitida</label>
+                            <input type="text" id="tipoTraccionPermitido" name="tipoTraccionPermitido" placeholder="Ej: Solo ruedas">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="materialesPermitidos">Materiales Permitidos</label>
+                            <textarea id="materialesPermitidos" name="materialesPermitidos" rows="3" placeholder="Ej: Prohibido el titanio"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Campo de descripción -->
+                <div class="form-group full-width-group">
+                    <label for="descripcion">Descripción General y Reglas</label>
+                    <textarea id="descripcion" name="descripcion" rows="5" placeholder="Describe las reglas principales, objetivos y espíritu de la categoría."></textarea>
+                </div>
+    
+                <div class="form-actions">
+                    <a href="administrarCategorias.html" class="btn-secondary">Cancelar</a>
+                    <button type="submit" class="btn-main">Guardar Categoría</button>
+                </div>
+
+                <div id="form-feedback" class="form-feedback-message" style="display: none;"></div>
+            </form>
+        </div>
+        
+    </section>
+
+    <footer class="footer admin-footer">
+        <div class="footer-bottom">
+            <p>© 2025 ROBOTech | Consola de Administración</p>
+        </div>
+    </footer>
+
+    <script src="js/crear-categoria.js"></script>
+
+</body>
+</html>

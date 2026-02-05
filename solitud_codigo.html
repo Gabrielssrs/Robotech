@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registro de Competidor - ROBOTech</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="header">
+    <div class="logo">ROBOTech</div>
+    <nav class="nav">
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="torneo.html">Torneos</a></li>
+        <li><a href="ranking.html">Ranking</a></li>
+        <li><a href="noticias.html">Noticias</a></li>
+        <li><a href="login.html" class="btn-login">Iniciar sesión</a></li>
+        <li><a href="registro.html" class="btn-register active">Registrarme</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="form-section">
+    <div class="form-container">
+      <h2>Solicitud de Inscripción a Club</h2>
+      <p class="form-desc">Completa los datos para solicitar tu inscripción en un club de ROBOTech.</p>
+      <!-- Añadimos un ID al formulario -->
+      <form id="registro-form">
+        <div class="form-group">
+          <label for="nombre">Nombre Completo</label>
+          <!-- Añadimos id y name -->
+          <input type="text" id="nombre" name="nombre" placeholder="Ej. Carlos Perez Quiroz" required>
+        </div>
+        <div class="form-group">
+          <label for="correoElectronico">Correo Electrónico</label>
+          <!-- Añadimos id y name -->
+          <input type="email" id="correoElectronico" name="correoElectronico" placeholder="ejemplo@correo.com" required>
+        </div>
+        <div class="form-group">
+          <label for="club">Seleccionar Club:</label>
+          <select id="club" name="club" required>
+            <option value="" disabled selected>Elige un club...</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="descripcion">Descripción de Solicitud(Agregar si tienes algun robot):</label>
+          <!-- Añadimos id y name -->
+          <textarea id="descripcion" name="descripcion" rows="4" placeholder="Ej: Me gustaría unirme porque tengo experiencia en programación de Arduino..."></textarea>
+        </div>
+
+        <!-- Añadimos un div para mostrar mensajes de éxito o error -->
+        <div id="form-message" class="form-message"></div>
+
+        <button type="submit" class="btn-main">Enviar Solicitud</button>
+        <p class="form-login-text">¿Ya tienes tu codigo de invitacion? <a href="registro_competidor.html">Terminar registro</a></p>
+      </form>
+    </div>
+  </section>
+
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-about">
+      <h3>ROBOTech</h3>
+      <p>Innovación, competencia y pasión por la robótica.  
+      Únete a nuestra comunidad y lleva tus habilidades al siguiente nivel.</p>
+    </div>
+
+    <div class="footer-links">
+      <h4>Enlaces útiles</h4>
+      <ul>
+        <li><a href="#">Términos y condiciones</a></li>
+        <li><a href="#">Política de privacidad</a></li>
+        <li><a href="#">Preguntas frecuentes</a></li>
+        <li><a href="#">Contacto</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-social">
+      <h4>Síguenos</h4>
+      <div class="social-icons">
+        <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook"></a>
+        <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram"></a>
+        <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/twitter.svg" alt="Twitter"></a>
+        <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube"></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2025 ROBOTech | Innovación y competencia robótica</p>
+  </div>
+
+  
+</footer>
+
+<!-- ... resto de tu página ... -->
+<script src="js/solicitud.js"></script>
+</body>
+</html>
+
+
+  

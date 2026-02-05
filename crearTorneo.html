@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Crear Torneo - ROBOTech Admin</title>
+    <link rel="stylesheet" href="css/styles.css" /> 
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- SweetAlert2 para alertas bonitas -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    
+    <header class="header admin-header">
+        <div class="logo">ROBOTech Admin</div>
+        <nav class="nav">
+            <ul>
+                <li><a href="perfiladmin.html">Dashboard</a></li> 
+                <li><a href="admin_torneos.html" class="active">Torneos</a></li> 
+                <li><a href="login.html" class="btn-logout">Cerrar Sesión</a></li> 
+            </ul>
+        </nav>
+    </header>
+
+    <section class="form-section">
+        <div class="form-container">
+            <h2>Crear Nuevo Torneo</h2>
+            <span class="subtitle">Programa un nuevo evento de competición oficial.</span>
+            
+            <form id="crear-torneo-form" class="form">
+                <div class="form-grid">
+                    
+                    <div class="form-group">
+                        <label for="nombre">Nombre del Torneo</label>
+                        <input type="text" id="nombre" name="nombre" placeholder="Ej: Copa Regional 2026" required>
+                        <span class="error-msg" id="error-nombre"></span>
+                    </div>
+
+                    <!-- Switch para modo automático -->
+                    <div class="form-group full-width" style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+                        <input type="checkbox" id="tipoProgramacion" style="width: auto;">
+                        <label for="tipoProgramacion" style="margin: 0; cursor: pointer;">Usar Programación Automática (Recomendado)</label>
+                    </div>
+                    
+                    <!-- Bloque Manual -->
+                    <div id="fechas-manuales" style="display: contents;">
+                        <div class="form-group">
+                            <label for="fechaInicio">Fecha de Inicio</label>
+                            <input type="date" id="fechaInicio" name="fechaInicio" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="fechaFin">Fecha de Fin</label>
+                            <input type="date" id="fechaFin" name="fechaFin" required>
+                        </div>
+                    </div>
+
+                    <!-- Bloque Automático -->
+                    <div id="fechas-automaticas" style="display: none;">
+                        <div class="form-group">
+                            <label for="fechaInicioInscripcion">Inicio de Inscripciones</label>
+                            <input type="date" id="fechaInicioInscripcion" name="fechaInicioInscripcion">
+                        </div>
+                        <div class="form-group">
+                            <label for="diasInscripcion">Duración Inscripción</label>
+                            <select id="diasInscripcion" name="diasInscripcion">
+                                <option value="1">1 Día (Express)</option>
+                                <option value="3">3 Días (Estándar)</option>
+                                <option value="5">5 Días (Extendido)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="horaInicio">Hora de Inicio</label>
+                        <input type="time" id="horaInicio" name="horaInicio" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="sede">Sede / Ubicación</label>
+                        <select id="sede" name="sedeId" required>
+                            <option value="" disabled selected>Seleccione una sede...</option>
+                            <!-- Se llenará dinámicamente -->
+                        </select>
+                        <small class="hint">Solo se muestran sedes DISPONIBLES.</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="categorias">Categorías (Selección múltiple)</label>
+                        <select id="categorias" name="categoriaIds" multiple size="5" required>
+                            <!-- Se llenará dinámicamente con JS -->
+                            <option value="" disabled>Cargando categorías...</option>
+                        </select>
+                        <small class="hint">Mantén presionada la tecla Ctrl (o Cmd) para seleccionar varias.</small>
+                    </div>
+
+                    <!-- Nuevo campo para asignar jueces -->
+                    <div class="form-group">
+                        <label for="jueces">Jueces Asignados (Mínimo 3)</label>
+                        <select id="jueces" name="juezIds" multiple size="5" required>
+                            <!-- Se llenará dinámicamente con JS -->
+                            <option value="" disabled>Seleccione una sede primero...</option>
+                        </select>
+                        <small class="hint">Solo se muestran jueces asignados a la sede seleccionada.</small>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="descripcion">Descripción del Torneo</label>
+                        <textarea id="descripcion" name="descripcion" rows="4" placeholder="Detalles, premios y reglas..."></textarea>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-main">Guardar Torneo</button>
+                    <a href="admin_torneos.html" class="btn-secondary">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <footer class="footer admin-footer">
+        <div class="footer-bottom">
+            <p>© 2025 ROBOTech | Consola de Administración</p>
+        </div>
+    </footer>
+
+    <script src="js/admin-crear-torneo.js"></script>
+</body>
+</html>

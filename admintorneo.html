@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Administrar Torneos - ROBOTech Admin</title>
+    <link rel="stylesheet" href="css/styles.css" /> 
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head><body>
+    
+    <header class="header admin-header">
+        <div class="logo">ROBOTech Admin</div>
+        <nav class="nav">
+            <ul>
+                <li><a href="perfiladmin.html">Dashboard</a></li> 
+                <li><a href="#" class="active">Torneos</a></li> 
+                <li><a href="login.html" class="btn-logout">Cerrar Sesión</a></li> 
+            </ul>
+        </nav>
+    </header>
+
+    <section class="section admin-dashboard-content">
+        
+        <h1 class="admin-title">Gestión de Torneos</h1>
+        <p class="admin-subtitle">Crea, edita el calendario y monitorea el estado de los torneos oficiales.</p>
+        
+        <section class="admin-filters-search">
+            <div class="admin-filters-container">
+                <a href="#" class="admin-filter-tab active">Próximos (5)</a>
+                <a href="#" class="admin-filter-tab active-tab-custom">Activos (2)</a>
+                <a href="#" class="admin-filter-tab suspended-tab">Finalizados (10)</a>
+                
+                <a href="#" class="admin-filter-tab filter-dropdown">Categoría</a>
+                <a href="#" class="admin-filter-tab filter-dropdown">Sede</a>
+                
+                <input type="text" placeholder="Buscar torneo, ID o categoría..." class="search-input-admin">
+            </div>
+        </section>
+
+        <div class="management-card full-width-card admin-table-card">
+            <div class="table-responsive admin-table-container">
+                <table class="competitors-table club-management-table">
+                    <thead>
+                        <tr>
+                            <th>ID Evento</th>
+                            <th>Nombre del Torneo</th>
+                            <th>Categorías</th>
+                            <th>Fecha / Sede</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="highlight-active">
+                            <td>TOR-007</td>
+                            <td><strong>Copa Velocidad 2025</strong></td>
+                            <td>Velocidad, Drones</td>
+                            <td>12-14 Dic | Tech Arena</td>
+                            <td><span class="status-active">Activo</span></td>
+                            <td class="table-actions">
+                                <a href="vista-torneo.html" class="btn-action btn-view" style="text-decoration: none;">Ver Torneo</a>
+                                <a href="reglamento_torneo.html?id=TOR-007" class="btn-action btn-rules" style="background-color: #1f6feb; color: white; text-decoration: none;">Agregar Reglas</a>
+                                <button class="btn-action btn-manage">Gestionar</button>
+                                <button class="btn-action btn-finalize">Finalizar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="management-actions table-footer-actions">
+                <a href="crearTorneo.html" class="btn-main small-btn">Crear Nuevo Torneo (+)</a>
+            </div>
+            
+        </div>
+        
+    </section>
+
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-about">
+      <h3>ROBOTech</h3>
+      <p>Innovación, competencia y pasión por la robótica.  
+      Únete a nuestra comunidad y lleva tus habilidades al siguiente nivel.</p>
+    </div>
+
+    <div class="footer-links">
+      <h4>Enlaces útiles</h4>
+      <ul>
+        <li><a href="#">Términos y condiciones</a></li>
+        <li><a href="#">Política de privacidad</a></li>
+        <li><a href="#">Preguntas frecuentes</a></li>
+        <li><a href="#">Contacto</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-social">
+      <h4>Síguenos</h4>
+      <div class="social-icons">
+        <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook"></a>
+        <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram"></a>
+        <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/twitter.svg" alt="Twitter"></a>
+        <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube"></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2025 ROBOTech | Innovación y competencia robótica</p>
+  </div>
+</footer>
+<script src="js/admin-torneos.js"></script>
+
+
+</body>
+</html>

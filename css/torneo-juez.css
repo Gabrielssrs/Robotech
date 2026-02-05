@@ -1,0 +1,78 @@
+.torneo-juez-theme {
+    --bg-body: #05080a;
+    --bg-card: #0d1117;
+    --cyan: #00d2ff;
+    --border: #161b22;
+    --text-dim: #8b949e;
+    --yellow: #ffab00;
+
+    background-color: var(--bg-body);
+    color: white;
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+}
+
+.torneo-juez-theme .navbar {
+    display: flex; justify-content: space-between; padding: 15px 50px;
+    background: #05080a; border-bottom: 1px solid var(--border);
+}
+
+.torneo-juez-theme .logo { color: var(--cyan); font-weight: bold; letter-spacing: 1px; }
+
+.torneo-juez-theme nav a { color: var(--text-dim); text-decoration: none; margin: 0 15px; font-size: 0.9rem; }
+.torneo-juez-theme nav a.active { color: white; border-bottom: 2px solid var(--cyan); padding-bottom: 15px; }
+
+.torneo-juez-theme .main-container { display: grid; grid-template-columns: 240px 1fr; min-height: 90vh; }
+
+/* Sidebar */
+.torneo-juez-theme .sidebar { border-right: 1px solid var(--border); padding: 20px; }
+.torneo-juez-theme .side-item {
+    background: rgba(255,255,255,0.05); padding: 12px; border-radius: 8px;
+    color: white; font-size: 0.9rem; display: flex; align-items: center; gap: 10px;
+}
+
+/* Content */
+.torneo-juez-theme .content { padding: 40px; }
+.torneo-juez-theme .content-header { display: flex; justify-content: space-between; align-items: center; }
+.torneo-juez-theme .pulse-icon { color: var(--cyan); margin-right: 10px; }
+.torneo-juez-theme .back-link { color: var(--text-dim); text-decoration: none; font-size: 0.85rem; }
+
+.torneo-juez-theme .subtitle { color: var(--text-dim); margin-bottom: 40px; }
+
+/* List Table */
+.torneo-juez-theme .list-labels {
+    display: grid; grid-template-columns: 1.5fr 1fr 1fr 0.8fr 0.8fr;
+    padding: 0 20px 15px; color: var(--text-dim); font-size: 0.75rem; letter-spacing: 1px;
+}
+
+.torneo-juez-theme .t-row {
+    display: grid; grid-template-columns: 1.5fr 1fr 1fr 0.8fr 0.8fr;
+    background: var(--bg-card); margin-bottom: 10px; padding: 20px;
+    border-radius: 8px; align-items: center; border: 1px solid transparent;
+    transition: 0.3s;
+}
+
+.torneo-juez-theme .t-row:hover { border-color: var(--cyan); background: #12161c; }
+
+.torneo-juez-theme .col-info strong { display: block; font-size: 1.1rem; }
+.torneo-juez-theme .col-info small { color: var(--text-dim); }
+.torneo-juez-theme .col-date, .torneo-juez-theme .col-cat { font-size: 0.9rem; color: #c9d1d9; }
+
+/* Badges */
+.torneo-juez-theme .badge {
+    padding: 6px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: bold;
+    display: inline-flex; align-items: center; gap: 5px;
+}
+.torneo-juez-theme .live { background: rgba(0, 255, 128, 0.1); color: #00ff80; border: 1px solid rgba(0, 255, 128, 0.2); }
+.torneo-juez-theme .upcoming { background: rgba(255, 171, 0, 0.1); color: var(--yellow); border: 1px solid rgba(255, 171, 0, 0.2); }
+.torneo-juez-theme .finished { background: rgba(139, 148, 158, 0.1); color: var(--text-dim); border: 1px solid var(--border); }
+
+/* Buttons */
+.torneo-juez-theme .btn-puntuar { background: var(--cyan); border: none; padding: 10px 20px; border-radius: 6px; font-weight: bold; cursor: pointer; color: #001; }
+.torneo-juez-theme .btn-disabled { background: #21262d; color: var(--text-dim); border: none; padding: 10px 20px; border-radius: 6px; cursor: not-allowed; width: 100px; }
+.torneo-juez-theme .btn-outline { background: transparent; border: 1px solid var(--cyan); color: var(--cyan); padding: 10px 20px; border-radius: 6px; cursor: pointer; }
+
+/* Action spacing and small variant for Reglas */
+.torneo-juez-theme .col-action a, .torneo-juez-theme .col-action button { display:inline-flex; align-items:center; gap:8px; margin-right:8px; text-decoration:none; }
+.torneo-juez-theme .btn-reglas { padding: 8px 14px; font-weight:600; background: rgba(255,255,255,0.03); color: #e6f7ff; border-radius:6px; border:1px solid rgba(255,255,255,0.03); }
+.torneo-juez-theme .btn-reglas:hover { color: var(--cyan); border-color: var(--cyan); transform: translateY(-1px); }

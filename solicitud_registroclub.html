@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registro de Club - ROBOTech</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="header">
+    <div class="logo">ROBOTech</div>
+    <nav class="nav">
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="torneo.html">Torneos</a></li>
+        <li><a href="ranking.html">Ranking</a></li>
+        <li><a href="noticias.html">Noticias</a></li>
+        <li><a href="login.html" class="btn-login">Iniciar sesión</a></li>
+        <li><a href="registro.html" class="btn-register active">Registrarme</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="form-section">
+    <div class="form-container">
+      <h2>Solicitud de Registro de Club</h2>
+      <p class="form-desc">Crea tu club y gestiona a tus competidores en la plataforma ROBOTech.</p>
+      <form>
+        <div class="form-group">
+          <label>Nombre del Club</label>
+          <input type="text" placeholder="Ej. CyberForce" required>
+        </div>
+        <div class="form-group">
+          <label>Correo del Club</label>
+          <input type="email" placeholder="ejemplo@club.com" required>
+        </div>
+        <div class="form-group">
+          <label>Teléfono de Contacto</label>
+          <input type="tel" placeholder="9 dígitos" maxlength="9" required>
+        </div>
+        <div class="form-group">
+          <label>Dirección</label>
+          <input type="text" placeholder="Ej. Calle Principal 123" required>
+        </div>
+        <div class="form-group">
+          <label>Nombre del Administrador del Club</label>
+          <input type="text" placeholder="Ej. Luis Gómez" required>
+        </div>
+        <div class="form-group">
+          <label>Descripción del Club</label>
+          <textarea placeholder="Historia, logros, tipo de robots..." required></textarea>
+        </div>
+        <div class="form-group">
+          <label>Logo del Club</label>
+          <input type="file" accept="image/*">
+        </div>
+        <div class="form-group">
+          <label>Contraseña</label>
+          <input type="password" placeholder="Mínimo 8 caracteres" required>
+        </div>
+        
+
+        <button type="submit" class="btn-main">Registrar Club</button>
+        <p class="form-login-text">¿Ya tienes cuenta? <a href="login.html">Inicia sesión</a></p>
+      </form>
+    </div>
+  </section>
+
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-about">
+      <h3>ROBOTech</h3>
+      <p>Innovación, competencia y pasión por la robótica.  
+      Únete a nuestra comunidad y lleva tus habilidades al siguiente nivel.</p>
+    </div>
+
+    <div class="footer-links">
+      <h4>Enlaces útiles</h4>
+      <ul>
+        <li><a href="#">Términos y condiciones</a></li>
+        <li><a href="#">Política de privacidad</a></li>
+        <li><a href="#">Preguntas frecuentes</a></li>
+        <li><a href="#">Contacto</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-social">
+      <h4>Síguenos</h4>
+      <div class="social-icons">
+        <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook"></a>
+        <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram"></a>
+        <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/twitter.svg" alt="Twitter"></a>
+        <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube"></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2025 ROBOTech | Innovación y competencia robótica</p>
+  </div>
+</footer>
+
+</body>
+</html>

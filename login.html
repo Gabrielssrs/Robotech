@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Iniciar Sesión - ROBOTech</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="header">
+    <div class="logo">ROBOTech</div>
+    <nav class="nav">
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="torneo.html">Torneos</a></li>
+        <li><a href="ranking.html">Ranking</a></li>
+        <li><a href="noticias.html">Noticias</a></li>
+        <li><a href="login.html" class="btn-login active">Iniciar sesión</a></li>
+        <li><a href="registro.html" class="btn-register">Registrarme</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="form-section">
+  <div class="form-container">
+    <h2>Iniciar Sesión</h2>
+    <p class="form-desc">Bienvenido de nuevo. Ingresa tus credenciales para acceder a tu cuenta.</p>
+    <!-- 1. Añade un ID al formulario -->
+    <form id="login-form">
+      <div class="form-group">
+        <label>Correo Electrónico</label>
+        <!-- 2. Añade id y name a cada input -->
+        <input type="email" id="correoElectronico" name="correoElectronico" placeholder="ejemplo@correo.com" required>
+      </div>
+      <div class="form-group">
+        <label>Contraseña</label>
+        <input type="password" id="contrasena" name="contrasena" placeholder="Tu contraseña" required>
+      </div>
+
+      <!-- 3. Añade un div para mostrar mensajes de éxito o error -->
+      <div id="form-message" style="display:none; padding: 15px; margin-bottom: 20px; border-radius: 5px; text-align: center; font-weight: bold;"></div>
+
+      <button type="submit" class="btn-main">Entrar</button>
+      <p class="form-login-text">¿No tienes cuenta? <a href="registro.html">Regístrate aquí</a></p>
+    </form>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-about">
+      <h3>ROBOTech</h3>
+      <p>Innovación, competencia y pasión por la robótica.  
+      Únete a nuestra comunidad y lleva tus habilidades al siguiente nivel.</p>
+    </div>
+
+    <div class="footer-links">
+      <h4>Enlaces útiles</h4>
+      <ul>
+        <li><a href="#">Términos y condiciones</a></li>
+        <li><a href="#">Política de privacidad</a></li>
+        <li><a href="#">Preguntas frecuentes</a></li>
+        <li><a href="#">Contacto</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-social">
+      <h4>Síguenos</h4>
+      <div class="social-icons">
+        <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook"></a>
+        <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram"></a>
+        <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/twitter.svg" alt="Twitter"></a>
+        <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube"></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2025 ROBOTech | Innovación y competencia robótica</p>
+  </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+
+    const form = document.getElementById('login-form');
+    const messageDiv = document.getElementById('form-message');
+    const apiUrl = 'http://localhost:8080/api/auth/login';
+
+    /**
+     * Función para decodificar un token JWT y obtener su contenido (payload).
+     * No verifica la firma, solo decodifica la información.
+     * @param {string} token - El token JWT.
+     * @returns {object | null} - El payload del token como un objeto JavaScript, o null si hay un error.
+     */
+    function decodeJwt(token) {
+        try {
+            const base64Url = token.split('.')[1];
+            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join(''));
+
+            return JSON.parse(jsonPayload);
+        } catch (e) {
+            console.error("Error al decodificar el token:", e);
+            return null;
+        }
+    }
+
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+        const submitButton = form.querySelector('button[type="submit"]');
+
+        // Limpiar mensajes y deshabilitar botón
+        messageDiv.style.display = 'none';
+        submitButton.disabled = true;
+        submitButton.textContent = 'Ingresando...';
+
+        fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(async response => {
+            // Si la respuesta no es exitosa (ej: 4xx, 5xx), es un error.
+            if (!response.ok) {
+                // El backend envía el error como texto. Lo leemos.
+                const errorText = await response.text();
+                let errorMessage = 'Ocurrió un error inesperado.';
+                
+                try {
+                    // Intentamos interpretar ese texto como JSON (formato de error de Spring Boot)
+                    const errorJson = JSON.parse(errorText);
+                    errorMessage = errorJson.message || errorMessage;
+                } catch (e) {
+                    // Si no es JSON válido, usamos el texto tal cual
+                    errorMessage = errorText || errorMessage;
+                }
+                
+                throw new Error(errorMessage);
+            }
+            // Si la respuesta es exitosa, la devolvemos como JSON.
+            return response.json();
+        })
+        .then(loginResponse => {
+            // 1. Guardar el token en el almacenamiento local
+            localStorage.setItem('jwtToken', loginResponse.token);
+
+            // 2. Decodificar el token para obtener los roles
+            const decodedToken = decodeJwt(loginResponse.token);
+            const roles = decodedToken.roles || [];
+
+            messageDiv.textContent = '¡Inicio de sesión exitoso! Redirigiendo...';
+            messageDiv.style.backgroundColor = '#d4edda';
+            messageDiv.style.color = '#155724';
+            messageDiv.style.display = 'block';
+            
+            // 3. Redirigir según el rol del usuario
+            setTimeout(() => {
+                if (roles.includes('ROLE_ADM_SISTEMA')) {
+                    window.location.href = 'perfiladmin.html'; // Página del admin
+                } else if (roles.includes('ROLE_ADM_CLUB')) {
+                    window.location.href = 'perfil_club.html'; // Página del club
+                } else if (roles.includes('ROLE_COMPETIDOR')) {
+                    window.location.href = 'perfil_competidor.html';
+                } else if (roles.includes('ROLE_JUEZ')) {
+                    window.location.href = 'perfil-juez.html'; // Página del juez
+                } else {
+                    // Si no tiene un rol conocido, redirigir a una página de inicio general
+                    window.location.href = 'index.html';
+                }
+            }, 1500); // 1.5 segundos
+        })
+        .catch(error => {
+            console.error('Error en el inicio de sesión:', error.message);
+            messageDiv.textContent = error.message;
+            messageDiv.style.backgroundColor = '#f8d7da';
+            messageDiv.style.color = '#721c24';
+            messageDiv.style.display = 'block';
+
+            // Volvemos a habilitar el botón para que el usuario pueda intentarlo de nuevo.
+            submitButton.disabled = false;
+            submitButton.textContent = 'Entrar';
+        });
+    });
+});
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RoboArena - Torneos</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap">
+    <link rel="stylesheet" href="css/torneo.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="torneo-page">
+    <header class="header">
+    <div class="logo">ROBOTech</div>
+    <nav class="nav">
+      <ul id="nav-links">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="torneo.html" class="active">Torneos</a></li>
+        <li><a href="ranking.html">Ranking</a></li>
+        <li><a href="noticias.html">Noticias</a></li>
+        <li><a href="login.html" class="btn-login">Iniciar sesión</a></li>
+        <li><a href="registro.html" class="btn-register">Registrarme</a></li>
+      </ul>
+    </nav>
+  </header>
+
+    <main class="container">
+        <div class="header-section">
+            <div class="title-area">
+                <h1>Torneos</h1>
+                <p>Explora, inscríbete y sigue los torneos de robótica más importantes.</p>
+            </div>
+            <div class="filter-tabs">
+                <button class="tab active" onclick="filterTorneos('todos')">Todos</button>
+                <button class="tab" onclick="filterTorneos('en-vivo')">En vivo</button>
+                <button class="tab" onclick="filterTorneos('proximos')">Próximos</button>
+                <button class="tab" onclick="filterTorneos('finalizados')">Finalizados</button>
+            </div>
+        </div>
+
+        <section class="tournament-grid" id="tournament-container">
+            <!-- Las tarjetas de torneos se cargarán aquí dinámicamente con JS -->
+        </section>
+    </main>
+
+    <script src="js/torneo.js"></script>
+</body>
+</html>

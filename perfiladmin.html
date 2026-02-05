@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard de Administración - ROBOTech</title>
+    <link rel="stylesheet" href="css/styles.css" /> 
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos para la ventana modal */
+        .modal {
+            display: none; /* Oculta por defecto */
+            position: fixed; 
+            z-index: 1000; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgba(0,0,0,0.6); /* Fondo oscuro semitransparente */
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #2c2c2c; /* Color de fondo oscuro para el contenido */
+            margin: 5% auto; 
+            padding: 25px;
+            border: 1px solid #888;
+            width: 80%; 
+            max-width: 500px;
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .close-btn {
+            color: #aaa;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+    
+    <header class="header admin-header">
+        <div class="logo">ROBOTech Admin</div>
+        <nav class="nav">
+            <ul>
+                <li  class="active">PERFIL ADMINISTRADOR</a></li> 
+                <li><a href="login.html" class="btn-logout">Cerrar Sesión</a></li> 
+            </ul>
+        </nav>
+    </header>
+
+    <section class="section admin-dashboard-content">
+        
+        <div class="admin-grid-container">
+            
+            <div class="admin-profile-card card">
+                <h3 class="card-title-admin">Datos del Administrador</h3>
+                
+                <div class="profile-data-list">
+                    
+                    <div class="data-row">
+                        <span class="label">Nombre</span>
+                        <span class="value profile-nombre">María</span>
+                    </div>
+                    <div class="data-row">
+                        <span class="label">DNI</span>
+                        <span class="value profile-dni">48.321.765</span>
+                    </div>
+                    <div class="data-row">
+                        <span class="label">Email</span>
+                        <span class="value profile-email">maria.gomez@robotech.io</span>
+                    </div>
+                    <div class="data-row">
+                        <span class="label">Teléfono</span>
+                        <span class="value profile-telefono">+54 11 5555-1234</span>
+                    </div>
+                    <div class="data-row">
+                        <span class="label">Estado</span>
+                        <span class="value profile-estado status-active">Activo</span>
+                    </div>
+                </div>
+                
+                <button class="btn-main edit-profile-btn">
+                    <span class="icon">✏️</span> Editar Perfil
+                </button>
+                
+                
+            </div>
+            
+            <div class="admin-actions-card card">
+                <h3 class="card-title-admin">Acciones de Gestión</h3>
+                
+                <div class="action-buttons-grid">
+                    <a href="adminclubes.html" class="action-btn">
+                        <span class="icon">🏢</span>
+                        <h4>Administrar Clubes</h4>
+                        <p>Crear, editar y asignar responsables</p>
+                    </a>
+                    
+                    <a href="adminjueces.html" class="action-btn">
+                        <span class="icon">⚖️</span>
+                        <h4>Administrar Jueces</h4>
+                        <p>Altas, bajas y credenciales</p>
+                    </a>
+                    
+                    <a href="admintorneo.html" class="action-btn">
+                        <span class="icon">🏆</span>
+                        <h4>Administrar Torneos</h4>
+                        <p>Calendario y categorías</p>
+                    </a>
+                    <a href="administrarCategorias.html" class="action-btn">
+                        <span class="icon">🏆</span>
+                        <h4>Administrar Categorias</h4>
+                        <p>Agregar nuevas categorias</p>
+                    </a>
+                    
+                    <a href="solicitudes-retiro.html" class="action-btn" id="btn-ver-solicitudes">
+                        <span class="icon">📨</span>
+                        <h4>Ver solicitudes de retiro</h4>
+                        <p>Revisar y gestionar solicitudes de retiro de competidores</p>
+                    </a>
+                    
+                    <a href="sedes.html" class="action-btn" id="btn-gestionar-sedes">
+                        <span class="icon">🏟️</span>
+                        <h4>Gestionar Sedes</h4>
+                        <p>Ver y gestionar sedes del torneo</p>
+                    </a>
+                
+                </div>
+            </div>
+            
+        </div>
+        
+    </section>
+
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-about">
+      <h3>ROBOTech</h3>
+      <p>Innovación, competencia y pasión por la robótica.  
+      Únete a nuestra comunidad y lleva tus habilidades al siguiente nivel.</p>
+    </div>
+
+    <div class="footer-links">
+      <h4>Enlaces útiles</h4>
+      <ul>
+        <li><a href="#">Términos y condiciones</a></li>
+        <li><a href="#">Política de privacidad</a></li>
+        <li><a href="#">Preguntas frecuentes</a></li>
+        <li><a href="#">Contacto</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-social">
+      <h4>Síguenos</h4>
+      <div class="social-icons">
+        <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook"></a>
+        <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram"></a>
+        <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/twitter.svg" alt="Twitter"></a>
+        <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube"></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2025 ROBOTech | Innovación y competencia robótica</p>
+  </div>
+</footer>
+
+<!-- Sedes moved to a dedicated page (sedes.html) -->
+
+
+<!-- La Ventana Modal para Editar Perfil -->
+    <div id="edit-profile-modal" class="modal">
+        <div class="modal-content form-container">
+            <span class="close-btn">&times;</span>
+            <h2>Editar Perfil de Administrador</h2>
+            <form id="edit-profile-form">
+                <div class="form-group">
+                    <label for="edit-nombre">Nombre</label>
+                    <input type="text" id="edit-nombre" name="nombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-dni">DNI</label>
+                    <input type="text" id="edit-dni" name="dni" required maxlength="8" inputmode="numeric" pattern="\d{8}" placeholder="8 dígitos">
+                    <span class="error" style="display:none;"></span>
+                </div>
+                <div class="form-group">
+                    <label for="edit-email">Email</label>
+                    <input type="email" id="edit-email" name="email" required>
+                    <span class="error" style="display:none;"></span>
+                </div>
+                <div class="form-group">
+                    <label for="edit-telefono">Teléfono</label>
+                    <input type="tel" id="edit-telefono" name="telefono" required maxlength="9" inputmode="numeric" placeholder="9 dígitos">
+                    <span class="error" style="display:none;"></span>
+                </div>
+                <div class="form-group">
+                    <label for="edit-estado">Estado</label>
+                    <select id="edit-estado" name="estado" required>
+                        <option value="Activo">Activo</option>
+                        <option value="Inactivo">Inactivo</option>
+                    </select>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn-main">Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="js/perfil-admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RoboArena - Panel de Juez</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/header.css">
+    <style>
+        /* Panel-specific penalty button overrides (rojizos) */
+        .panel-score .controls-grid button.penalty { font-weight: 800; color: #fff; border-width: 1px; border-style: solid; }
+        .panel-score .controls-grid button.penalty.minor {
+            background: linear-gradient(180deg, rgba(139,27,27,0.06), rgba(60,18,18,0.02));
+            border-color: rgba(255,75,75,0.20);
+            box-shadow: 0 4px 12px rgba(255,75,75,0.04);
+        }
+        .panel-score .controls-grid button.penalty.major {
+            background: linear-gradient(180deg,#8b1b1b,#5a0f0f);
+            border-color: #ff4b4b;
+            box-shadow: 0 6px 18px rgba(255,75,75,0.12);
+        }
+        .panel-score .controls-grid button.penalty.minor small,
+        .panel-score .controls-grid button.penalty.major small { color: rgba(255,255,255,0.9); font-weight:700; }
+        .panel-score .controls-grid button.penalty.minor:hover,
+        .panel-score .controls-grid button.penalty.major:hover { filter: brightness(1.08); transform: translateY(-2px); }
+    </style>
+</head>
+<body class="panel-score">
+
+      <header class="header">
+        <div class="logo">ROBOTech</div>
+        <nav class="nav">
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="torneo.html">Torneos</a></li>
+                <li><a href="ranking.html">Ranking</a></li>
+                <li><a href="noticias.html">Noticias</a></li>
+                <li class="nav-profile-name"><a href="perfil-juez.html" class="active">Mi Perfil Juez</a></li> 
+                <li><a href="login.html" class="btn-logout">Cerrar Sesión</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="dashboard">
+        <section class="team blue">
+            <div class="header-card">
+                <h2>Titán Prime</h2>
+                <p>Robótica Alfa • Chile</p>
+                <span class="tag">AZUL</span>
+            </div>
+            <div class="score-display" id="score-blue">12</div>
+            <div class="controls-grid">
+                <button onclick="addPoints('blue', 1)">+1 <br><small>IMPACTO</small></button>
+                <button onclick="addPoints('blue', 2)">+2 <br><small>AGRESIÓN</small></button>
+                <button onclick="addPoints('blue', 3)">+3 <br><small>CONTROL</small></button>
+                <button onclick="addPoints('blue', 5)">+5 <br><small>DAÑO CRÍTICO</small></button>
+                <button class="penalty minor" onclick="addPoints('blue', -1)">-1 <br><small>FALTA LEVE</small></button>
+                <button class="penalty major" onclick="addPoints('blue', -3)">-3 <br><small>FALTA GRAVE</small></button>
+            </div>
+        </section>
+
+        <section class="match-info">
+            <div class="event-title">
+                <h3>Final Nacional 2025</h3>
+                <p>Combate 1kg • Arena A</p>
+            </div>
+            <div class="timer-box">
+                <div class="time" id="timer">02:45</div>
+                <div class="status">EN CURSO</div>
+            </div>
+            <button class="btn-pause">Pausar Cronómetro</button>
+            <button class="btn-finish">Finalizar Combate</button>
+
+            <div class="history">
+                <h4>Historial de Eventos</h4>
+                <ul id="event-log">
+                    <li><span>2:48</span> Control de Arena <strong>+3</strong></li>
+                    <li><span>2:52</span> Impacto Directo <strong>+1</strong></li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="team red">
+            <div class="header-card">
+                <h2>Destructor X</h2>
+                <p>Laboratorios Omega • Perú</p>
+                <span class="tag">ROJO</span>
+            </div>
+            <div class="score-display" id="score-red">08</div>
+            <div class="controls-grid">
+                <button onclick="addPoints('red', 1)">+1 <br><small>IMPACTO</small></button>
+                <button onclick="addPoints('red', 2)">+2 <br><small>AGRESIÓN</small></button>
+                <button onclick="addPoints('red', 3)">+3 <br><small>CONTROL</small></button>
+                <button onclick="addPoints('red', 5)">+5 <br><small>DAÑO CRÍTICO</small></button>
+                <button class="penalty minor" onclick="addPoints('red', -1)">-1 <br><small>FALTA LEVE</small></button>
+                <button class="penalty major" onclick="addPoints('red', -3)">-3 <br><small>FALTA GRAVE</small></button>
+            </div>
+        </section>
+    </main>
+
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-about">
+      <h3>ROBOTech</h3>
+      <p>Innovación, competencia y pasión por la robótica.  
+      Únete a nuestra comunidad y lleva tus habilidades al siguiente nivel.</p>
+    </div>
+
+    <div class="footer-links">
+      <h4>Enlaces útiles</h4>
+      <ul>
+        <li><a href="#">Términos y condiciones</a></li>
+        <li><a href="#">Política de privacidad</a></li>
+        <li><a href="#">Preguntas frecuentes</a></li>
+        <li><a href="#">Contacto</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-social">
+      <h4>Síguenos</h4>
+      <div class="social-icons">
+        <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook"></a>
+        <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram"></a>
+        <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/twitter.svg" alt="Twitter"></a>
+        <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube"></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2025 ROBOTech | Innovación y competencia robótica</p>
+  </div>
+</footer>
+
+    <script src="js/panel_Puntuacion.js"></script>
+</body>
+</html>

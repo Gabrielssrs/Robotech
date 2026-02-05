@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Formulario de Juez - ROBOTech Admin</title>
+    <link rel="stylesheet" href="css/styles.css" /> 
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    
+    <header class="header admin-header">
+        <div class="logo">ROBOTech Admin</div>
+        <nav class="nav">
+            <ul>
+                <li><a href="admin_dashboard.html">Dashboard</a></li> 
+                <li><a href="admin_jueces.html" class="active">Jueces</a></li> 
+                <li><a href="login.html" class="btn-logout">Cerrar Sesión</a></li> 
+            </ul>
+        </nav>
+    </header>
+
+    <section class="form-section">
+        <div class="form-container">
+            <h2>Crear Nuevo Juez</h2>
+            <span class="subtitle">Administra la información personal y las credenciales de arbitraje del juez.</span>
+            
+            <form class="form" action="#" method="POST">
+                <div class="form-grid">
+                    
+                    <div class="form-group">
+                        <label for="nombre_juez">Nombre *</label>
+                        <input type="text" id="nombre_juez" required placeholder="Nombre (obligatorio)">
+                    </div>
+                    <div class="form-group">
+                        <label for="apellido_juez">Apellido *</label>
+                        <input type="text" id="apellido_juez" required placeholder="Apellido (obligatorio)">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dni_juez">DNI *</label>
+                        <input type="text" id="dni_juez" required maxlength="8" inputmode="numeric" pattern="\d{8}" placeholder="8 dígitos numéricos (obligatorio)">
+                    </div>
+                    <div class="form-group">
+                        <label for="email_juez">Correo Electrónico *</label>
+                        <input type="email" id="email_juez" required placeholder="ejemplo@dominio.com (campo obligatorio)">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="telefono_juez">Teléfono</label>
+                        <input type="tel" id="telefono_juez" placeholder="Ej: 987654321" inputmode="numeric" pattern="[0-9]{9}" maxlength="9" minlength="9" title="Ingrese exactamente 9 dígitos numéricos">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="contrasena_juez">Contraseña *</label>
+                        <input type="password" id="contrasena_juez" required placeholder="Crea una contraseña segura">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="credencial">Nivel de Credencial</label>
+                        <select id="credencial" required>
+                            <option value="1">Nivel 1 (Junior)</option>
+                            <option value="2">Nivel 2 (Estándar)</option>
+                            <option value="3">Nivel 3 (Senior)</option>
+                        </select>
+                    </div>
+
+                    <!-- CAMPO NUEVO: SEDE -->
+                    <div class="form-group">
+                        <label for="sede_juez">Sede Asignada *</label>
+                        <select id="sede_juez" required>
+                            <option value="">Seleccione una sede...</option>
+                            <!-- Opciones cargadas por JavaScript -->
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="categorias_juez">Categorías de Especialidad</label>
+                        <select id="categorias_juez" name="categoriaIds" multiple>
+                            <!-- Opciones cargadas por JavaScript -->
+                        </select>
+                        <small>Mantén Ctrl (o Cmd en Mac) para seleccionar varias.</small>
+                    </div>
+
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-main">Guardar Juez</button>
+                    <button type="button" class="btn-main" onclick="window.location.href='admin_jueces.html'">Cancelar/Volver</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <footer class="footer admin-footer">
+        <div class="footer-bottom">
+            <p>© 2025 ROBOTech | Consola de Administración</p>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="js/admin-crear-juez.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,114 @@
+/* Ranking view — improved visuals (scoped to .ranking-page) */
+.ranking-page {
+    --bg: #0d1117;
+    --card: #121418;
+    --accent: #00d2ff;
+    --accent-2: #00b3ff;
+    --muted: #8b949e;
+    --glass: rgba(255,255,255,0.02);
+    background: radial-gradient(1200px 400px at 10% 10%, rgba(0,210,255,0.03), transparent), var(--bg);
+    color: #fff;
+    font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    margin: 0;
+}
+
+.ranking-page .navbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 18px 40px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    align-items: center;
+    border-bottom: 1px solid #182024;
+}
+
+.ranking-page .logo { font-weight: 700; color: var(--accent); letter-spacing: 0.6px; }
+
+.ranking-page nav { display:flex; gap:18px; align-items:center; }
+.ranking-page nav a { color: var(--muted); text-decoration: none; padding:6px 2px; transition: color .18s, border-color .18s; }
+.ranking-page nav a.active { color: #fff; font-weight: 600; border-bottom: 2px solid var(--accent); padding-bottom:4px; }
+
+/* Remove default link underline and set non-active link color to muted grey */
+.ranking-page a { text-decoration: none; }
+.ranking-page a:visited { color: var(--muted); }
+
+/* Specific link styling for ranking lists and headers */
+.ranking-page .ranking-header a,
+.ranking-page .ranking-item a,
+.ranking-page .ranking-column a {
+    color: var(--muted);
+    text-decoration: none;
+}
+.ranking-page .ranking-header a:hover,
+.ranking-page .ranking-item a:hover,
+.ranking-page .ranking-column a:hover {
+    color: #ffffff;
+    text-decoration: none;
+}
+.ranking-page .user-profile { display:flex; gap:12px; align-items:center; }
+.ranking-page .user-profile img { width:36px; height:36px; border-radius:50%; border:2px solid rgba(255,255,255,0.04); }
+
+/* Auth buttons (replace user profile with login/register) */
+.ranking-page .auth-buttons { display:flex; gap:10px; align-items:center; }
+.ranking-page .auth-buttons .btn-login { display:inline-block; padding:8px 12px; border-radius:6px; border: 1px solid rgba(255,255,255,0.04); background: transparent; color: var(--muted); text-decoration: none; }
+.ranking-page .auth-buttons .btn-login:hover { background: rgba(255,255,255,0.02); color: #fff; }
+.ranking-page .auth-buttons .btn-register { display:inline-block; padding:8px 12px; border-radius:6px; background: var(--accent); color: #001; text-decoration:none; font-weight:700; box-shadow: 0 6px 18px rgba(0,210,255,0.06); }
+.ranking-page .auth-buttons .btn-register:hover { filter: brightness(0.95); }
+
+@media (max-width: 600px) {
+    .ranking-page .auth-buttons { gap:8px; }
+    .ranking-page .auth-buttons .btn-login, .ranking-page .auth-buttons .btn-register { padding:6px 10px; }
+}
+
+.ranking-page .container { padding: 36px 40px; max-width:1200px; margin: 0 auto; }
+
+.header-actions { display:flex; justify-content:space-between; align-items:center; gap:18px; margin-bottom:28px; }
+.header-actions h1 { margin:0; font-size:1.6rem; letter-spacing:0.2px; }
+.header-actions p { margin:4px 0 0 0; color:var(--muted); }
+
+.buttons { display:flex; gap:10px; }
+.btn-filter { background: transparent; color: var(--muted); border: 1px solid rgba(255,255,255,0.04); padding:8px 14px; border-radius:8px; cursor:pointer; }
+.btn-export { background: var(--accent); color: #001; padding:8px 14px; border-radius:8px; border:none; font-weight:700; cursor:pointer; box-shadow: 0 6px 18px rgba(0,210,255,0.06); }
+
+/* Highlights */
+.highlights { display:grid; grid-template-columns: repeat(3, 1fr); gap:20px; margin-bottom:30px; }
+.highlight-card { position:relative; overflow:hidden; padding:22px; display:flex; flex-direction:column; gap:14px; }
+.highlight-card small { color:var(--muted); font-weight:600; }
+.highlight-card .profile { align-items:center; gap:12px; }
+.highlight-card .profile img { width:62px; height:62px; border-radius:12px; border: 2px solid rgba(255,255,255,0.03); object-fit:cover; }
+.highlight-card .stat { margin-top:auto; }
+.highlight-card { background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02)); border-radius:12px; border:1px solid rgba(255,255,255,0.03); }
+.highlight-card::after { content:''; position:absolute; left:0; top:0; width:6px; height:100%; background: linear-gradient(180deg,var(--accent),var(--accent-2)); border-top-left-radius:12px; border-bottom-left-radius:12px; }
+
+/* Rankings columns */
+.rankings { display:grid; grid-template-columns: repeat(3, 1fr); gap:20px; }
+.ranking-column .ranking-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+.ranking-column .ranking-header a { color: var(--muted); font-size:0.9rem; }
+
+.ranking-column ul { list-style:none; padding:0; margin:0; }
+.ranking-column ul:empty::before { content: 'No hay entradas aún'; display:block; color:var(--muted); padding:18px 0; text-align:center; }
+.ranking-column li { padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.03); }
+
+.ranking-item { display:flex; align-items:center; gap:12px; justify-content:space-between; transition: background .14s, transform .12s; padding:6px 8px; border-radius:8px; }
+.ranking-item:hover { background: linear-gradient(90deg, rgba(0,210,255,0.02), rgba(255,255,255,0.01)); transform: translateY(-3px); }
+
+.rank-left { display:flex; align-items:center; gap:12px; }
+.rank-num { width:40px; height:40px; border-radius:8px; display:inline-flex; align-items:center; justify-content:center; font-weight:700; color:#fff; background:#1b2126; box-shadow: inset 0 -2px 0 rgba(0,0,0,0.25); }
+.item-body { display:flex; flex-direction:column; }
+.item-title { font-weight:700; font-size:0.95rem; }
+.item-sub { color:var(--muted); font-size:0.85rem; }
+.item-score { font-weight:800; color:var(--accent); margin-left:12px; }
+
+/* Top 3 accents */
+.ranking-column ul li:nth-child(1) .rank-num { background: linear-gradient(90deg,#ffd700,#ffb347); color:#1b1b1b; }
+.ranking-column ul li:nth-child(2) .rank-num { background: linear-gradient(90deg,#d7d7d7,#bdbdbd); color:#111; }
+.ranking-column ul li:nth-child(3) .rank-num { background: linear-gradient(90deg,#d28a5a,#b76c3a); color:#111; }
+
+/* Responsive */
+@media (max-width: 980px) {
+    .highlights, .rankings { grid-template-columns: 1fr; }
+    .header-actions { flex-direction:column; align-items:flex-start; gap:12px; }
+    .rank-left .rank-num { width:34px; height:34px; }
+}
+
+/* Small helper */
+.club-placeholder { background: rgba(255,255,255,0.02); padding:8px 12px; border-radius:8px; color:var(--muted); font-weight:600; }

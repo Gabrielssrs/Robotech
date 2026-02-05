@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Perfil de Club - ROBOTech Warriors</title>
+    <link rel="stylesheet" href="css/styles.css" /> 
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    
+    <header class="header">
+        <div class="logo">ROBOTech Warriors</div>
+        <nav class="nav">
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="torneo.html">Torneos</a></li>
+                <li><a href="noticias.html">Noticias</a></li>
+                <li><a href="ranking.html">Ranking</a></li>
+                <li><a href="perfil_club.html" class="active">Perfil del Club</a></li> 
+                <li><a href="login.html" class="btn-logout">Cerrar Sesión</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="section profile-main-section">
+        
+        <div class="profile-page-grid">
+            
+            <div class="card profile-info-card">
+                <h3 class="card-title-left">Datos del Club</h3>
+                
+                <div class="club-details-grid">
+                    
+                    <div class="profile-avatar-container">
+                        <img id="club-logo-img" src="https://via.placeholder.com/150?text=Club" alt="Logo del Club" class="profile-avatar">
+                    </div>
+
+                    <div class="data-item data-span-1-2">
+                        <span class="label">Nombre del club</span>
+                        <span id="club-nombre" class="value club-name-value">Cargando...</span>
+                    </div>
+                    <div class="data-item data-span-2-3">
+                        <span class="label">Representante</span>
+                        <span id="club-representante" class="value">Cargando...</span>
+                    </div>
+
+                    <div class="data-item data-span-1-2">
+                        <span class="label">Correo Electrónico</span>
+                        <span id="club-correo" class="value">Cargando...</span>
+                    </div>
+                    <div class="data-item data-span-2-3">
+                        <span class="label">Estado</span>
+                        <span id="club-estado" class="value status-active">Cargando...</span>
+                    </div>
+                    <div class="data-item data-span-2-3">
+                        <span class="label">Teléfono</span>
+                        <span id="club-telefono" class="value">Cargando...</span>
+                    </div>
+                    
+                    <div class="data-item data-span-1-2">
+                        <span class="label">Categoría Principal</span>
+                        <span id="club-categoria-principal" class="value categories-value">Cargando...</span>
+                    </div>
+                    <div class="data-item data-span-2-3">
+                        <span class="label">Puntos acumulados</span>
+                        <span id="club-puntos" class="value points-value">Cargando...</span>
+                    </div>
+
+                    <div class="data-item data-span-1-3" style="grid-column: 1 / -1;">
+                        <span class="label">Eslogan</span>
+                        <span id="club-eslogan" class="value" style="font-style: italic; color: #ccc;">Cargando...</span>
+                    </div>
+                    
+                </div>
+                
+                <button class="btn-main edit-club-btn">Editar información del club</button>
+            </div>
+            
+            <div class="card competitors-list-card">
+                <h3 class="card-title-left">Lista de competidores del club</h3>
+                
+                <div class="table-responsive">
+                    <table class="competitors-table">
+                        <thead>
+                            <tr>
+                                <th>Foto</th>
+                                <th>Nombre</th>
+                                <th>Alias</th>
+                                <th>Categoría</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="competitors-tbody">
+                            <!-- Las filas de los competidores se insertarán aquí dinámicamente -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="competitor-management-actions">
+                    <div class="left-actions-group">
+                        <a href="VerSolicitudes.html" class="btn-main generate-code-btn">
+                            <span class="icon">🔗</span> Ver solicitudes
+                        </a>
+                        <a href="crearCompetidor.html"  class="btn-main add-competitor-btn">Crear competidor (+)</a>
+    
+                    </div>
+
+                    <a href="#" class="btn-secondary-link">Ver torneos inscrito</a>
+                </div>
+
+            </div>
+
+            <!-- Sidebar decorative element -->
+            <div class="competitors-sidebar"></div>
+            
+        </div>
+        
+    </section>
+
+    <footer class="minimal-footer">
+        <p>© 2025 ROBOTech | Club participante en torneos de robótica.</p>
+    </footer>
+
+    <!-- Modal Edit Club -->
+    <div id="edit-club-modal" class="modal">
+        <div class="modal-content form-container">
+            <span class="close-btn" id="close-edit-club">&times;</span>
+            <h2>Editar Información del Club</h2>
+            <form id="edit-club-form" novalidate>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="edit-club-nombre">Nombre del club</label>
+                        <input type="text" id="edit-club-nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-club-representante">Representante</label>
+                        <input type="text" id="edit-club-representante" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-club-correo">Correo Electrónico</label>
+                        <input type="email" id="edit-club-correo" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-club-telefono">Teléfono</label>
+                        <input type="tel" id="edit-club-telefono" maxlength="9" inputmode="numeric">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-club-categoria">Categoría Principal</label>
+                        <!-- Cambiado a select múltiple y habilitado -->
+                        <select id="edit-club-categoria" multiple class="form-control" style="height: 100px;"></select>
+                        <small class="form-text text-muted">Mantén presionada la tecla Ctrl (o Cmd) para seleccionar varias.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-club-estado">Estado</label>
+                        <input type="text" id="edit-club-estado" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-club-puntos">Puntos Acumulados</label>
+                        <input type="text" id="edit-club-puntos" disabled>
+                    </div>
+                    <div class="form-group full-width-group">
+                        <label for="edit-club-eslogan">Eslogan</label>
+                        <textarea id="edit-club-eslogan"></textarea>
+                    </div>
+                    <div class="form-group full-width-group">
+                        <label for="edit-club-logo">Cambiar Logo del Club (Opcional)</label>
+                        <input type="file" id="edit-club-logo" accept="image/*">
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary modal-cancel" id="cancel-edit-club">Cancelar</button>
+                    <button type="submit" class="btn-main">Guardar cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Solicitud de Retiro (para retirar un competidor) -->
+    <div id="retire-competitor-modal" class="modal">
+        <div class="modal-content form-container">
+            <span class="close-btn" id="close-retire-modal">&times;</span>
+            <h2>Solicitar Retiro de Competidor</h2>
+            <form id="retire-competitor-form">
+                <div class="form-group">
+                    <label for="retire-email">Correo del Competidor</label>
+                    <input type="email" id="retire-email" name="correoCompetidor" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="retire-reason">Motivo del Retiro</label>
+                    <textarea id="retire-reason" name="motivo" rows="4" required placeholder="Describe el motivo del retiro..."></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary modal-cancel" id="retire-cancel">Cancelar</button>
+                    <button type="submit" class="btn-main" id="retire-confirm">Enviar solicitud</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/perfilClub.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</body>
+</html>

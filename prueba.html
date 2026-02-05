@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Flautita Dulce - Product Catalog</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f08b42",
+                        "mint": "#98FFD9",
+                        "background-light": "#FFFDF5", /* Soft cream for artisanal feel */
+                        "background-dark": "#221810",
+                        "surface-light": "#fcfaf8",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-[#1b130d] dark:text-white min-h-screen">
+<div class="layout-container flex flex-col min-h-screen">
+<!-- Top Navigation Bar -->
+<header class="sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-[#f3ece7] dark:border-[#3d2c20] px-4 md:px-10 py-3">
+<div class="max-w-[1400px] mx-auto flex items-center justify-between">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3">
+<div class="size-10 bg-primary rounded-full flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-2xl">bakery_dining</span>
+</div>
+<h1 class="text-xl font-extrabold tracking-tight text-[#1b130d] dark:text-white">Flautita Dulce</h1>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-sm font-semibold hover:text-primary transition-colors" href="#">Home</a>
+<a class="text-sm font-semibold text-primary transition-colors" href="#">Catalog</a>
+<a class="text-sm font-semibold hover:text-primary transition-colors" href="#">About Us</a>
+<a class="text-sm font-semibold hover:text-primary transition-colors" href="#">Contact</a>
+</nav>
+</div>
+<div class="flex items-center gap-4 flex-1 justify-end max-w-md">
+<div class="relative w-full hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[#9a6c4c]">search</span>
+<input class="w-full bg-[#f3ece7] dark:bg-[#3d2c20] border-none rounded-full py-2 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary/50 transition-all placeholder:text-[#9a6c4c]" placeholder="Search your favorite treat..." type="text"/>
+</div>
+<div class="flex gap-2">
+<button class="size-10 flex items-center justify-center rounded-full bg-[#f3ece7] dark:bg-[#3d2c20] hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined">shopping_cart</span>
+</button>
+<button class="size-10 flex items-center justify-center rounded-full bg-[#f3ece7] dark:bg-[#3d2c20] hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined">person</span>
+</button>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-1 max-w-[1400px] mx-auto w-full flex flex-col md:flex-row gap-8 px-4 md:px-10 py-8">
+<!-- Sidebar Navigation -->
+<aside class="w-full md:w-64 flex-shrink-0">
+<div class="sticky top-24 space-y-8">
+<div>
+<h2 class="text-xs font-bold uppercase tracking-widest text-[#9a6c4c] mb-4">Categories</h2>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary text-white font-semibold transition-all shadow-lg shadow-primary/20" href="#">
+<span class="material-symbols-outlined">grid_view</span>
+<span>All Products</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-[#f3ece7] dark:hover:bg-[#3d2c20] text-[#1b130d] dark:text-white font-medium transition-all group" href="#">
+<span class="material-symbols-outlined text-[#9a6c4c] group-hover:text-primary">breakfast_dining</span>
+<span>Breads</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-[#f3ece7] dark:hover:bg-[#3d2c20] text-[#1b130d] dark:text-white font-medium transition-all group" href="#">
+<span class="material-symbols-outlined text-[#9a6c4c] group-hover:text-primary">cake</span>
+<span>Cakes</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-[#f3ece7] dark:hover:bg-[#3d2c20] text-[#1b130d] dark:text-white font-medium transition-all group" href="#">
+<span class="material-symbols-outlined text-[#9a6c4c] group-hover:text-primary">cookie</span>
+<span>Pastries</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-[#f3ece7] dark:hover:bg-[#3d2c20] text-[#1b130d] dark:text-white font-medium transition-all group" href="#">
+<span class="material-symbols-outlined text-[#9a6c4c] group-hover:text-primary">icecream</span>
+<span>Desserts</span>
+</a>
+</nav>
+</div>
+<div class="p-6 bg-primary/10 dark:bg-primary/5 rounded-xl border border-primary/20">
+<h3 class="font-bold text-primary mb-2 text-sm">Today's Special</h3>
+<p class="text-xs text-[#9a6c4c] dark:text-stone-400 mb-4">Get 20% off on all Sourdough loaves before 10 AM!</p>
+<button class="w-full bg-primary text-white py-2 rounded-full text-xs font-bold hover:opacity-90 transition-opacity">Claim Offer</button>
+</div>
+</div>
+</aside>
+<!-- Catalog Content -->
+<section class="flex-1">
+<!-- Page Heading -->
+<div class="mb-8">
+<h2 class="text-4xl font-black text-[#1b130d] dark:text-white tracking-tight mb-2">Our Sweet Collection</h2>
+<p class="text-[#9a6c4c] text-lg">Handcrafted artisanal treats, baked fresh every morning.</p>
+</div>
+<!-- Filters/Chips -->
+<div class="flex flex-wrap gap-3 mb-8">
+<button class="flex items-center gap-2 px-4 py-2 rounded-full bg-[#f3ece7] dark:bg-[#3d2c20] text-sm font-semibold hover:bg-[#e9ded5] transition-colors border border-transparent focus:border-primary">
+<span>Sort by: Popular</span>
+<span class="material-symbols-outlined text-sm">expand_more</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-full bg-[#f3ece7] dark:bg-[#3d2c20] text-sm font-semibold hover:bg-[#e9ded5] transition-colors">
+<span>Price Range</span>
+<span class="material-symbols-outlined text-sm">tune</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-full bg-[#f3ece7] dark:bg-[#3d2c20] text-sm font-semibold hover:bg-[#e9ded5] transition-colors">
+<span>Gluten Free</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-full bg-[#f3ece7] dark:bg-[#3d2c20] text-sm font-semibold hover:bg-[#e9ded5] transition-colors">
+<span>Vegan</span>
+</button>
+</div>
+<!-- Product Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Card 1 -->
+<div class="group bg-white dark:bg-stone-800/50 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col border border-[#f3ece7] dark:border-stone-700">
+<div class="relative aspect-square overflow-hidden">
+<div class="absolute top-3 left-3 z-10 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider text-primary shadow-sm">Bestseller</div>
+<div class="w-full h-full bg-center bg-no-repeat bg-cover transform group-hover:scale-110 transition-transform duration-500" data-alt="Gourmet vanilla bean tiered cake with cream" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDRyP9so4Yn3jmmYr4F0Bf9TvcU2PxYB-omiqxnAU7obh6tus0V9eOMtYV5ntvcK44Q8fctUHzlNHsNMmO-AgeJe5TQxivD66Ji70o9D7DYW-E95ItOm38oXhKedsf0AivM5745mq00dvemNzzDibj5xWRRfRqKcW0axC__b--9Gjo0c1KbLygxQY2SpRkpaHRwYU9pK-flI15ImRD0WbA0aRo5CgIYTEgPo9uzj0HdEgiuNdxYFBUwu-l581MCsizc62zhoVSboLE");'>
+</div>
+</div>
+<div class="p-5 flex flex-col flex-1">
+<div class="flex justify-between items-start mb-1">
+<h3 class="text-lg font-bold text-[#1b130d] dark:text-white leading-tight">Vanilla Bean Cake</h3>
+<span class="text-primary font-black text-lg">$25.00</span>
+</div>
+<p class="text-[#9a6c4c] dark:text-stone-400 text-sm mb-4 line-clamp-2">Delicate layers of Madagascar vanilla sponge with silk buttercream.</p>
+<button class="mt-auto w-full bg-mint text-[#1b130d] py-3 rounded-full font-bold text-sm flex items-center justify-center gap-2 hover:bg-[#82ebc6] transition-colors shadow-md shadow-mint/10">
+<span class="material-symbols-outlined text-xl">add_shopping_cart</span>
+                                Add to Cart
+                            </button>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="group bg-white dark:bg-stone-800/50 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col border border-[#f3ece7] dark:border-stone-700">
+<div class="relative aspect-square overflow-hidden">
+<div class="w-full h-full bg-center bg-no-repeat bg-cover transform group-hover:scale-110 transition-transform duration-500" data-alt="Rustic golden brown sourdough loaf bread" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBoph34pUEEA354ratmTNIY8qa6b3cbyjYuuF-Dxj2r-8Td72USn1EV3FHPK2jh4J0RXKu5xsEu0_ABRq8C9-zqGX6sSG5mswCPiYawr8I3U0IR_cWkdKbLFau8vBcYP_pnvuRQYehDUNhtU2Cj2hi1fYid_DKB6OINpqMsIW3Uj2aOq2FqvQZLwBftXVk8Chwek6P3dj_S5BUjdRuBza9TBwnvSpxIUbOfTA4PEGFboEictjC7bIzbQVa_h1HZktllWOo2dKoIHo4");'>
+</div>
+</div>
+<div class="p-5 flex flex-col flex-1">
+<div class="flex justify-between items-start mb-1">
+<h3 class="text-lg font-bold text-[#1b130d] dark:text-white leading-tight">Artisan Sourdough</h3>
+<span class="text-primary font-black text-lg">$8.50</span>
+</div>
+<p class="text-[#9a6c4c] dark:text-stone-400 text-sm mb-4 line-clamp-2">24-hour fermented wild yeast bread with a perfectly crisp crust.</p>
+<button class="mt-auto w-full bg-mint text-[#1b130d] py-3 rounded-full font-bold text-sm flex items-center justify-center gap-2 hover:bg-[#82ebc6] transition-colors shadow-md shadow-mint/10">
+<span class="material-symbols-outlined text-xl">add_shopping_cart</span>
+                                Add to Cart
+                            </button>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="group bg-white dark:bg-stone-800/50 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col border border-[#f3ece7] dark:border-stone-700">
+<div class="relative aspect-square overflow-hidden">
+<div class="w-full h-full bg-center bg-no-repeat bg-cover transform group-hover:scale-110 transition-transform duration-500" data-alt="Flaky chocolate croissant with gold dust" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBv-SkvjyImzvwOvx-pYCPyd5LsLosHS_pfuAJwgyIHZaCdGSquDFWklR3ojhJphtCyiDKTNLMqcXGwBwtqoSfCxmMS0f9HxMG-pen3SzYLabOfkGjBOM7Bxz4OUVWCeUMKkj9tHLGedBCKPHMiFvlQQ5eCSjqGgfkoZmvJv8rR5LtWX-Th8leCxVgJqYGZLaMWpVdsO8NiGKTFq1iuqnsmCRcaouiOyNUgnAmPHyLWANXstkMMG8Ja11a0Q5pRNbxT--0TfCgjOx8");'>
+</div>
+</div>
+<div class="p-5 flex flex-col flex-1">
+<div class="flex justify-between items-start mb-1">
+<h3 class="text-lg font-bold text-[#1b130d] dark:text-white leading-tight">Chocolate Croissant</h3>
+<span class="text-primary font-black text-lg">$4.50</span>
+</div>
+<p class="text-[#9a6c4c] dark:text-stone-400 text-sm mb-4 line-clamp-2">Buttery, flaky pastry filled with premium Belgian dark chocolate.</p>
+<button class="mt-auto w-full bg-mint text-[#1b130d] py-3 rounded-full font-bold text-sm flex items-center justify-center gap-2 hover:bg-[#82ebc6] transition-colors shadow-md shadow-mint/10">
+<span class="material-symbols-outlined text-xl">add_shopping_cart</span>
+                                Add to Cart
+                            </button>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="group bg-white dark:bg-stone-800/50 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col border border-[#f3ece7] dark:border-stone-700">
+<div class="relative aspect-square overflow-hidden">
+<div class="w-full h-full bg-center bg-no-repeat bg-cover transform group-hover:scale-110 transition-transform duration-500" data-alt="Vibrant fresh strawberry fruit tart" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDx1-UVwhP-rT1K4peFplkiYye1yv9iZPI6qHIU8Hf5bCWj1nIOR8DD397oIGWNoTqitQebT6LifidvETf42hMJNMafpfEqz6vseuKMPVLvxTqXEZG_tvpaCKQKBn5CM58XFnnqhjaieTBcP9p91Ru3heVUysr-F-txhDLLAPR0vEXzfvyIQQ8Fi4xKXa60nRl1MHK7d3nfdp3lW3GA2sPSgGuwpjzK7E2uTgh4LaUmanjdtNRNotr8t8yJdssiGueqfv7B0exEGY0");'>
+</div>
+</div>
+<div class="p-5 flex flex-col flex-1">
+<div class="flex justify-between items-start mb-1">
+<h3 class="text-lg font-bold text-[#1b130d] dark:text-white leading-tight">Strawberry Tart</h3>
+<span class="text-primary font-black text-lg">$6.00</span>
+</div>
+<p class="text-[#9a6c4c] dark:text-stone-400 text-sm mb-4 line-clamp-2">Crisp shortbread base with vanilla custard and seasonal berries.</p>
+<button class="mt-auto w-full bg-mint text-[#1b130d] py-3 rounded-full font-bold text-sm flex items-center justify-center gap-2 hover:bg-[#82ebc6] transition-colors shadow-md shadow-mint/10">
+<span class="material-symbols-outlined text-xl">add_shopping_cart</span>
+                                Add to Cart
+                            </button>
+</div>
+</div>
+<!-- Card 5 -->
+<div class="group bg-white dark:bg-stone-800/50 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col border border-[#f3ece7] dark:border-stone-700">
+<div class="relative aspect-square overflow-hidden">
+<div class="absolute top-3 left-3 z-10 bg-primary/90 backdrop-blur px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider text-white shadow-sm">Specialty</div>
+<div class="w-full h-full bg-center bg-no-repeat bg-cover transform group-hover:scale-110 transition-transform duration-500" data-alt="Decadent dulce de leche caramel cake" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCLInIuRTUwrPe-gr-NXs7uvdt_IPTrf4qkb16pg-yontib7rFGvbX_nCmZWhW93MkNufO-fOvKwKuYXHpY5mOUT598RfeXNpeZd-3GnnsVXoXu9YPAhNQeqNw3sOPvnnL1jfVriZwzIV-25GRsu1kdlQ1G-_ttapoGi9Qi_f5YfV6BPmcvl4ktHfn6iUMkzJ5KnomWU5pRHRdLJph-gkqL05mxpT36zEbAgCuSsR4fHftb6GLN3LKWRRekLlF4KgqEi_9zxPjoSTU");'>
+</div>
+</div>
+<div class="p-5 flex flex-col flex-1">
+<div class="flex justify-between items-start mb-1">
+<h3 class="text-lg font-bold text-[#1b130d] dark:text-white leading-tight">Dulce de Leche Cake</h3>
+<span class="text-primary font-black text-lg">$28.00</span>
+</div>
+<p class="text-[#9a6c4c] dark:text-stone-400 text-sm mb-4 line-clamp-2">A Latin American classic. Rich caramel sponge with dulce de leche core.</p>
+<button class="mt-auto w-full bg-mint text-[#1b130d] py-3 rounded-full font-bold text-sm flex items-center justify-center gap-2 hover:bg-[#82ebc6] transition-colors shadow-md shadow-mint/10">
+<span class="material-symbols-outlined text-xl">add_shopping_cart</span>
+                                Add to Cart
+                            </button>
+</div>
+</div>
+<!-- Card 6 -->
+<div class="group bg-white dark:bg-stone-800/50 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col border border-[#f3ece7] dark:border-stone-700">
+<div class="relative aspect-square overflow-hidden">
+<div class="w-full h-full bg-center bg-no-repeat bg-cover transform group-hover:scale-110 transition-transform duration-500" data-alt="Long crusty artisan french baguette" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCOM5d2JbWKZ9DbdQ2UfRkqniVPp8p6k-xTn4dnqPPR033Qr4TGWf4BQS3IpQvys1rWYQZrSN2a0xKtDwhwP91EFhL7NsvPPBn-oKZixJCyHO_iBmTN0J8jHJuSy1iBT0rbaQZZOaV_I_QfZ0nvPAQ04sdFcsXLoPJmVJA12jjZyB4gNEq2dRgp55bl84XI_viBOVP_-eu2teNVfkfDue6n4Pxx3lnVCCzKs1notDU78-JQBwSJSO7F4pftBUqLRprlvr7xeArjX9g");'>
+</div>
+</div>
+<div class="p-5 flex flex-col flex-1">
+<div class="flex justify-between items-start mb-1">
+<h3 class="text-lg font-bold text-[#1b130d] dark:text-white leading-tight">French Baguette</h3>
+<span class="text-primary font-black text-lg">$3.25</span>
+</div>
+<p class="text-[#9a6c4c] dark:text-stone-400 text-sm mb-4 line-clamp-2">Traditional baguette with a light airy crumb and golden crust.</p>
+<button class="mt-auto w-full bg-mint text-[#1b130d] py-3 rounded-full font-bold text-sm flex items-center justify-center gap-2 hover:bg-[#82ebc6] transition-colors shadow-md shadow-mint/10">
+<span class="material-symbols-outlined text-xl">add_shopping_cart</span>
+                                Add to Cart
+                            </button>
+</div>
+</div>
+</div>
+<!-- Pagination -->
+<div class="mt-12 flex justify-center items-center gap-2">
+<button class="size-10 flex items-center justify-center rounded-full bg-[#f3ece7] dark:bg-[#3d2c20] hover:bg-primary/20 transition-all">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="size-10 flex items-center justify-center rounded-full bg-primary text-white font-bold">1</button>
+<button class="size-10 flex items-center justify-center rounded-full bg-[#f3ece7] dark:bg-[#3d2c20] hover:bg-primary/20 transition-all font-bold">2</button>
+<button class="size-10 flex items-center justify-center rounded-full bg-[#f3ece7] dark:bg-[#3d2c20] hover:bg-primary/20 transition-all font-bold">3</button>
+<span class="px-2">...</span>
+<button class="size-10 flex items-center justify-center rounded-full bg-[#f3ece7] dark:bg-[#3d2c20] hover:bg-primary/20 transition-all font-bold">8</button>
+<button class="size-10 flex items-center justify-center rounded-full bg-[#f3ece7] dark:bg-[#3d2c20] hover:bg-primary/20 transition-all">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-white dark:bg-[#1b130d] border-t border-[#f3ece7] dark:border-[#3d2c20] py-12 px-4 md:px-10">
+<div class="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
+<div class="space-y-4">
+<div class="flex items-center gap-2">
+<div class="size-8 bg-primary rounded-full flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-xl">bakery_dining</span>
+</div>
+<span class="text-xl font-black text-[#1b130d] dark:text-white">Flautita Dulce</span>
+</div>
+<p class="text-[#9a6c4c] text-sm">Baking joy into every bite. Our artisanal approach ensures the highest quality treats for your daily delight.</p>
+</div>
+<div>
+<h4 class="font-bold mb-4 text-[#1b130d] dark:text-white">Shop</h4>
+<ul class="text-sm text-[#9a6c4c] space-y-2">
+<li><a class="hover:text-primary transition-colors" href="#">All Products</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Seasonal Specials</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Custom Cakes</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Gift Cards</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold mb-4 text-[#1b130d] dark:text-white">Company</h4>
+<ul class="text-sm text-[#9a6c4c] space-y-2">
+<li><a class="hover:text-primary transition-colors" href="#">Our Story</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Wholesale</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Contact</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Careers</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold mb-4 text-[#1b130d] dark:text-white">Stay Sweet</h4>
+<p class="text-xs text-[#9a6c4c] mb-4">Subscribe for recipes and fresh drops.</p>
+<div class="flex gap-2">
+<input class="bg-[#f3ece7] dark:bg-[#3d2c20] border-none rounded-full px-4 py-2 text-sm flex-1" placeholder="Your email" type="email"/>
+<button class="bg-primary text-white px-4 py-2 rounded-full text-sm font-bold">Join</button>
+</div>
+</div>
+</div>
+<div class="max-w-[1400px] mx-auto mt-12 pt-8 border-t border-[#f3ece7] dark:border-[#3d2c20] flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="text-xs text-[#9a6c4c]">© 2024 Flautita Dulce Artisanal Bakery. All rights reserved.</p>
+<div class="flex gap-6">
+<a class="text-[#9a6c4c] hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined text-xl">social_leaderboard</span></a>
+<a class="text-[#9a6c4c] hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined text-xl">photo_camera</span></a>
+<a class="text-[#9a6c4c] hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined text-xl">mail</span></a>
+</div>
+</div>
+</footer>
+<!-- Floating Cart Badge -->
+<div class="fixed bottom-8 right-8 z-[100]">
+<button class="bg-[#1b130d] text-white p-4 rounded-full shadow-2xl flex items-center gap-3 hover:scale-105 transition-transform">
+<div class="relative">
+<span class="material-symbols-outlined text-2xl">shopping_bag</span>
+<span class="absolute -top-1 -right-1 bg-mint text-[#1b130d] text-[10px] font-black size-5 rounded-full flex items-center justify-center ring-2 ring-[#1b130d]">3</span>
+</div>
+<span class="font-bold pr-2">$38.00</span>
+</button>
+</div>
+</div>
+</body></html>

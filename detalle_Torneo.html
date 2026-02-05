@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle del Torneo - ROBOTech</title>
+    <link rel="stylesheet" href="css/detalle.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Estilos para el modal -->
+    <style>
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1000; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgba(0,0,0,0.8); 
+            backdrop-filter: blur(5px);
+        }
+        .modal-content {
+            background-color: #161b22;
+            margin: 10% auto; 
+            padding: 30px;
+            border: 1px solid #30363d;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            color: #c9d1d9;
+        }
+        .close-btn {
+            color: #8b949e;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .close-btn:hover {
+            color: #f0f6fc;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #58a6ff;
+        }
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            background-color: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            color: #c9d1d9;
+            font-size: 16px;
+        }
+        .btn-primary.full-width {
+            width: 100%;
+            margin-top: 10px;
+        }
+        .feedback-msg {
+            margin-top: 10px;
+            font-size: 0.9em;
+            text-align: center;
+        }
+    </style>
+</head>
+<body class="detalle-torneo">
+    <header class="header">
+    <div class="logo">ROBOTech</div>
+    <nav class="nav">
+      <ul id="nav-links">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="torneo.html" class="active">Torneos</a></li>
+        <li><a href="ranking.html">Ranking</a></li>
+        <li><a href="noticias.html">Noticias</a></li>
+        <li><a href="login.html" class="btn-login">Iniciar sesión</a></li>
+        <li><a href="registro.html" class="btn-register">Registrarme</a></li>
+      </ul>
+    </nav>
+  </header>
+
+    <section class="hero-banner">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <span class="category-tag" id="t-estado"><i class="fa-solid fa-trophy"></i> CARGANDO...</span>
+            <h1 id="t-nombre">Cargando Torneo...</h1>
+            <div class="hero-meta">
+                <span><i class="fa-regular fa-calendar"></i> <span id="t-fecha">--/--/----</span></span>
+                <span><i class="fa-solid fa-location-dot"></i> <span id="t-sede">--</span></span>
+                <!-- <span><i class="fa-solid fa-users"></i> 128 Cupos Disponibles</span> -->
+            </div>
+        </div>
+        <div class="hero-actions">
+            <button class="icon-btn"><i class="fa-solid fa-share-nodes"></i></button>
+            <button class="icon-btn"><i class="fa-regular fa-bookmark"></i></button>
+        </div>
+    </section>
+
+    <div class="container main-grid">
+        <div class="details-section">
+            <nav class="tabs">
+                <button class="tab-item active" onclick="switchTab(event, 'info')">Información General</button>
+                <button class="tab-item" onclick="switchTab(event, 'reglas')">Reglas y Normas</button>
+                <button class="tab-item" onclick="switchTab(event, 'participantes')">Participantes</button>
+            </nav>
+
+            <div class="tab-content" id="info">
+                <h2><i class="fa-solid fa-circle-info cyan-text"></i> Sobre el Evento</h2>
+                <p id="t-descripcion">Descripción del torneo...</p>
+                
+                <div class="info-cards">
+                    <div class="mini-card">
+                        <small>Categorías</small>
+                        <p id="t-categorias">--</p>
+                    </div>
+                    <div class="mini-card">
+                        <small>Formato</small>
+                        <p>Eliminación Directa</p>
+                    </div>
+                    <div class="mini-card">
+                        <small>Estado</small>
+                        <p class="red-text" id="t-status-text">--</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <aside class="registration-sidebar">
+            <div class="card reg-card">
+                <h3>Inscripción</h3>
+                <div class="deadline">
+                    <span>Fecha Inicio:</span>
+                    <strong id="t-fecha-inicio">--</strong>
+                </div>
+                <button id="btn-inscribirse" class="btn-primary">Inscribir Robot <i class="fa-solid fa-arrow-right"></i></button>
+                <a id="btn-ver-torneo" href="vista-torneo.html" class="btn-primary" style="margin-top: 10px; display: flex; justify-content: center; align-items: center; text-decoration: none; background-color: #238636;">Ver Torneo <i class="fa-solid fa-eye" style="margin-left: 8px;"></i></a>
+                <p class="cost" style="margin-top:10px; font-size:0.9em; color:#8b949e;">Requiere inicio de sesión como competidor.</p>
+            </div>
+
+            <div class="card location-card">
+                <h3>Ubicación</h3>
+                <div class="map-placeholder">
+                    <img src="https://via.placeholder.com/300x150/161b22/8b949e?text=Mapa+Sede" alt="Mapa">
+                </div>
+                <p id="t-direccion" style="margin-top:10px; color:#c9d1d9;"></p>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Modal de Inscripción -->
+    <div id="inscription-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" id="close-modal-btn">&times;</span>
+            <h2>Inscribir Robot</h2>
+            <p>Selecciona un robot compatible con las categorías de este torneo.</p>
+            <form id="inscription-form">
+                <div class="form-group">
+                    <label for="robot-select">Robot:</label>
+                    <select id="robot-select" required>
+                        <option value="" disabled selected>Cargando robots...</option>
+                    </select>
+                </div>
+                <div id="modal-feedback" class="feedback-msg"></div>
+                <button type="submit" class="btn-primary full-width">Confirmar Inscripción</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/detalle.js"></script>
+</body>
+</html>

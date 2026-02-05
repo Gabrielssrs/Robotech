@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Detalle del Club - ROBOTech Admin</title>
+    <link rel="stylesheet" href="css/styles.css" /> 
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    
+    <header class="header admin-header">
+        <div class="logo">ROBOTech Admin</div>
+        <nav class="nav">
+            <ul>
+                <li><a href="perfiladmin.html">Dashboard</a></li> 
+                <li><a href="adminclubes.html">Clubes</a></li> 
+                <li><a href="login.html" class="btn-logout">Cerrar Sesión</a></li> 
+            </ul>
+        </nav>
+    </header>
+
+    <section class="section admin-dashboard-content">
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+            <div>
+                <h1 class="admin-title">Detalle del Club</h1>
+                <p class="admin-subtitle">Visualiza la información completa del club y sus competidores.</p>
+            </div>
+            <a href="adminclubes.html" class="btn-secondary btn-back">← Volver a Clubes</a>
+        </div>
+
+        <!-- Tabla de Datos del Club -->
+        <div class="management-card full-width-card admin-table-card">
+            <h2 style="color: #00bfff; margin-bottom: 20px; font-size: 1.3rem;">Información del Club</h2>
+            <div class="club-detail-container">
+                <div class="club-logo-section">
+                    <div class="profile-avatar-container">
+                        <img id="club-logo-img" src="https://via.placeholder.com/150?text=Club" alt="Logo del Club" class="profile-avatar">
+                    </div>
+                </div>
+
+                <div class="club-data-section">
+                    <div class="club-data-section-inner">
+                        <div class="club-header">
+                            <div class="club-title">
+                                <h2 id="club-nombre-heading" class="club-name-value">Cargando...</h2>
+                                <div class="club-meta">ID: <span id="club-id">Cargando...</span> · <span id="club-estado">Cargando...</span></div>
+                            </div>
+                        </div>
+
+                        <div class="club-data-grid">
+                            <div class="data-item">
+                                <span class="label">Representante</span>
+                                <span id="club-representante" class="value">Cargando...</span>
+                            </div>
+                            <div class="data-item">
+                                <span class="label">Correo Electrónico</span>
+                                <span id="club-correo" class="value">Cargando...</span>
+                            </div>
+                            <div class="data-item">
+                                <span class="label">Teléfono</span>
+                                <span id="club-telefono" class="value">Cargando...</span>
+                            </div>
+                            <div class="data-item">
+                                <span class="label">Región</span>
+                                <span id="club-region" class="value">Cargando...</span>
+                            </div>
+                            <div class="data-item">
+                                <span class="label">Estado</span>
+                                <span id="club-estado-val" class="value">Cargando...</span>
+                            </div>
+                            <div class="data-item">
+                                <span class="label">Total de Competidores</span>
+                                <span id="club-total-comp" class="value">Cargando...</span>
+                            </div>
+
+                            <div class="data-item" style="grid-column: 1 / -1;">
+                                <span class="label">Categorías Principales</span>
+                                <div id="club-categorias" class="categories-chips">Cargando...</div>
+                            </div>
+                            <div class="data-item" style="grid-column: 1 / -1;">
+                                <span class="label">Eslogan</span>
+                                <blockquote id="club-eslogan" class="club-eslogan">Cargando...</blockquote>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabla de Competidores del Club -->
+        <div class="management-card full-width-card admin-table-card" style="margin-top: 30px;">
+            <h2 style="color: #00bfff; margin-bottom: 20px; font-size: 1.3rem;">Competidores del Club</h2>
+            <div class="table-responsive admin-table-container">
+                <table class="competitors-table club-competitors-table">
+                    <thead>
+                        <tr>
+                            <th>Foto</th>
+                            <th>Nombre</th>
+                            <th>Alias</th>
+                            <th>Categoría</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="competitors-body">
+                        <tr><td colspan="6" style="text-align: center;">Cargando competidores...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </section>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-about">
+                <h3>ROBOTech</h3>
+                <p>Innovación, competencia y pasión por la robótica.  
+                Únete a nuestra comunidad y lleva tus habilidades al siguiente nivel.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Enlaces útiles</h4>
+                <ul>
+                    <li><a href="#">Términos y condiciones</a></li>
+                    <li><a href="#">Política de privacidad</a></li>
+                    <li><a href="#">Preguntas frecuentes</a></li>
+                    <li><a href="#">Contacto</a></li>
+                </ul>
+            </div>
+            <div class="footer-social">
+                <h4>Síguenos</h4>
+                <div class="social-icons">
+                    <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook"></a>
+                    <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram"></a>
+                    <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/twitter.svg" alt="Twitter"></a>
+                    <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube"></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 ROBOTech | Innovación y competencia robótica</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Modal de validación para retirar competidor -->
+    <div id="retire-validation-modal" class="modal">
+        <div class="modal-content form-container">
+            <span class="close-btn" id="retire-validation-close">&times;</span>
+            <h2>Validación de Retiro</h2>
+            <p>Ingrese el código de validación para confirmar el retiro del competidor.</p>
+            <div class="form-group">
+                <label for="retire-validation-code">Código de validación</label>
+                <input type="text" id="retire-validation-code" placeholder="Código de validación" />
+            </div>
+            <div class="form-actions" style="margin-top:12px;">
+                <button id="retire-validation-reject" class="btn-secondary modal-cancel">Rechazar</button>
+                <button id="retire-validation-accept" class="btn-main">Aceptar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/detalle-club.js"></script>
+
+</body>
+</html>

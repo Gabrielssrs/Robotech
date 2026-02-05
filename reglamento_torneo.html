@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reglamento - RoboJudge</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/reglamento.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="reglamento-theme">
+    
+       <header class="header">
+     <div class="logo">ROBOTech</div>
+      <nav class="nav">
+        <ul id="nav-links">
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="torneo.html">Torneos</a></li>
+          <li><a href="ranking.html" class="active">Ranking</a></li>
+          <li><a href="noticias.html">Noticias</a></li>
+          
+        </ul>
+      </nav>
+    </header>
+    <div class="layout-wrapper">
+        <aside class="doc-sidebar">
+            <div class="tournament-preview card">
+                <img id="tournament-img" src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=300" alt="Torneo">
+                <h3 id="tournament-name">Cargando Torneo...</h3>
+                <p id="tournament-location"><i class="fa-solid fa-location-dot"></i> Cargando...</p>
+                <a href="#" class="btn-cyan" id="download-pdf"><i class="fa-solid fa-download"></i> Descargar PDF</a>
+                <button class="btn-ghost" id="print-btn"><i class="fa-solid fa-print"></i> Imprimir</button>
+            </div>
+
+            <nav class="doc-index" id="docIndex">
+                <small>ÍNDICE DEL REGLAMENTO</small>
+                <ul>
+                    <li class="active" data-target="generalidades">1. Generalidades <i class="fa-solid fa-chevron-right"></i></li>
+                    <li data-target="especificaciones">2. Especificaciones Técnicas</li>
+                    <li data-target="desarrollo">3. Desarrollo del Combate</li>
+                    <li data-target="faltas">4. Faltas y Penalizaciones</li>
+                    <li data-target="puntacion">5. Sistema de Puntuación</li>
+                </ul>
+            </nav>
+            
+            <a href="admintorneo.html" class="btn-back"><i class="fa-solid fa-arrow-left"></i> Volver a Torneos</a>
+        </aside>
+
+        <main class="doc-viewer">
+            <div class="doc-content">
+                <div class="doc-header-card">
+                    <h2><i class="fa-solid fa-book-open cyan-text"></i> <span id="reglamento-title">Reglamento Oficial</span></h2>
+                    <span class="version-badge" id="reglamento-version">VERSIÓN 1.0</span>
+                </div>
+
+                <div class="doc-body">
+                    <section id="generalidades">
+                    <h3>1. Generalidades</h3>
+                    <p>Introducción y propósito del reglamento. Define los objetivos, el alcance y las responsabilidades de los organizadores y participantes.</p>
+                </section>
+
+                <section id="especificaciones">
+                    <h3>2. Especificaciones Técnicas</h3>
+                    <p>Los robots deben ser completamente autónomos y operar con su propia fuente de energía. No se permite el uso de fuentes de combustión interna. El voltaje máximo permitido en los bornes de la batería no debe exceder los 12.6V.</p>
+                    
+                    <div class="warning-box">
+                        <strong>Nota Importante:</strong> El uso de baterías LiPo defectuosas o hinchadas resultará en la descalificación inmediata por motivos de seguridad.
+                    </div>
+                </section>
+
+                <section id="desarrollo">
+                    <h3>3. Desarrollo del Combate</h3>
+                    <h4>3.1 Inicio de la Carrera</h4>
+                    <p>El juez dará la señal de inicio. El operador tendrá 5 segundos para activar su robot. Si el robot no se mueve tras este tiempo, se considerará un intento fallido.</p>
+                    
+                    <h4>3.2 Pista</h4>
+                    <p>La pista consiste en una línea negra de 19mm de ancho sobre un fondo blanco mate. Puede incluir curvas, cruces y líneas discontinuas. El material de la superficie garantiza un coeficiente de fricción estándar.</p>
+                </section>
+
+                <section id="faltas">
+                    <h3>4. Faltas y Penalizaciones</h3>
+                    <p>Se aplicarán sanciones en los siguientes casos:</p>
+                    <ul>
+                        <li>Si el robot abandona la línea por más de 3 segundos.</li>
+                        <li>Si el robot toma un atajo no permitido en el circuito.</li>
+                        <li>Si el operador toca el robot sin autorización del juez durante la carrera.</li>
+                    </ul>
+                    <p class="summary-note">La acumulación de 3 faltas leves resultará en la pérdida del encuentro.</p>
+                </section>
+
+                <section id="puntacion">
+                    <h3>5. Sistema de Puntuación</h3>
+                    <p>Se detallan las reglas de puntuación y criterios para la evaluación de desempeño en cada categoría.</p>
+                </section>
+            </div>
+
+            <!-- Advertencia si no hay reglamentos -->
+            <div id="no-rules-warning" style="display: none; background: #f85149; border: 2px solid #da3633; border-radius: 8px; padding: 20px; margin-top: 30px; text-align: center; color: white;">
+                <i class="fa-solid fa-triangle-exclamation" style="font-size: 2rem; margin-bottom: 10px;"></i>
+                <h3>⚠️ Sin Reglamentos Definidos</h3>
+                <p>Este torneo aún no tiene reglamentos. Agrega los reglamentos urgentemente para poder dar inicio al torneo.</p>
+            </div>
+
+            <!-- Botones de Acciones -->
+            <div style="display: flex; gap: 15px; margin-top: 40px; justify-content: center;">
+                <button id="btn-add-rules" class="btn-cyan" style="padding: 12px 24px; font-size: 1rem; cursor: pointer; border: none; border-radius: 6px; background-color: #238636; color: white; font-weight: 600;">
+                    <i class="fa-solid fa-plus"></i> Agregar Reglamentos
+                </button>
+                <a href="admintorneo.html" class="btn-cyan" style="padding: 12px 24px; font-size: 1rem; text-decoration: none; border-radius: 6px; background-color: #30363d; color: white; font-weight: 600; display: flex; align-items: center;">
+                    <i class="fa-solid fa-arrow-left"></i> Volver a Torneos
+                </a>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal para agregar Reglamentos -->
+    <div id="rules-modal" style="display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(0,0,0,0.85) 0%, rgba(10,20,40,0.85) 100%); backdrop-filter: blur(8px); animation: fadeIn 0.3s ease-in;">
+        <div style="background: linear-gradient(135deg, #0d1117 0%, #161b22 100%); margin: 40px auto; padding: 40px; border: 1px solid rgba(88,166,255,0.2); width: 90%; max-width: 850px; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.7), 0 0 40px rgba(88,166,255,0.1); color: #c9d1d9; max-height: 85vh; overflow-y: auto; animation: slideUp 0.4s ease-out;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 2px solid rgba(88,166,255,0.15);">
+                <div>
+                    <h2 style="color: #58a6ff; margin: 0; font-size: 1.8rem; display: flex; align-items: center; gap: 12px;"><i class="fa-solid fa-book-open" style="font-size: 1.5rem;"></i> Agregar Sección de Reglamento</h2>
+                    <p style="color: #8b949e; margin: 8px 0 0 0; font-size: 0.9rem;">Define las reglas y condiciones del torneo</p>
+                </div>
+                <button id="close-rules-modal" style="background: rgba(88,166,255,0.1); border: 1px solid rgba(88,166,255,0.3); font-size: 24px; color: #58a6ff; cursor: pointer; padding: 8px; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 8px; transition: all 0.2s ease; hover-background: rgba(88,166,255,0.2);">
+                    ✕
+                </button>
+            </div>
+
+            <form id="rules-form">
+                <!-- Sección de Información Principal -->
+                <div style="background: rgba(30,111,235,0.05); border-left: 4px solid #58a6ff; padding: 20px; border-radius: 8px; margin-bottom: 25px;">
+                    <div style="margin-bottom: 18px;">
+                        <label style="display: block; margin-bottom: 10px; font-weight: 700; color: #58a6ff; font-size: 1rem;"><i class="fa-solid fa-heading" style="margin-right: 8px;"></i>Título de la Sección</label>
+                        <input type="text" id="titulo_menu" name="titulo_menu" placeholder="Ej: Especificaciones Técnicas" list="secciones-opciones" required style="width: 100%; padding: 12px 14px; background: linear-gradient(135deg, #0d1117 0%, #161b22 100%); border: 1.5px solid #30363d; border-radius: 8px; color: #c9d1d9; font-size: 15px; box-sizing: border-box; transition: all 0.2s ease; outline: none;" onFocus="this.style.borderColor='#58a6ff'; this.style.boxShadow='0 0 12px rgba(88,166,255,0.2)'" onBlur="this.style.borderColor='#30363d'; this.style.boxShadow='none'">
+                        <datalist id="secciones-opciones">
+                            <option value="1. Generalidades"></option>
+                            <option value="2. Especificaciones Técnicas"></option>
+                            <option value="3. Desarrollo del Combate"></option>
+                            <option value="4. Faltas y Penalizaciones"></option>
+                            <option value="5. Sistema de Puntuación"></option>
+                            <option value="6. Categorías de Peso"></option>
+                            <option value="7. Tiempo de Combate"></option>
+                            <option value="8. Seguridad"></option>
+                            <option value="9. Apelaciones"></option>
+                            <option value="10. Disposiciones Finales"></option>
+                        </datalist>
+                    </div>
+
+                    <div>
+                        <label style="display: block; margin-bottom: 10px; font-weight: 700; color: #58a6ff; font-size: 1rem;"><i class="fa-solid fa-list-ol" style="margin-right: 8px;"></i>Número de Orden</label>
+                        <input type="number" id="num_orden" name="num_orden" placeholder="Ej: 1" required min="1" style="width: 100%; padding: 12px 14px; background: linear-gradient(135deg, #0d1117 0%, #161b22 100%); border: 1.5px solid #30363d; border-radius: 8px; color: #c9d1d9; font-size: 15px; box-sizing: border-box; transition: all 0.2s ease; outline: none;" onFocus="this.style.borderColor='#58a6ff'; this.style.boxShadow='0 0 12px rgba(88,166,255,0.2)'" onBlur="this.style.borderColor='#30363d'; this.style.boxShadow='none'">
+                    </div>
+                </div>
+
+                <!-- Sección de Contenidos en Tabla -->
+                <div id="contenidos-container">
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 18px;">
+                        <h3 style="color: #58a6ff; margin: 0; font-size: 1.1rem;"><i class="fa-solid fa-table"></i> Puntos de esta Sección</h3>
+                        <span style="background: #58a6ff; color: #0d1117; padding: 2px 8px; border-radius: 12px; font-size: 0.8rem; font-weight: 700;">Mínimo 1</span>
+                    </div>
+
+                    <div style="overflow-x: auto; border: 1.5px solid rgba(88,166,255,0.15); border-radius: 10px; background: rgba(13,17,23,0.5);">
+                        <table id="puntos-table" style="width: 100%; border-collapse: collapse; color: #c9d1d9; font-size: 0.9rem;">
+                            <thead>
+                                <tr style="background: linear-gradient(135deg, rgba(30,111,235,0.15) 0%, rgba(88,166,255,0.08) 100%); border-bottom: 2px solid rgba(88,166,255,0.2);">
+                                    <th style="padding: 14px 12px; text-align: left; font-weight: 700; color: #58a6ff; width: 18%;">Punto</th>
+                                    <th style="padding: 14px 12px; text-align: left; font-weight: 700; color: #58a6ff; width: 42%;">Descripción</th>
+                                    <th style="padding: 14px 12px; text-align: left; font-weight: 700; color: #58a6ff; width: 15%;">Tipo</th>
+                                    <th style="padding: 14px 12px; text-align: center; font-weight: 700; color: #58a6ff; width: 25%;">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="puntos-tbody">
+                                <tr class="punto-row" style="border-bottom: 1px solid rgba(88,166,255,0.1); transition: all 0.2s ease;">
+                                    <td style="padding: 14px 12px;"><input type="text" class="punto-subtitulo" placeholder="Ej: 2.1" style="width: 100%; padding: 8px 10px; background-color: #0d1117; border: 1px solid #30363d; border-radius: 6px; color: #c9d1d9; font-size: 0.85rem; box-sizing: border-box;" required></td>
+                                    <td style="padding: 14px 12px;"><textarea class="punto-descripcion" placeholder="Descripción del punto..." style="width: 100%; padding: 12px 14px; background-color: #0d1117; border: 1px solid #30363d; border-radius: 6px; color: #c9d1d9; font-size: 0.9rem; box-sizing: border-box; min-height: 70px; resize: vertical; font-family: inherit;" required></textarea></td>
+                                    <td style="padding: 14px 12px;">
+                                        <select class="punto-tipo" style="width: 100%; padding: 12px 14px; background-color: #0d1117; border: 1px solid #30363d; border-radius: 6px; color: #c9d1d9; font-size: 0.95rem; cursor: pointer; min-height: 45px;">
+                                            <option value="Normal">🔵 Normal</option>
+                                            <option value="Alerta">🔴 Alerta</option>
+                                            <option value="Lista">🟢 Lista</option>
+                                        </select>
+                                    </td>
+                                    <td style="padding: 14px 12px; text-align: center;">
+                                        <div style="display: flex; gap: 6px; justify-content: center;">
+                                            <button type="button" class="btn-edit-punto" style="background: linear-gradient(135deg, #1f6feb 0%, #0969da 100%); color: white; border: none; padding: 6px 10px; border-radius: 5px; cursor: pointer; font-weight: 600; font-size: 0.75rem; transition: all 0.2s ease;" onMouseOver="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 4px 12px rgba(31,111,235,0.3)'" onMouseOut="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                                                <i class="fa-solid fa-pen-to-square"></i>
+                                            </button>
+                                            <button type="button" class="btn-delete-punto" style="background: linear-gradient(135deg, #da3633 0%, #f85149 100%); color: white; border: none; padding: 6px 10px; border-radius: 5px; cursor: pointer; font-weight: 600; font-size: 0.75rem; transition: all 0.2s ease;" onMouseOver="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 4px 12px rgba(218,54,51,0.3)'" onMouseOut="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <p style="color: #8b949e; font-size: 0.85rem; margin-top: 10px;">
+                        <i class="fa-solid fa-info-circle" style="margin-right: 6px; color: #58a6ff;"></i>
+                        La descripción se mostrará con primeros 60 caracteres en la tabla. El texto completo se guardará.
+                    </p>
+                </div>
+
+                <button type="button" id="btn-add-punto" style="width: 100%; margin-bottom: 25px; margin-top: 15px; background: linear-gradient(135deg, #238636 0%, #1a6e2f 100%); color: white; border: none; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 0.95rem; display: flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.2s ease;" onMouseOver="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 20px rgba(35,134,54,0.3)'" onMouseOut="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                    <i class="fa-solid fa-plus"></i> Agregar Punto
+                </button>
+
+                <!-- Botones de Acción -->
+                <div style="display: flex; gap: 12px; justify-content: flex-end; padding-top: 20px; border-top: 1px solid rgba(88,166,255,0.1);">
+                    <button type="button" id="btn-cancel-rules" style="background-color: #30363d; color: #c9d1d9; border: 1px solid #444c56; padding: 12px 24px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.95rem; transition: all 0.2s ease;" onMouseOver="this.style.backgroundColor='#3d444d'; this.style.transform='translateY(-2px)'" onMouseOut="this.style.backgroundColor='#30363d'; this.style.transform='translateY(0)'">
+                        <i class="fa-solid fa-times" style="margin-right: 6px;"></i> Cancelar
+                    </button>
+                    <button type="submit" style="background: linear-gradient(135deg, #238636 0%, #1a6e2f 100%); color: white; border: none; padding: 12px 32px; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 0.95rem; transition: all 0.2s ease; display: flex; align-items: center; gap: 8px;" onMouseOver="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 20px rgba(35,134,54,0.4)'" onMouseOut="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                        <i class="fa-solid fa-check-circle"></i> Guardar Reglamento
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        #rules-modal input:focus,
+        #rules-modal textarea:focus,
+        #rules-modal select:focus {
+            outline: none;
+        }
+
+        #close-rules-modal:hover {
+            background-color: rgba(248, 81, 73, 0.15) !important;
+            border-color: #f85149 !important;
+            color: #f85149 !important;
+        }
+    </style>
+
+    <script src="js/reglamento.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registro de Competidor - ROBOTech</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- ... tu header ... -->
+
+  <section class="form-section">
+    <div class="form-container">
+      <h2>Registro de Competidor</h2>
+      <p class="form-desc">Completa tus datos y el código de registro que recibiste por correo.</p>
+      
+      <form id="registro-form">
+        <div class="form-group">
+          <label for="nombre">Nombre *</label>
+          <input type="text" id="nombre" name="nombre" placeholder="Ej. Carlos(Obligatorio)" required>
+        </div>
+        <div class="form-group">
+          <label for="apellido">Apellido *</label>
+          <input type="text" id="apellido" name="apellido" placeholder="Ej. Ramírez(Obligatorio)" required>
+        </div>
+        <div class="form-group">
+          <label for="alias">Alias (Opcional)</label>
+          <input type="text" id="alias" name="alias" placeholder="Ej. 'El Titán'">
+          <span class="error" style="display:none;"></span>
+        </div>
+        <div class="form-group">
+          <label for="dni">DNI *</label>
+          <input type="text" id="dni" name="dni" placeholder="8 dígitos(Obligatorio)" maxlength="8" required>
+        </div>
+        <div class="form-group">
+          <label for="telefono">Teléfono *</label>
+          <input type="tel" id="telefono" name="telefono" placeholder="9 dígitos(Obligatorio)" maxlength="9" required>
+        </div>
+        <div class="form-group">
+          <label for="correoElectronico">Correo Electrónico *</label>
+          <input type="email" id="correoElectronico" name="correoElectronico" placeholder="El correo donde recibiste la invitación(Obligatorio)" required>
+        </div>
+        <div class="form-group">
+          <label for="direccion">Dirección</label>
+          <input type="text" id="direccion" name="direccion" placeholder="Ej. Av. Los Robles 123" required>
+        </div>
+        <div class="form-group">
+          <label for="categoria">Categoría Principal </label>
+           <select id="categoria" name="categoria" class="form-control">
+              <option value="">Seleccione una categoría...</option>
+               <!-- Las opciones se llenarán dinámicamente con JS -->
+           </select>
+        </div>
+        <div class="form-group">
+          <label for="contrasena">Contraseña *</label>
+          <input type="password" id="contrasena" name="contrasena" placeholder="Mínimo 8 caracteres(Obligatorio)" required>
+        </div>
+        
+        <div id="form-message" class="form-message" style="display:none;"></div>
+
+        <button type="submit" class="btn-main">Registrarme</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ... tu footer ... -->
+  
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="js/admin-crear-competidor.js"></script>
+</body>
+</html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RoboArena - Líderes</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap">
+    <link rel="stylesheet" href="css/ranking.css">
+</head>
+<body class="ranking-page">
+    <header class="header">
+     <div class="logo">ROBOTech</div>
+      <nav class="nav">
+        <ul id="nav-links">
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="torneo.html">Torneos</a></li>
+          <li><a href="ranking.html" class="active">Ranking</a></li>
+          <li><a href="noticias.html">Noticias</a></li>
+          <li><a href="login.html" class="btn-login">Iniciar sesión</a></li>
+          <li><a href="registro.html" class="btn-register">Registrarme</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="container">
+        <section class="header-actions">
+            <div>
+                <h1>Lideres de Temporada</h1>
+                <p>Estadísticas y clasificaciones de la temporada 2025</p>
+            </div>
+            <div class="buttons">
+                <button class="btn-filter">Filtrar por Categoría</button>
+                <button class="btn-export">Exportar Reporte</button>
+            </div>
+        </section>
+
+        <section class="highlights">
+            <a href="datosTop.html?type=robot&name=Titán%20Prime" class="card highlight-card">
+                <small>ROBOT #1 MUNDIAL</small>
+                <div class="profile">
+                    <img src="https://via.placeholder.com/60" alt="Robot">
+                    <div>
+                        <h3>Titán Prime</h3>
+                        <p>Combate 1kg</p>
+                    </div>
+                </div>
+                <div class="stat">
+                    <p>Puntuación total</p>
+                    <h2 class="cyan-text">2.450</h2>
+                </div>
+            </a>
+
+            <a href="datosTop.html?type=club&name=Robótica%20Alfa" class="card highlight-card">
+                <small>MEJOR CLUB</small>
+                <div class="profile">
+                    <div class="club-placeholder">Arkansas</div>
+                    <div>
+                        <h3>Robótica Alfa</h3>
+                        <p>12 Robots Activos</p>
+                    </div>
+                </div>
+                <div class="stat">
+                    <p>Tasa de victorias</p>
+                    <h2 class="cyan-text">84%</h2>
+                </div>
+            </a>
+
+            <a href="datosTop.html?type=user&name=Sarah%20Jen" class="card highlight-card">
+                <small>MEJOR JUEZ/PILOTO</small>
+                <div class="profile">
+                    <img src="https://via.placeholder.com/60" alt="User">
+                    <div>
+                        <h3>Sarah Jen</h3>
+                        <p>Robótica Alfa</p>
+                    </div>
+                </div>
+                <div class="stat">
+                    <p>Racha Victorias</p>
+                    <h2 class="cyan-text">7</h2>
+                </div>
+            </a>
+        </section>
+
+        <section class="rankings">
+            <div class="card ranking-column">
+                <div class="ranking-header">
+                    <span>Mejores Robots</span>
+                    <a href="#">Ver todos</a>
+                </div>
+                <ul id="robots-list"></ul>
+            </div>
+
+            <div class="card ranking-column">
+                <div class="ranking-header">
+                    <span>Clubes destacados</span>
+                    <a href="#">Ver todos</a>
+                </div>
+                <ul id="clubs-list"></ul>
+            </div>
+
+            <div class="card ranking-column">
+                <div class="ranking-header">
+                    <span>Competidores principales</span>
+                    <a href="#">Ver todos</a>
+                </div>
+                <ul id="users-list"></ul>
+            </div>
+        </section>
+
+        <section class="latest-tournaments">
+            <h2 style="margin-bottom: 30px; color: #fff;"><i class="fa-solid fa-fire" style="color: #ffd700; margin-right: 10px;"></i> Top Últimos Torneos</h2>
+            
+            <!-- Carrusel de Torneos -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 50px;">
+                <!-- Carrusel Competidores -->
+                <div class="card">
+                    <div class="ranking-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                        <span><i class="fa-solid fa-users" style="margin-right: 8px;"></i> Top Competidores</span>
+                        <div style="display: flex; gap: 8px; align-items: center;">
+                            <button id="prev-competitors-btn" style="background: #00bfff; color: #000; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 0.85rem;">← Anterior</button>
+                            <small id="carousel-label-competitors" style="color: #8b949e; font-size: 0.75rem; min-width: 150px; text-align: center;">Cargando...</small>
+                            <button id="next-competitors-btn" style="background: #00bfff; color: #000; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 0.85rem;">Siguiente →</button>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table id="top-competitors-table" style="width: 100%; border-collapse: collapse;">
+                            <thead>
+                                <tr style="border-bottom: 2px solid #30363d;">
+                                    <th style="padding: 12px; text-align: left; color: #00bfff; font-weight: 600;">#</th>
+                                    <th style="padding: 12px; text-align: left; color: #00bfff; font-weight: 600;">Competidor</th>
+                                    <th style="padding: 12px; text-align: left; color: #00bfff; font-weight: 600;">Robot</th>
+                                    <th style="padding: 12px; text-align: left; color: #00bfff; font-weight: 600;">Categoría</th>
+                                    <th style="padding: 12px; text-align: center; color: #00bfff; font-weight: 600;">Puntos</th>
+                                </tr>
+                            </thead>
+                            <tbody id="competitors-tbody">
+                                <tr>
+                                    <td colspan="5" style="text-align: center; padding: 20px; color: #8b949e;">
+                                        <i class="fa-solid fa-spinner fa-spin"></i> Cargando...
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Carrusel Clubes -->
+                <div class="card">
+                    <div class="ranking-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                        <span><i class="fa-solid fa-building" style="margin-right: 8px;"></i> Top Clubes</span>
+                        <div style="display: flex; gap: 8px; align-items: center;">
+                            <button id="prev-clubs-btn" style="background: #00bfff; color: #000; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 0.85rem;">← Anterior</button>
+                            <small id="carousel-label-clubs" style="color: #8b949e; font-size: 0.75rem; min-width: 150px; text-align: center;">Cargando...</small>
+                            <button id="next-clubs-btn" style="background: #00bfff; color: #000; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 0.85rem;">Siguiente →</button>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table id="top-clubs-table" style="width: 100%; border-collapse: collapse;">
+                            <thead>
+                                <tr style="border-bottom: 2px solid #30363d;">
+                                    <th style="padding: 12px; text-align: left; color: #00bfff; font-weight: 600;">#</th>
+                                    <th style="padding: 12px; text-align: left; color: #00bfff; font-weight: 600;">Club</th>
+                                    <th style="padding: 12px; text-align: center; color: #00bfff; font-weight: 600;">Puntos</th>
+                                    <th style="padding: 12px; text-align: center; color: #00bfff; font-weight: 600;">Robots</th>
+                                </tr>
+                            </thead>
+                            <tbody id="clubs-tbody">
+                                <tr>
+                                    <td colspan="4" style="text-align: center; padding: 20px; color: #8b949e;">
+                                        <i class="fa-solid fa-spinner fa-spin"></i> Cargando...
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ranking Diario -->
+        <section class="daily-ranking">
+            <h2 style="margin-bottom: 30px; color: #fff;"><i class="fa-solid fa-calendar-day" style="color: #00bfff; margin-right: 10px;"></i> Ranking Diario</h2>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                <!-- Ranking Diario Competidores -->
+                <div class="card">
+                    <div class="ranking-header">
+                        <span><i class="fa-solid fa-chart-line" style="margin-right: 8px;"></i> Competidores del Día</span>
+                    </div>
+                    <div class="table-responsive">
+                        <table id="daily-competitors-table" style="width: 100%; border-collapse: collapse;">
+                            <thead>
+                                <tr style="border-bottom: 2px solid #30363d;">
+                                    <th style="padding: 12px; text-align: left; color: #00bfff; font-weight: 600;">#</th>
+                                    <th style="padding: 12px; text-align: left; color: #00bfff; font-weight: 600;">Competidor</th>
+                                    <th style="padding: 12px; text-align: left; color: #00bfff; font-weight: 600;">Robot</th>
+                                    <th style="padding: 12px; text-align: left; color: #00bfff; font-weight: 600;">Categoría</th>
+                                    <th style="padding: 12px; text-align: center; color: #00bfff; font-weight: 600;">Puntos Hoy</th>
+                                </tr>
+                            </thead>
+                            <tbody id="daily-competitors-tbody">
+                                <tr>
+                                    <td colspan="5" style="text-align: center; padding: 20px; color: #8b949e;">
+                                        <i class="fa-solid fa-spinner fa-spin"></i> Cargando...
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Ranking Diario Clubes -->
+                <div class="card">
+                    <div class="ranking-header">
+                        <span><i class="fa-solid fa-chart-column" style="margin-right: 8px;"></i> Clubes del Día</span>
+                    </div>
+                    <div class="table-responsive">
+                        <table id="daily-clubs-table" style="width: 100%; border-collapse: collapse;">
+                            <thead>
+                                <tr style="border-bottom: 2px solid #30363d;">
+                                    <th style="padding: 12px; text-align: left; color: #00bfff; font-weight: 600;">#</th>
+                                    <th style="padding: 12px; text-align: left; color: #00bfff; font-weight: 600;">Club</th>
+                                    <th style="padding: 12px; text-align: center; color: #00bfff; font-weight: 600;">Puntos Hoy</th>
+                                    <th style="padding: 12px; text-align: center; color: #00bfff; font-weight: 600;">Robots Activos</th>
+                                </tr>
+                            </thead>
+                            <tbody id="daily-clubs-tbody">
+                                <tr>
+                                    <td colspan="4" style="text-align: center; padding: 20px; color: #8b949e;">
+                                        <i class="fa-solid fa-spinner fa-spin"></i> Cargando...
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/ranking.js"></script>
+</body>
+</html>
