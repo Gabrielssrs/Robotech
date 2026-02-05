@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- CONSTANTES Y ELEMENTOS DEL DOM ---
-    const API_BASE_URL = 'http://localhost:8080/api/v1/admin';
+    const API_BASE_URL = 'https://robotech-back.onrender.com/api/v1/admin';
     const token = localStorage.getItem('jwtToken');
 
     // SweetAlert helpers (use Swal if loaded, otherwise fallback to alert/confirm)
