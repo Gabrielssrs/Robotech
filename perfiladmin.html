@@ -6,6 +6,7 @@
     <title>Dashboard de Administración - ROBOTech</title>
     <link rel="stylesheet" href="css/styles.css" /> 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         /* Estilos para la ventana modal */
         .modal {
@@ -30,6 +31,7 @@
             max-width: 500px;
             border-radius: 10px;
             position: relative;
+            color: white;
         }
 
         .close-btn {
@@ -41,7 +43,11 @@
             font-weight: bold;
             cursor: pointer;
         }
-
+        
+        /* Ocultar secciones por defecto hasta cargar perfil */
+        .restricted-section {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -50,8 +56,8 @@
         <div class="logo">ROBOTech Admin</div>
         <nav class="nav">
             <ul>
-                <li  class="active">PERFIL ADMINISTRADOR</a></li> 
-                <li><a href="login.html" class="btn-logout">Cerrar Sesión</a></li> 
+                <li class="active">PERFIL ADMINISTRADOR</li> 
+                <li><a href="#" id="btn-logout" class="btn-logout">Cerrar Sesión</a></li> 
             </ul>
         </nav>
     </header>
@@ -60,40 +66,44 @@
         
         <div class="admin-grid-container">
             
+            <!-- Tarjeta de Perfil -->
             <div class="admin-profile-card card">
                 <h3 class="card-title-admin">Datos del Administrador</h3>
                 
                 <div class="profile-data-list">
-                    
                     <div class="data-row">
                         <span class="label">Nombre</span>
-                        <span class="value profile-nombre">María</span>
+                        <span class="value profile-nombre">Cargando...</span>
                     </div>
                     <div class="data-row">
                         <span class="label">DNI</span>
-                        <span class="value profile-dni">48.321.765</span>
+                        <span class="value profile-dni">...</span>
                     </div>
                     <div class="data-row">
                         <span class="label">Email</span>
-                        <span class="value profile-email">maria.gomez@robotech.io</span>
+                        <span class="value profile-email">...</span>
                     </div>
                     <div class="data-row">
                         <span class="label">Teléfono</span>
-                        <span class="value profile-telefono">+54 11 5555-1234</span>
+                        <span class="value profile-telefono">...</span>
                     </div>
                     <div class="data-row">
                         <span class="label">Estado</span>
-                        <span class="value profile-estado status-active">Activo</span>
+                        <span class="value profile-estado status-active">...</span>
                     </div>
                 </div>
                 
-                <button class="btn-main edit-profile-btn">
-                    <span class="icon">✏️</span> Editar Perfil
+                <!-- Mensaje de Habilitación (Oculto por defecto) -->
+                <div id="unlock-message" style="display:none; background-color: #d4edda; color: #155724; padding: 10px; border-radius: 5px; margin-top: 15px; text-align: center; font-weight: bold; font-size: 0.9rem; border: 1px solid #c3e6cb;">
+                    ✅ Habilitado para editar datos sensibles
+                </div>
+
+                <button class="btn-main" id="btn-open-edit-profile" style="margin-top: 15px; width: 100%;">
+                    <span class="icon">✏️</span> Editar Mi Perfil
                 </button>
-                
-                
             </div>
             
+            <!-- Tarjeta de Acciones Generales -->
             <div class="admin-actions-card card">
                 <h3 class="card-title-admin">Acciones de Gestión</h3>
                 
@@ -116,7 +126,7 @@
                         <p>Calendario y categorías</p>
                     </a>
                     <a href="administrarCategorias.html" class="action-btn">
-                        <span class="icon">🏆</span>
+                        <span class="icon">🏷️</span>
                         <h4>Administrar Categorias</h4>
                         <p>Agregar nuevas categorias</p>
                     </a>
@@ -124,7 +134,7 @@
                     <a href="solicitudes-retiro.html" class="action-btn" id="btn-ver-solicitudes">
                         <span class="icon">📨</span>
                         <h4>Ver solicitudes de retiro</h4>
-                        <p>Revisar y gestionar solicitudes de retiro de competidores</p>
+                        <p>Revisar y gestionar solicitudes</p>
                     </a>
                     
                     <a href="sedes.html" class="action-btn" id="btn-gestionar-sedes">
@@ -132,7 +142,35 @@
                         <h4>Gestionar Sedes</h4>
                         <p>Ver y gestionar sedes del torneo</p>
                     </a>
-                
+                </div>
+            </div>
+            
+            <!-- Nueva Tarjeta: Configuración del Sistema (SOLO ADMIN PRINCIPAL) -->
+            <div class="card restricted-section" id="section-config-sistema">
+                <h3 class="card-title-admin">Configuración del Sistema</h3>
+                <div class="action-buttons-grid" style="grid-template-columns: 1fr;">
+                    <a href="configuracion_sistema.html" class="action-btn">
+                        <span class="icon">⚙️</span>
+                        <h4>Ajustes Generales</h4>
+                        <p>Correos, Credenciales y Datos Sensibles</p>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Nueva Tarjeta: Gestión de Administradores (SOLO ADMIN PRINCIPAL) -->
+            <div class="card restricted-section" id="section-gestion-admins">
+                <h3 class="card-title-admin">Gestión de Administradores</h3>
+                <div class="action-buttons-grid">
+                    <a href="#" class="action-btn" id="btn-open-create-subadmin">
+                        <span class="icon">➕</span>
+                        <h4>Crear Administrador</h4>
+                        <p>Registrar nuevo usuario con privilegios</p>
+                    </a>
+                    <a href="#" class="action-btn" id="btn-open-list-subadmin">
+                        <span class="icon">👥</span>
+                        <h4>Listar Administradores</h4>
+                        <p>Ver y gestionar roles del equipo</p>
+                    </a>
                 </div>
             </div>
             
@@ -144,79 +182,149 @@
   <div class="footer-container">
     <div class="footer-about">
       <h3>ROBOTech</h3>
-      <p>Innovación, competencia y pasión por la robótica.  
-      Únete a nuestra comunidad y lleva tus habilidades al siguiente nivel.</p>
-    </div>
-
-    <div class="footer-links">
-      <h4>Enlaces útiles</h4>
-      <ul>
-        <li><a href="#">Términos y condiciones</a></li>
-        <li><a href="#">Política de privacidad</a></li>
-        <li><a href="#">Preguntas frecuentes</a></li>
-        <li><a href="#">Contacto</a></li>
-      </ul>
-    </div>
-
-    <div class="footer-social">
-      <h4>Síguenos</h4>
-      <div class="social-icons">
-        <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook"></a>
-        <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram"></a>
-        <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/twitter.svg" alt="Twitter"></a>
-        <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube"></a>
-      </div>
+      <p>Innovación, competencia y pasión por la robótica.</p>
     </div>
   </div>
-
   <div class="footer-bottom">
     <p>© 2025 ROBOTech | Innovación y competencia robótica</p>
   </div>
 </footer>
 
-<!-- Sedes moved to a dedicated page (sedes.html) -->
-
-
-<!-- La Ventana Modal para Editar Perfil -->
+    <!-- Modal Editar Perfil (Propio) -->
     <div id="edit-profile-modal" class="modal">
         <div class="modal-content form-container">
-            <span class="close-btn">&times;</span>
-            <h2>Editar Perfil de Administrador</h2>
+            <span class="close-btn" id="close-edit-profile">&times;</span>
+            <h2>Editar Mi Perfil</h2>
             <form id="edit-profile-form">
+                <!-- Campos Editables Siempre -->
                 <div class="form-group">
                     <label for="edit-nombre">Nombre</label>
                     <input type="text" id="edit-nombre" name="nombre" required>
                 </div>
                 <div class="form-group">
+                    <label for="edit-telefono">Teléfono</label>
+                    <input type="tel" id="edit-telefono" name="telefono" required maxlength="9" placeholder="9 dígitos">
+                </div>
+                
+                <hr style="border-color: #444; margin: 20px 0;">
+                <p style="font-size: 0.85em; color: #aaa; margin-bottom: 15px;">Datos Sensibles (Requiere autorización)</p>
+
+                <!-- Campos Sensibles (Bloqueados por defecto) -->
+                <div class="form-group">
                     <label for="edit-dni">DNI</label>
-                    <input type="text" id="edit-dni" name="dni" required maxlength="8" inputmode="numeric" pattern="\d{8}" placeholder="8 dígitos">
-                    <span class="error" style="display:none;"></span>
+                    <input type="text" id="edit-dni" name="dni" required maxlength="8" pattern="\d{8}" placeholder="8 dígitos">
                 </div>
                 <div class="form-group">
                     <label for="edit-email">Email</label>
                     <input type="email" id="edit-email" name="email" required>
-                    <span class="error" style="display:none;"></span>
                 </div>
-                <div class="form-group">
-                    <label for="edit-telefono">Teléfono</label>
-                    <input type="tel" id="edit-telefono" name="telefono" required maxlength="9" inputmode="numeric" placeholder="9 dígitos">
-                    <span class="error" style="display:none;"></span>
+                
+                <div class="form-group" style="position: relative;">
+                    <label for="edit-password">Nueva Contraseña</label>
+                    <input type="password" id="edit-password" name="contrasena" placeholder="Mínimo 6 caracteres" style="padding-right: 35px;">
+                    <i class="fa-solid fa-eye toggle-password" data-target="edit-password" style="position: absolute; right: 10px; top: 38px; cursor: pointer; color: #aaa;"></i>
                 </div>
-                <div class="form-group">
-                    <label for="edit-estado">Estado</label>
-                    <select id="edit-estado" name="estado" required>
-                        <option value="Activo">Activo</option>
-                        <option value="Inactivo">Inactivo</option>
-                    </select>
+
+                <div class="form-group" style="position: relative;">
+                    <label for="confirm-password">Confirmar Contraseña</label>
+                    <input type="password" id="confirm-password" name="confirmarContrasena" placeholder="Repite la contraseña" style="padding-right: 35px;">
+                    <i class="fa-solid fa-eye toggle-password" data-target="confirm-password" style="position: absolute; right: 10px; top: 38px; cursor: pointer; color: #aaa;"></i>
                 </div>
-                <div class="form-actions">
-                    <button type="submit" class="btn-main">Guardar Cambios</button>
+
+                <div class="form-actions" style="display: flex; flex-direction: column; gap: 10px;">
+                    <!-- Botón solo visible para ID 1 -->
+                    <button type="button" id="btn-solicitar-edicion" style="display: none; background: transparent; border: 1px solid #ffcc00; color: #ffcc00; padding: 10px; border-radius: 5px; cursor: pointer; font-weight: 600; transition: all 0.3s;">
+                        <i class="fa-solid fa-lock"></i> Solicitar Desbloqueo de Edición
+                    </button>
+                    <button type="submit" class="btn-main" style="width: 100%;">Guardar Cambios</button>
                 </div>
             </form>
         </div>
     </div>
 
+    <!-- Modal Crear Sub-Administrador -->
+    <div id="create-subadmin-modal" class="modal">
+        <div class="modal-content form-container">
+            <span class="close-btn" id="close-create-subadmin">&times;</span>
+            <h2>Crear Sub-Administrador</h2>
+            <form id="create-subadmin-form">
+                <div class="form-group">
+                    <label for="sub-nombre">Nombre</label>
+                    <input type="text" id="sub-nombre" name="nombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="sub-dni">DNI</label>
+                    <input type="text" id="sub-dni" name="dni" required maxlength="8" pattern="\d{8}">
+                </div>
+                <div class="form-group">
+                    <label for="sub-telefono">Teléfono</label>
+                    <input type="tel" id="sub-telefono" name="telefono" required pattern="9\d{8}" placeholder="Ej: 912345678">
+                </div>
+                <div class="form-group">
+                    <label for="sub-correo">Correo</label>
+                    <input type="email" id="sub-correo" name="correo" required>
+                </div>
+                <div class="form-group">
+                    <label for="sub-password">Contraseña</label>
+                    <input type="password" id="sub-password" name="contrasena" required minlength="6">
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" id="cancel-create-subadmin">Cancelar</button>
+                    <button type="submit" class="btn-main">Crear</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Listar Sub-Administradores -->
+    <div id="list-subadmin-modal" class="modal">
+        <div class="modal-content form-container" style="max-width: 900px;">
+            <span class="close-btn" id="close-list-subadmin">&times;</span>
+            <h2>Lista de Administradores</h2>
+            <div class="table-responsive">
+                <table class="table" style="width:100%; color: #fff; border-collapse: collapse;">
+                    <thead>
+                        <tr style="background-color: #1f1f25;">
+                            <th style="padding: 10px;">ID</th>
+                            <th style="padding: 10px;">Nombre</th>
+                            <th style="padding: 10px;">Correo</th>
+                            <th style="padding: 10px;">Estado</th>
+                            <th style="padding: 10px;">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="subadmin-list-body">
+                        <!-- Contenido dinámico -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
     
+    <!-- Modal Editar OTRO Admin (Simplificado) -->
+    <div id="edit-other-admin-modal" class="modal">
+        <div class="modal-content form-container">
+            <span class="close-btn" id="close-edit-other">&times;</span>
+            <h2>Editar Administrador</h2>
+            <form id="edit-other-admin-form">
+                <input type="hidden" id="other-id">
+                <div class="form-group">
+                    <label for="other-nombre">Nombre</label>
+                    <input type="text" id="other-nombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="other-telefono">Teléfono</label>
+                    <input type="tel" id="other-telefono" required>
+                </div>
+                <div class="form-group">
+                    <label for="other-dni">DNI</label>
+                    <input type="text" id="other-dni" required maxlength="8">
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn-main">Actualizar</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="js/perfil-admin.js"></script>

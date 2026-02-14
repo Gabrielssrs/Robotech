@@ -42,6 +42,7 @@
       <div id="form-message" style="display:none; padding: 15px; margin-bottom: 20px; border-radius: 5px; text-align: center; font-weight: bold;"></div>
 
       <button type="submit" class="btn-main">Entrar</button>
+      <p class="form-login-text" style="margin-top: 15px; margin-bottom: 5px;"><a href="recuperar_password.html" style="color: #aaa; font-size: 0.9rem;">¿Olvidaste tu contraseña?</a></p>
       <p class="form-login-text">¿No tienes cuenta? <a href="registro.html">Regístrate aquí</a></p>
     </form>
   </div>
@@ -86,7 +87,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const form = document.getElementById('login-form');
     const messageDiv = document.getElementById('form-message');
-   const apiUrl = 'https://robotech-back.onrender.com/api/auth/login';
+   const apiUrl = 'http://localhost:8080/api/auth/login';
 
     /**
      * Función para decodificar un token JWT y obtener su contenido (payload).

@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajustes Generales - Robotech Admin</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        /* Ajustes específicos para el grid de configuración */
+        .settings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-top: 20px;
+        }
+        
+        .card-header {
+            padding: 1.25rem;
+            border-bottom: 1px solid #1f1f25;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+
+        .card-header h2 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #00bfff;
+            margin: 0;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .helper-text {
+            display: block;
+            margin-top: 0.35rem;
+            font-size: 0.75rem;
+            color: #aaa;
+        }
+        
+        .icon {
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header admin-header">
+        <div class="logo">ROBOTech Admin</div>
+        <nav class="nav">
+            <ul>
+                <li><a href="perfiladmin.html">Dashboard</a></li>
+                <li><a href="#" class="active">Ajustes</a></li>
+                <li><a href="login.html" class="btn-logout">Cerrar Sesión</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="section admin-dashboard-content">
+        <h1 class="admin-title">Ajustes Generales</h1>
+        <p class="admin-subtitle">Administra la configuración global de correos, seguridad y parámetros del sistema.</p>
+
+        <div class="settings-grid">
+            
+            <!-- TARJETA 1: COMUNICACIÓN -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="icon">📧</span>
+                    <h2>Comunicación y Soporte</h2>
+                </div>
+                <div class="card-body">
+                    <form id="form-comunicacion" onsubmit="guardarComunicacion(event)">
+                        
+                        <div class="form-group">
+                            <label for="emailOficial">Correo Oficial de Seguridad</label>
+                            <input type="email" id="emailOficial" name="EMAIL_OFICIAL_ROBOTECH" placeholder="ej. seguridad@robotech.com" required>
+                            <span class="helper-text">Recibe las solicitudes de desbloqueo del Admin Principal.</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="emailSoporte">Correo de Soporte</label>
+                            <input type="email" id="emailSoporte" name="EMAIL_SOPORTE" placeholder="ej. soporte@robotech.com" required>
+                            <span class="helper-text">Visible para usuarios que necesiten ayuda.</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="telefonoSoporte">Teléfono de Soporte</label>
+                            <input type="text" id="telefonoSoporte" name="TELEFONO_SOPORTE" placeholder="ej. +51 900 000 000">
+                            <span class="helper-text">Número de contacto oficial.</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="baseUrl">URL Base del Sistema</label>
+                            <input type="url" id="baseUrl" name="BASE_URL" placeholder="ej. http://localhost:8080" required>
+                            <span class="helper-text">Dominio usado para generar enlaces en los correos.</span>
+                        </div>
+
+                        <button type="submit" class="btn-main" style="width: 100%;">Guardar Cambios</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- TARJETA 2: SEGURIDAD -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="icon">🛡️</span>
+                    <h2>Seguridad y Tiempos</h2>
+                </div>
+                <div class="card-body">
+                    <form id="form-seguridad" onsubmit="guardarSeguridad(event)">
+                        
+                        <div class="form-group">
+                            <label for="tiempoEdicion">Ventana de Edición (Minutos)</label>
+                            <input type="number" id="tiempoEdicion" name="TIEMPO_EDICION_MINUTOS" min="1" max="60" required>
+                            <span class="helper-text">Tiempo que el perfil principal permanece desbloqueado.</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="expiracionToken">Expiración de Tokens (Minutos)</label>
+                            <input type="number" id="expiracionToken" name="EXPIRACION_TOKEN_MINUTOS" min="5" max="1440" required>
+                            <span class="helper-text">Tiempo de validez para los enlaces enviados por correo.</span>
+                        </div>
+
+                        <button type="submit" class="btn-main" style="width: 100%;">Guardar Cambios</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- TARJETA 3: SMTP (NUEVA) -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="icon">📨</span>
+                    <h2>Configuración SMTP (Correo Saliente)</h2>
+                </div>
+                <div class="card-body">
+                    <form id="form-smtp" onsubmit="guardarSMTP(event)">
+                        
+                        <div class="form-group">
+                            <label for="smtpHost">Servidor SMTP</label>
+                            <input type="text" id="smtpHost" name="SMTP_HOST" placeholder="ej. smtp.gmail.com" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="smtpPort">Puerto</label>
+                            <input type="number" id="smtpPort" name="SMTP_PORT" placeholder="ej. 587" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="smtpUser">Usuario SMTP</label>
+                            <input type="text" id="smtpUser" name="SMTP_USERNAME" placeholder="ej. tu-correo@gmail.com" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="smtpPass">Contraseña / App Password</label>
+                            <input type="password" id="smtpPass" name="SMTP_PASSWORD" placeholder="••••••••" required>
+                            <span class="helper-text">Contraseña de aplicación para autenticación.</span>
+                        </div>
+
+                        <button type="submit" class="btn-main" style="width: 100%;">Guardar Cambios</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-about">
+                <h3>ROBOTech</h3>
+                <p>Innovación, competencia y pasión por la robótica.</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 ROBOTech | Consola de Administración</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- LÓGICA JAVASCRIPT ---
+
+        // URL de tu API (Ajustar según tu entorno)
+        const API_URL = '/api/v1/configuracion'; 
+        
+        // Al cargar la página
+        document.addEventListener('DOMContentLoaded', () => {
+            cargarConfiguraciones();
+        });
+
+        // Función para cargar datos desde el backend
+        async function cargarConfiguraciones() {
+            try {
+                // Aquí harías el fetch real:
+                const response = await fetch(API_URL);
+                const data = await response.json();
+                
+                // Si la API falla o está vacía, usar datos simulados para prueba visual
+                if (!data || data.length === 0) {
+                    console.warn("No se recibieron datos, usando simulación.");
+                    const dataSimulada = [
+                        { clave: 'EMAIL_OFICIAL_ROBOTECH', valor: 'oficial@robotech.com' },
+                        { clave: 'EMAIL_SOPORTE', valor: 'soporte@robotech.com' },
+                        { clave: 'TELEFONO_SOPORTE', valor: '+51 900 000 000' },
+                        { clave: 'BASE_URL', valor: 'http://localhost:8080' },
+                        { clave: 'TIEMPO_EDICION_MINUTOS', valor: '15' },
+                        { clave: 'EXPIRACION_TOKEN_MINUTOS', valor: '30' },
+                        { clave: 'SMTP_HOST', valor: 'smtp.gmail.com' },
+                        { clave: 'SMTP_PORT', valor: '587' },
+                        { clave: 'SMTP_USERNAME', valor: 'admin@robotech.com' },
+                        { clave: 'SMTP_PASSWORD', valor: '********' }
+                    ];
+                    rellenarFormularios(dataSimulada);
+                } else {
+                    rellenarFormularios(data);
+                }
+
+            } catch (error) {
+                Swal.fire('Error', 'Error al cargar configuraciones', 'error');
+                console.error(error);
+            }
+        }
+
+        // Rellena los inputs basándose en el atributo 'name' que coincide con la 'clave' de la BD
+        function rellenarFormularios(data) {
+            data.forEach(config => {
+                const input = document.querySelector(`input[name="${config.clave}"]`);
+                if (input) {
+                    input.value = config.valor;
+                }
+            });
+        }
+
+        // Manejador para el formulario de Comunicación
+        async function guardarComunicacion(event) {
+            event.preventDefault();
+            const btn = event.target.querySelector('button');
+            setLoading(btn, true);
+
+            const datos = {
+                EMAIL_OFICIAL_ROBOTECH: document.getElementById('emailOficial').value,
+                EMAIL_SOPORTE: document.getElementById('emailSoporte').value,
+                TELEFONO_SOPORTE: document.getElementById('telefonoSoporte').value,
+                BASE_URL: document.getElementById('baseUrl').value
+            };
+
+            await enviarCambios(datos);
+            setLoading(btn, false);
+        }
+
+        // Manejador para el formulario de Seguridad
+        async function guardarSeguridad(event) {
+            event.preventDefault();
+            const btn = event.target.querySelector('button');
+            setLoading(btn, true);
+
+            const datos = {
+                TIEMPO_EDICION_MINUTOS: document.getElementById('tiempoEdicion').value,
+                EXPIRACION_TOKEN_MINUTOS: document.getElementById('expiracionToken').value
+            };
+
+            await enviarCambios(datos);
+            setLoading(btn, false);
+        }
+
+        // Manejador para el formulario SMTP
+        async function guardarSMTP(event) {
+            event.preventDefault();
+            const btn = event.target.querySelector('button');
+            setLoading(btn, true);
+
+            const datos = {
+                SMTP_HOST: document.getElementById('smtpHost').value,
+                SMTP_PORT: document.getElementById('smtpPort').value,
+                SMTP_USERNAME: document.getElementById('smtpUser').value,
+                SMTP_PASSWORD: document.getElementById('smtpPass').value
+            };
+
+            await enviarCambios(datos);
+            setLoading(btn, false);
+        }
+
+        // Función genérica para enviar actualizaciones al backend
+        async function enviarCambios(mapaClaveValor) {
+            try {
+                // Iteramos sobre las claves para enviar peticiones individuales 
+                for (const [clave, valor] of Object.entries(mapaClaveValor)) {
+                    console.log(`Guardando ${clave}...`);
+                    
+                    await fetch(`${API_URL}/${clave}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            // 'Authorization': 'Bearer ' + localStorage.getItem('token') // Descomentar si usas JWT
+                        },
+                        body: JSON.stringify({ valor: valor })
+                    });
+                }
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Guardado',
+                    text: 'Configuración actualizada correctamente',
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+
+            } catch (error) {
+                Swal.fire('Error', 'Error al guardar los cambios', 'error');
+                console.error(error);
+            }
+        }
+
+        // Utilidad para estado de carga en botones
+        function setLoading(btn, isLoading) {
+            if (isLoading) {
+                btn.disabled = true;
+                btn.dataset.originalText = btn.textContent;
+                btn.textContent = 'Guardando...';
+            } else {
+                btn.disabled = false;
+                btn.textContent = btn.dataset.originalText || 'Guardar Cambios';
+            }
+        }
+    </script>
+</body>
+</html>
