@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // CONFIGURACIÓN DE LA URL BASE
-    const API_BASE_URL = 'http://localhost:8080'; 
+    const API_BASE_URL = 'https://robotech-back.onrender.com'; 
 
     // Variables globales
     let currentAdminId = null;
