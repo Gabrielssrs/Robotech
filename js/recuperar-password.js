@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const submitBtn = document.getElementById('btn-submit');
     
     // URL base de tu API (ajusta si es necesario, ej: http://localhost:8080)
-    const API_BASE_URL = 'http://localhost:8080'; 
+    const API_BASE_URL = 'https://robotech-back.onrender.com'; 
 
     form.addEventListener('submit', async (e) => {
         e.preventDefault();

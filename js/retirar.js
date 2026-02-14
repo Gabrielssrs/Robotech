@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeBtn = document.getElementById('retire-close');
     const cancelBtn = document.getElementById('retire-cancel');
     const form = document.getElementById('retire-form');
-    const API_BASE_URL = 'http://localhost:8080/api';
+    const API_BASE_URL = 'https://robotech-back.onrender.com/api';
     const token = localStorage.getItem('jwtToken');
 
     if (!btnOpen || !modal) return; // nothing to do if elements missing

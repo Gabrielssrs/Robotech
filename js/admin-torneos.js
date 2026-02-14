@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const tableBody = document.querySelector('.club-management-table tbody');
     const filterTabs = document.querySelectorAll('.admin-filter-tab');
     const searchInput = document.querySelector('.search-input-admin');
-    const API_URL = 'http://localhost:8080/api/torneos';
+    const API_URL = 'https://robotech-back.onrender.com/api/torneos';
 
     let allTorneos = [];
     // Estado inicial por defecto (corresponde a la pestaña "Próximos")

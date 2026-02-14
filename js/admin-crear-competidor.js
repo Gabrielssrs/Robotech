@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('registro-form');
     const messageDiv = document.getElementById('form-message');
-    const apiUrl = 'http://localhost:8080/api/competidores/registro'; 
-    const categoriasUrl = 'http://localhost:8080/api/categorias';
+    const apiUrl = 'https://robotech-back.onrender.com/api/competidores/registro'; 
+    const categoriasUrl = 'https://robotech-back.onrender.com/api/categorias';
     const token = localStorage.getItem('jwtToken');
 
     // --- Helper para mostrar errores en campos específicos ---

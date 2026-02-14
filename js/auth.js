@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+/* document.addEventListener('DOMContentLoaded', () => {
     const token = localStorage.getItem('jwtToken');
     const userString = localStorage.getItem('user');
     const navList = document.getElementById('nav-links');
@@ -51,4 +51,4 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         // Si es una página pública, no hacemos nada y se mostrarán los botones por defecto.
     }
-});
+}); */

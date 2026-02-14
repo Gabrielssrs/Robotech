@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const API_BASE_URL = 'http://localhost:8080/api';
+    const API_BASE_URL = 'https://robotech-back.onrender.com/api';
     const indexItems = document.querySelectorAll('#docIndex li');
     const sections = Array.from(document.querySelectorAll('.doc-body section'));
     

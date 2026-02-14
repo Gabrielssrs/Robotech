@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('crear-torneo-form');
-    const API_BASE_URL = 'http://localhost:8080/api';
+    const API_BASE_URL = 'https://robotech-back.onrender.com/api';
     const token = localStorage.getItem('jwtToken');
 
     // Elementos del DOM

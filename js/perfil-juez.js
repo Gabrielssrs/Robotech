@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const token = localStorage.getItem('jwtToken');
-    const API_BASE_URL = 'http://localhost:8080/api/v1/juez';
+    const API_BASE_URL = 'https://robotech-back.onrender.com/api/v1/juez';
 
     // --- Elementos del Perfil ---
     const profilePhoto = document.getElementById('profile-photo');

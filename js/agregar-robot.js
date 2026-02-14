@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const API_BASE_URL = 'http://localhost:8080/api';
+    const API_BASE_URL = 'https://robotech-back.onrender.com/api';
     const token = localStorage.getItem('jwtToken');
 
     const tabs = Array.from(document.querySelectorAll('.stepper-tab'));

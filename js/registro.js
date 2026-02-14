@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Datos a enviar:', data);
 
         // Define la URL del endpoint de tu API
-        const apiUrl = 'http://localhost:8080/api/competidores/registro';
+        const apiUrl = 'https://robotech-back.onrender.com/api/competidores/registro';
 
         // Usa la API Fetch para enviar los datos al backend
         fetch(apiUrl, {

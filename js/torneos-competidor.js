@@ -1,5 +1,5 @@
 // js/torneos-competidor.js
-const API_BASE = '' ; // set to '' so relative calls work; change if needed
+const API_BASE = 'https://robotech-back.onrender.com' ; // set to '' so relative calls work; change if needed
 const TORNEOS_API = API_BASE + '/api/torneos';
 const ROBOTS_API = API_BASE + '/api/robots/mis-robots';
 

@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:8080/api';
+const API_BASE_URL = 'https://robotech-back.onrender.com/api';
 let allTorneos = [];
 let userRobotCategories = new Set(); // Para almacenar nombres de categorías de los robots del usuario
 let enrolledTorneoIds = new Set(); // NUEVO: Para almacenar IDs de torneos donde ya está inscrito

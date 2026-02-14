@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:8080/api';
+const API_BASE_URL = 'https://robotech-back.onrender.com/api';
 
 // Variable global para detectar si nos quedamos atascados en el mismo encuentro
 let ultimoEncuentroProcesadoId = null;

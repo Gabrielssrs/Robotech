@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const submitBtn = document.getElementById('btn-submit');
 
     // URL base de tu API
-    const API_BASE_URL = 'http://localhost:8080';
+    const API_BASE_URL = 'https://robotech-back.onrender.com';
 
     // 1. Obtener el token de la URL (ej. ?token=xyz...)
     const urlParams = new URLSearchParams(window.location.search);

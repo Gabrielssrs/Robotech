@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   const token = localStorage.getItem('jwtToken');
-  const API_BASE_URL = 'http://localhost:8080/api/sedes';
+  const API_BASE_URL = 'https://robotech-back.onrender.com/api/sedes';
 
   const swalSuccess = (title, text) => window.Swal ? Swal.fire({ icon: 'success', title, text }) : Promise.resolve(alert(title + (text ? '\n' + text : '')));
   const swalError = (title, text) => window.Swal ? Swal.fire({ icon: 'error', title, text }) : Promise.resolve(alert(title + (text ? '\n' + text : '')));

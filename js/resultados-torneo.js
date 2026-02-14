@@ -1,7 +1,7 @@
 // src/main/resources/static/js/resultados-torneo.js
 
 // Usamos la misma base URL, asegurándonos de que esté definida
-var RESULTADOS_API_BASE = 'http://localhost:8080/api';
+var RESULTADOS_API_BASE = 'https://robotech-back.onrender.com/api';
 
 async function cargarResultadosTab(torneoId) {
     const container = document.querySelector('#resultados .results-section');

@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const API_URL = 'http://localhost:8080/api/categorias';
+    const API_URL = 'https://robotech-back.onrender.com/categorias';
     const tableBody = document.querySelector('.competitors-table tbody');
     let categoriasList = []; // Caché de categorías para no tener que pedirlas de nuevo al editar
 

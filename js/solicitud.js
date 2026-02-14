@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const clubSelect = document.getElementById('club');
     const form = document.getElementById('registro-form');
     const formMessage = document.getElementById('form-message');
-    const API_BASE_URL = 'http://localhost:8080/api';
+    const API_BASE_URL = 'https://robotech-back.onrender.com/api';
 
     async function cargarClubes() {
         try {

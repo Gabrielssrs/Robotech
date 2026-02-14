@@ -3,7 +3,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('registro-club-form');
     const formMessage = document.getElementById('form-message');
-    const API_REGISTER_URL = 'http://localhost:8080/api/clubs/registro';
+    const API_REGISTER_URL = 'https://robotech-back.onrender.com/api/clubs/registro';
     
     // --- SweetAlert2 helpers ---
     const showSwalError = (msg) => {

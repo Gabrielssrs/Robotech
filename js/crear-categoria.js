@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const token = localStorage.getItem('jwtToken');
     const categoryForm = document.getElementById('create-category-form');
     const feedbackDiv = document.getElementById('form-feedback');
-    const API_URL = 'http://localhost:8080/api/categorias';
+    const API_URL = 'https://robotech-back.onrender.com/api/categorias';
         let categoriasCache = [];
 
     if (categoryForm) categoryForm.noValidate = true;

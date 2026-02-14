@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const token = localStorage.getItem('jwtToken');
     const clubsTableBody = document.querySelector('.club-management-table tbody');
-    const API_BASE_URL = 'http://localhost:8080/api';
+    const API_BASE_URL = 'https://robotech-back.onrender.com/api';
 
     // --- Elementos del Modal de Edición ---
     const editModal = document.getElementById('edit-club-modal');

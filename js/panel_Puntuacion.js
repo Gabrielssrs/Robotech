@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:8080/api';
+const API_BASE_URL = 'https://robotech-back.onrender.com/api';
 let currentEncuentro = null;
 let scoreBlue = 0;
 let scoreRed = 0;

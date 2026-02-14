@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const API_URL = 'http://localhost:8080/api/jueces';
-    const CATEGORIAS_API_URL = 'http://localhost:8080/api/categorias';
-    const SEDES_API_URL = 'http://localhost:8080/api/sedes'; // URL para obtener sedes
+    const API_URL = 'https://robotech-back.onrender.com/api/jueces';
+    const CATEGORIAS_API_URL = 'https://robotech-back.onrender.com/api/categorias';
+    const SEDES_API_URL = 'https://robotech-back.onrender.com/api/sedes'; // URL para obtener sedes
     const token = localStorage.getItem('jwtToken');
     const tableBody = document.querySelector('.club-management-table tbody');
 
