@@ -174,7 +174,7 @@
         <nav class="nav">
             <ul>
                 <li><a href="perfiladmin.html">Dashboard</a></li> 
-                <li><a href="admin_torneos.html" class="active">Torneos</a></li> 
+                <li><a href="admintorneo.html" class="active">Torneos</a></li> 
                 <li><a href="login.html" class="btn-logout">Cerrar Sesión</a></li> 
             </ul>
         </nav>
@@ -198,11 +198,13 @@
                     <div class="form-group">
                         <label for="fechaInicioInscripcion">Inicio de Inscripciones</label>
                         <input type="date" id="fechaInicioInscripcion" name="fechaInicioInscripcion" required>
+                        <small class="hint" id="hint-inscripcion">Debe ser a partir del día siguiente a hoy</small>
                     </div>
 
                     <div class="form-group">
                         <label for="diasInscripcion">Duración Inscripción</label>
                         <select id="diasInscripcion" name="diasInscripcion" required>
+                            <option value="">Seleccione una duración...</option>
                             <option value="1">1 Día (Express)</option>
                             <option value="3">3 Días (Estándar)</option>
                             <option value="5">5 Días (Extendido)</option>
@@ -212,11 +214,13 @@
                     <div class="form-group">
                         <label for="fechaInicio">Fecha de Inicio del Torneo</label>
                         <input type="date" id="fechaInicio" name="fechaInicio" required>
+                        <small class="hint" id="hint-inicio">Se sugerirá automáticamente según la duración de inscripción</small>
                     </div>
 
                     <div class="form-group">
                         <label for="fechaFin">Fecha de Fin del Torneo</label>
                         <input type="date" id="fechaFin" name="fechaFin" required>
+                        <small class="hint" id="hint-fin">Se calculará automáticamente (mínimo 12 días después del inicio)</small>
                     </div>
 
                     <div class="form-group">
@@ -260,7 +264,7 @@
 
                 <div class="form-actions">
                     <button type="submit" class="btn-main">Guardar Torneo</button>
-                    <a href="admin_torneos.html" class="btn-secondary">Cancelar</a>
+                    <a href="admintorneo.html" class="btn-secondary">Cancelar</a>
                 </div>
             </form>
         </div>

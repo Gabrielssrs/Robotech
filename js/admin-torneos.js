@@ -103,6 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Botones comunes
             const btnVer = `<a class="btn-action btn-view" href="vista-torneo.html?id=${t.id}" style="text-decoration: none;">Ver</a>`;
             const btnReglas = `<a class="btn-action btn-rules" href="reglamento_torneo.html?id=${t.id}" style="background-color: #1f6feb; color: white; text-decoration: none;">Reglas</a>`;
+            const btnEditar = `<button class="btn-action btn-edit" onclick="abrirEditarTorneo(${t.id}, '${t.estado}')" style="background-color: #d29922; color: white;">Editar</button>`;
 
             switch(t.estado) {
                 case 'EN_CURSO':
@@ -112,6 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     actionsHtml = `
                         ${btnVer}
                         ${btnReglas}
+                        ${btnEditar}
                         <button class="btn-action btn-manage" onclick="window.location.href='vista-torneo.html?id=${t.id}&simular=true'">Simular</button>
                     `;
                     break;
@@ -121,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     actionsHtml = `
                         ${btnVer}
                         ${btnReglas}
-                        <a class="btn-action btn-edit" href="crearTorneo.html?id=${t.id}" style="text-decoration: none; background-color: #d29922; color: white;">Editar</a>
+                        ${btnEditar}
                     `;
                     break;
                 case 'FINALIZADO':
@@ -129,6 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     statusText = 'Finalizado';
                     actionsHtml = `
                         ${btnVer}
+                        ${btnEditar}
                         <button class="btn-action btn-details" onclick="window.location.href='vista-torneo.html?id=${t.id}'">Resultados</button>
                     `;
                     break;
@@ -181,5 +184,160 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.removeItem('jwtToken');
             window.location.href = 'login.html';
         }); 
+    }
+});
+
+// Funciones globales para el modal de edición
+function abrirEditarTorneo(torneoId, estado) {
+    const token = localStorage.getItem('jwtToken');
+    
+    if (estado === 'EN_CURSO') {
+        Swal.fire({
+            title: 'Acción Inválida',
+            text: 'El torneo se está llevando a cabo en este momento y no es posible editarlo.',
+            icon: 'warning',
+            confirmButtonText: 'Entendido'
+        });
+        return;
+    }
+    
+    if (estado === 'FINALIZADO') {
+        Swal.fire({
+            title: 'Acción Inválida',
+            text: 'El torneo ha finalizado y no puede ser editado.',
+            icon: 'warning',
+            confirmButtonText: 'Entendido'
+        });
+        return;
+    }
+
+    if (estado === 'CANCELADO') {
+        Swal.fire({
+            title: 'Acción Inválida',
+            text: 'El torneo ha sido cancelado y no puede ser editado.',
+            icon: 'warning',
+            confirmButtonText: 'Entendido'
+        });
+        return;
+    }
+
+    // Si es PROXIMAMENTE, abrir el modal
+    if (estado === 'PROXIMAMENTE') {
+        cargarTorneoEnModal(torneoId, token);
+    }
+}
+
+function cargarTorneoEnModal(torneoId, token) {
+    const API_BASE_URL = 'https://robotech-back.onrender.com/api';
+    
+    // Mostrar loading
+    Swal.fire({
+        title: 'Cargando...',
+        allowOutsideClick: false,
+        didOpen: () => { Swal.showLoading(); }
+    });
+
+    fetch(`${API_BASE_URL}/torneos/${torneoId}`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+    })
+    .then(res => res.json())
+    .then(torneo => {
+        Swal.close();
+        
+        // Llenar el formulario con los datos del torneo
+        document.getElementById('nombre').value = torneo.nombre || '';
+        document.getElementById('descripcion').value = torneo.descripcion || '';
+        document.getElementById('fechaInicioInscripcion').value = torneo.fechaInicioInscripcion || '';
+        document.getElementById('diasInscripcion').value = torneo.diasInscripcion || '1';
+        document.getElementById('fechaInicio').value = torneo.fechaInicio || '';
+        document.getElementById('fechaFin').value = torneo.fechaFin || '';
+        
+        // Hora: si viene formato "HH:mm:ss", extraer solo "HH:mm"
+        if (torneo.horaInicio) {
+            const horaPartes = torneo.horaInicio.split(':');
+            document.getElementById('horaInicio').value = `${horaPartes[0]}:${horaPartes[1]}`;
+        }
+
+        // Guardar el ID del torneo en un atributo del formulario
+        document.getElementById('formularioEditarTorneo').dataset.torneoId = torneoId;
+
+        // Abrir el modal
+        document.getElementById('modalEditTorneo').style.display = 'flex';
+    })
+    .catch(error => {
+        console.error('Error al cargar torneo:', error);
+        Swal.fire('Error', 'No se pudo cargar el torneo.', 'error');
+    });
+}
+
+function cerrarModalEdicion() {
+    document.getElementById('modalEditTorneo').style.display = 'none';
+}
+
+// Cerrar modal al hacer click en el overlay
+document.addEventListener('click', (e) => {
+    const modal = document.getElementById('modalEditTorneo');
+    if (modal && e.target === modal) {
+        cerrarModalEdicion();
+    }
+});
+
+// Manejador del formulario de edición
+document.addEventListener('DOMContentLoaded', () => {
+    const formulario = document.getElementById('formularioEditarTorneo');
+    
+    if (formulario) {
+        formulario.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const torneoId = formulario.dataset.torneoId;
+            const token = localStorage.getItem('jwtToken');
+            const API_BASE_URL = 'https://robotech-back.onrender.com/api';
+
+            const data = {
+                nombre: document.getElementById('nombre').value.trim(),
+                descripcion: document.getElementById('descripcion').value.trim(),
+                fechaInicioInscripcion: document.getElementById('fechaInicioInscripcion').value,
+                diasInscripcion: parseInt(document.getElementById('diasInscripcion').value),
+                fechaInicio: document.getElementById('fechaInicio').value,
+                fechaFin: document.getElementById('fechaFin').value,
+                horaInicio: `${document.getElementById('horaInicio').value}:00`
+            };
+
+            try {
+                Swal.fire({
+                    title: 'Guardando cambios...',
+                    allowOutsideClick: false,
+                    didOpen: () => { Swal.showLoading(); }
+                });
+
+                const response = await fetch(`${API_BASE_URL}/torneos/${torneoId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    Swal.fire({
+                        title: '¡Éxito!',
+                        text: 'El torneo ha sido actualizado correctamente.',
+                        icon: 'success'
+                    }).then(() => {
+                        cerrarModalEdicion();
+                        // Recargar la tabla
+                        location.reload();
+                    });
+                } else {
+                    const error = await response.json();
+                    Swal.fire('Error', error.message || 'No se pudo actualizar el torneo.', 'error');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                Swal.fire('Error de Conexión', 'No se pudo conectar con el servidor.', 'error');
+            }
+        });
     }
 });
