@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     async function cargarSolicitudes() {
         try {
-            const response = await fetch('http://localhost:8080/api/solicitudes/mi-club', {
+            const response = await fetch('https://robotech-back.onrender.com/api/solicitudes/mi-club', {
                 method: 'GET',
                 headers: { 'Authorization': `Bearer ${token}` }
             });
@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         try {
-            const response = await fetch(`http://localhost:8080/api/solicitudes/${solicitudId}/${accionUrl}`, {
+            const response = await fetch(`https://robotech-back.onrender.com/api/solicitudes/${solicitudId}/${accionUrl}`, {
                 method: 'POST',
                 headers: { 'Authorization': `Bearer ${token}` }
             });
