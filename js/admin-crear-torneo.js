@@ -1,317 +1,241 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('crear-torneo-form');
-    const API_BASE_URL = 'https://robotech-back.onrender.com/api';
+document.addEventListener('DOMContentLoaded', async () => {
+    // 1. Verificar Autenticación
     const token = localStorage.getItem('jwtToken');
+    if (!token) {
+        window.location.href = 'login.html';
+        return;
+    }
 
-    // Elementos del DOM
-    const categoriasSelect = document.getElementById('categorias');
-    const juecesSelect = document.getElementById('jueces');
+    // Configuración de la API
+    const API_BASE_URL = 'https://robotech-back.onrender.com/api'; // Ajusta si es localhost
+    
+    // Referencias al DOM
+    const form = document.getElementById('crear-torneo-form');
     const sedeSelect = document.getElementById('sede');
+    const juecesSelect = document.getElementById('jueces');
+    const categoriasSelect = document.getElementById('categorias');
+    
+    // Referencias de Fechas
+    const fechaInscripInput = document.getElementById('fechaInicioInscripcion');
+    const diasInscripSelect = document.getElementById('diasInscripcion');
     const fechaInicioInput = document.getElementById('fechaInicio');
     const fechaFinInput = document.getElementById('fechaFin');
     const horaInicioInput = document.getElementById('horaInicio');
-    
-    // Elementos para lógica de fechas automática
-    const tipoProgramacion = document.getElementById('tipoProgramacion');
-    const fechasManuales = document.getElementById('fechas-manuales');
-    const fechasAutomaticas = document.getElementById('fechas-automaticas');
 
-    // Almacenamiento local de datos para validaciones
-    let sedesData = []; 
-    let juecesData = [];
+    // Variables globales para datos
+    let todosLosJueces = [];
 
-    // Detectar si es edición
-    const urlParams = new URLSearchParams(window.location.search);
-    const torneoId = urlParams.get('id');
-    const isEditing = !!torneoId;
-
-    const swalWithBootstrapButtons = Swal.mixin({
-        customClass: { confirmButton: 'btn-main', cancelButton: 'btn-secondary' },
-        buttonsStyling: false
-    });
-
-    function protectPage() {
-        if (!token) {
-            window.location.href = 'login.html';
-            return false;
-        }
-        return true;
-    }
-
-    // --- Lógica de UI: Alternar Fechas ---
-    if (tipoProgramacion) {
-        tipoProgramacion.addEventListener('change', (e) => {
-            if (e.target.checked) {
-                fechasManuales.style.display = 'none';
-                fechasAutomaticas.style.display = 'contents';
-                // Limpiar requeridos manuales
-                if(fechaInicioInput) fechaInicioInput.required = false;
-                if(fechaFinInput) fechaFinInput.required = false;
-                // Activar requeridos automáticos
-                const fechaInsc = document.getElementById('fechaInicioInscripcion');
-                if(fechaInsc) fechaInsc.required = true;
-            } else {
-                fechasManuales.style.display = 'contents';
-                fechasAutomaticas.style.display = 'none';
-                // Activar requeridos manuales
-                if(fechaInicioInput) fechaInicioInput.required = true;
-                if(fechaFinInput) fechaFinInput.required = true;
-                // Limpiar requeridos automáticos
-                const fechaInsc = document.getElementById('fechaInicioInscripcion');
-                if(fechaInsc) fechaInsc.required = false;
-            }
-        });
-    }
-
-    // --- Carga de Datos Iniciales ---
-    async function loadInitialData() {
+    // -------------------------------------------------------------------------
+    // 2. Carga Inicial de Datos (Sedes, Categorías, Jueces)
+    // -------------------------------------------------------------------------
+    async function cargarDatosIniciales() {
         try {
-            // 1. Cargar Categorías
-            const catResponse = await fetch(`${API_BASE_URL}/categorias`, { headers: { 'Authorization': `Bearer ${token}` } });
-            if (catResponse.ok) {
-                const categorias = await catResponse.json();
-                categoriasSelect.innerHTML = '';
-                categorias.forEach(cat => {
+            const headers = { 'Authorization': `Bearer ${token}` };
+
+            // Cargar Sedes
+            const resSedes = await fetch(`${API_BASE_URL}/sedes`, { headers });
+            const sedes = await resSedes.json();
+            sedes.forEach(sede => {
+                // Solo mostramos sedes disponibles si tu lógica lo requiere, o todas
+                const option = document.createElement('option');
+                option.value = sede.id;
+                option.textContent = `${sede.nombre} (${sede.ciudad})`;
+                sedeSelect.appendChild(option);
+            });
+
+            // Cargar Categorías
+            const resCats = await fetch(`${API_BASE_URL}/categorias`, { headers });
+            const categorias = await resCats.json();
+            // Limpiar opción de carga
+            categoriasSelect.innerHTML = ''; 
+            categorias.forEach(cat => {
+                if (cat.activa) { // Solo categorías activas
                     const option = document.createElement('option');
                     option.value = cat.id;
                     option.textContent = cat.nombre;
                     categoriasSelect.appendChild(option);
-                });
-            }
+                }
+            });
 
-            // 2. Cargar Sedes (Solo DISPONIBLES)
-            const sedeResponse = await fetch(`${API_BASE_URL}/sedes`, { headers: { 'Authorization': `Bearer ${token}` } });
-            if (sedeResponse.ok) {
-                sedesData = await sedeResponse.json();
-                sedeSelect.innerHTML = '<option value="" disabled selected>Seleccione una sede...</option>';
-                
-                const sedesDisponibles = sedesData.filter(s => s.estado === 'DISPONIBLE');
-                
-                sedesDisponibles.forEach(sede => {
-                    const option = document.createElement('option');
-                    option.value = sede.id;
-                    option.textContent = `${sede.nombre} (Canchas: ${sede.nroCanchas})`;
-                    sedeSelect.appendChild(option);
-                });
-            }
-
-            // 3. Cargar TODOS los Jueces (se filtrarán en el frontend al seleccionar sede)
-            const juezResponse = await fetch(`${API_BASE_URL}/jueces`, { headers: { 'Authorization': `Bearer ${token}` } });
-            if (juezResponse.ok) {
-                juecesData = await juezResponse.json();
-            }
-
-            // 4. Si es edición, cargar datos del torneo
-            if (isEditing) {
-                document.querySelector('h2').textContent = 'Editar Torneo';
-                const btnSubmit = form.querySelector('button[type="submit"]');
-                if(btnSubmit) btnSubmit.textContent = 'Actualizar Torneo';
-                await loadTorneoData(torneoId);
-            }
+            // Cargar Jueces (Los guardamos en memoria para filtrar después)
+            const resJueces = await fetch(`${API_BASE_URL}/jueces`, { headers });
+            todosLosJueces = await resJueces.json();
 
         } catch (error) {
             console.error('Error cargando datos:', error);
-            swalWithBootstrapButtons.fire('Error', 'No se pudieron cargar los datos iniciales.', 'error');
+            Swal.fire('Error', 'No se pudieron cargar los datos del sistema.', 'error');
         }
     }
 
-    async function loadTorneoData(id) {
-        try {
-            const response = await fetch(`${API_BASE_URL}/torneos/${id}`);
-            if (response.ok) {
-                const torneo = await response.json();
-                
-                document.getElementById('nombre').value = torneo.nombre;
-                document.getElementById('descripcion').value = torneo.descripcion || '';
-                if(horaInicioInput) horaInicioInput.value = torneo.horaInicio;
-                
-                // Cargar fechas manuales por defecto (el backend no nos dice si fue automático)
-                if (torneo.fechaInicio) fechaInicioInput.value = torneo.fechaInicio;
-                if (torneo.fechaFin) fechaFinInput.value = torneo.fechaFin;
-                
-                // Seleccionar Sede
-                if(torneo.sedeId) sedeSelect.value = torneo.sedeId;
-                // Disparar evento change para cargar jueces de esa sede
-                sedeSelect.dispatchEvent(new Event('change'));
+    await cargarDatosIniciales();
 
-                // Seleccionar Categorías
-                if (torneo.categorias) {
-                    // Esperar un poco para asegurar que las opciones se renderizaron
-                    setTimeout(() => {
-                        Array.from(categoriasSelect.options).forEach(opt => {
-                            const match = torneo.categorias.some(c => 
-                                (typeof c === 'object' && c.id == opt.value) || 
-                                (typeof c === 'string' && c === opt.textContent)
-                            );
-                            if (match) opt.selected = true;
-                        });
-                    }, 100);
-                }
-            }
-        } catch (error) {
-            console.error("Error cargando datos del torneo", error);
-        }
-    }
-
-    // --- Lógica: Filtrar Jueces por Sede ---
-    if (sedeSelect) {
-        sedeSelect.addEventListener('change', () => {
-            const selectedSedeId = parseInt(sedeSelect.value);
-            juecesSelect.innerHTML = '';
-
-            // Filtrar jueces que pertenecen a la sede seleccionada y están ACTIVOS
-            const juecesFiltrados = juecesData.filter(j => {
-                const juezSedeId = j.sedeId || (j.sede ? j.sede.id : null);
-                return j.estado === 'ACTIVO' && juezSedeId === selectedSedeId;
-            });
-
-            if (juecesFiltrados.length === 0) {
-                const option = document.createElement('option');
-                option.text = "No hay jueces activos en esta sede";
-                option.disabled = true;
-                juecesSelect.appendChild(option);
-            } else {
-                juecesFiltrados.forEach(juez => {
-                    const option = document.createElement('option');
-                    option.value = juez.id;
-                    option.textContent = `${juez.nombre} (${juez.nivelCredencial})`;
-                    juecesSelect.appendChild(option);
-                });
-            }
-        });
-    }
-
-    // --- Validaciones de Negocio ---
-
-    // Validar capacidad de la sede (Torneos simultáneos vs Nro Canchas)
-    async function checkCapacidadSede(sedeId, fecha) {
-        try {
-            const response = await fetch(`${API_BASE_URL}/torneos`, { headers: { 'Authorization': `Bearer ${token}` } });
-            if (!response.ok) return true; 
-
-            const torneos = await response.json();
-            
-            // Contar torneos en esa sede para esa fecha
-            const torneosEnSedeYFecha = torneos.filter(t => {
-                // Si estamos editando, no contarnos a nosotros mismos
-                if (isEditing && t.id == torneoId) return false;
-
-                const tSedeId = t.sedeId || (t.sede ? t.sede.id : null); 
-                return tSedeId === parseInt(sedeId) && t.fechaInicio === fecha;
-            }).length;
-
-            // Obtener capacidad de la sede seleccionada
-            const sedeSeleccionada = sedesData.find(s => s.id === parseInt(sedeId));
-            const capacidadCanchas = sedeSeleccionada ? sedeSeleccionada.nroCanchas : 1;
-
-            return torneosEnSedeYFecha < capacidadCanchas;
-
-        } catch (error) {
-            console.error(error);
-            return true; 
-        }
-    }
-
-    // --- Manejo del Submit ---
-    async function handleCreateTorneo(event) {
-        event.preventDefault();
+    // -------------------------------------------------------------------------
+    // 3. Lógica de Filtrado de Jueces por Sede
+    // -------------------------------------------------------------------------
+    sedeSelect.addEventListener('change', () => {
+        const sedeIdSeleccionada = parseInt(sedeSelect.value);
         
-        const submitBtn = form.querySelector('button[type="submit"]');
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Procesando...';
+        // Limpiar select de jueces
+        juecesSelect.innerHTML = '';
 
-        const formData = new FormData(form);
-        const data = Object.fromEntries(formData.entries());
+        // Filtrar jueces que pertenecen a la sede seleccionada
+        const juecesFiltrados = todosLosJueces.filter(juez => 
+            juez.sedeId === sedeIdSeleccionada && juez.estado === 'ACTIVO'
+        );
 
-        // Procesar selects múltiples
-        data.categoriaIds = Array.from(categoriasSelect.selectedOptions).map(opt => parseInt(opt.value));
-        data.juezIds = Array.from(juecesSelect.selectedOptions).map(opt => parseInt(opt.value));
-        data.sedeId = parseInt(data.sedeId);
-
-        // Validaciones básicas
-        if (data.juezIds.length < 3) {
-            swalWithBootstrapButtons.fire('Jueces Insuficientes', 'Debes seleccionar al menos 3 jueces de la sede.', 'warning');
-            submitBtn.disabled = false; submitBtn.textContent = isEditing ? 'Actualizar Torneo' : 'Guardar Torneo'; return;
-        }
-        if (data.categoriaIds.length === 0) {
-            swalWithBootstrapButtons.fire('Faltan datos', 'Debes seleccionar al menos una categoría.', 'warning');
-            submitBtn.disabled = false; submitBtn.textContent = isEditing ? 'Actualizar Torneo' : 'Guardar Torneo'; return;
-        }
-
-        // Lógica Automática vs Manual
-        if (tipoProgramacion && tipoProgramacion.checked) {
-            // Modo Automático: Limpiar fechas manuales
-            delete data.fechaInicio;
-            delete data.fechaFin;
-            data.diasInscripcion = parseInt(document.getElementById('diasInscripcion').value);
-            
-            // Validar fecha inicio inscripción
-            if (!data.fechaInicioInscripcion) {
-                swalWithBootstrapButtons.fire('Error', 'Debes indicar el inicio de inscripciones.', 'error');
-                submitBtn.disabled = false; submitBtn.textContent = isEditing ? 'Actualizar Torneo' : 'Guardar Torneo'; return;
-            }
+        if (juecesFiltrados.length === 0) {
+            const option = document.createElement('option');
+            option.disabled = true;
+            option.textContent = 'No hay jueces activos en esta sede';
+            juecesSelect.appendChild(option);
         } else {
-            // Modo Manual: Limpiar automáticos
-            delete data.fechaInicioInscripcion;
-            delete data.diasInscripcion;
+            juecesFiltrados.forEach(juez => {
+                const option = document.createElement('option');
+                option.value = juez.id;
+                option.textContent = `${juez.nombre} (Nivel: ${juez.nivelCredencial})`;
+                juecesSelect.appendChild(option);
+            });
+        }
+    });
 
-            // Validar Fechas Manuales
-            if (new Date(data.fechaInicio) > new Date(data.fechaFin)) {
-                swalWithBootstrapButtons.fire('Error', 'La fecha de inicio no puede ser posterior a la fecha de fin.', 'error');
-                submitBtn.disabled = false; submitBtn.textContent = isEditing ? 'Actualizar Torneo' : 'Guardar Torneo'; return;
-            }
-            
-            // Validar Capacidad Sede (solo en modo manual o si calculamos la fecha auto en frontend)
-            const hayCapacidad = await checkCapacidadSede(data.sedeId, data.fechaInicio);
-            if (!hayCapacidad) {
-                swalWithBootstrapButtons.fire('Sede Llena', 'No hay canchas disponibles en esta sede para la fecha seleccionada.', 'warning');
-                submitBtn.disabled = false; submitBtn.textContent = isEditing ? 'Actualizar Torneo' : 'Guardar Torneo'; return;
-            }
+    // -------------------------------------------------------------------------
+    // 4. Lógica de Fechas y Validaciones
+    // -------------------------------------------------------------------------
+    
+    // Configurar fecha mínima de inscripción a HOY
+    const hoy = new Date().toISOString().split('T')[0];
+    fechaInscripInput.min = hoy;
+
+    function actualizarFechasMinimas() {
+        if (!fechaInscripInput.value) return;
+
+        const fechaInscrip = new Date(fechaInscripInput.value);
+        const diasDuracion = parseInt(diasInscripSelect.value);
+
+        // Calcular fecha de cierre de inscripción
+        const fechaCierreInscrip = new Date(fechaInscrip);
+        fechaCierreInscrip.setDate(fechaInscrip.getDate() + diasDuracion);
+
+        // El torneo debe iniciar AL MENOS 1 día después del cierre de inscripciones
+        const minFechaInicioTorneo = new Date(fechaCierreInscrip);
+        minFechaInicioTorneo.setDate(fechaCierreInscrip.getDate() + 1);
+        
+        const minFechaInicioStr = minFechaInicioTorneo.toISOString().split('T')[0];
+        fechaInicioInput.min = minFechaInicioStr;
+        
+        // Si la fecha actual seleccionada es menor a la nueva mínima, limpiarla
+        if (fechaInicioInput.value && fechaInicioInput.value < minFechaInicioStr) {
+            fechaInicioInput.value = minFechaInicioStr;
         }
 
-        // Formatear hora (añadir segundos para LocalTime Java)
-        if (data.horaInicio && data.horaInicio.length === 5) {
-            data.horaInicio += ":00";
+        actualizarFechaFinMinima();
+    }
+
+    function actualizarFechaFinMinima() {
+        if (!fechaInicioInput.value) return;
+
+        const fechaInicio = new Date(fechaInicioInput.value);
+        
+        // La duración del torneo debe ser al menos 12 días
+        const minFechaFin = new Date(fechaInicio);
+        minFechaFin.setDate(fechaInicio.getDate() + 12);
+
+        const minFechaFinStr = minFechaFin.toISOString().split('T')[0];
+        fechaFinInput.min = minFechaFinStr;
+
+        if (fechaFinInput.value && fechaFinInput.value < minFechaFinStr) {
+            fechaFinInput.value = minFechaFinStr;
+        }
+    }
+
+    // Listeners para recalcular fechas cuando el usuario cambia algo
+    fechaInscripInput.addEventListener('change', actualizarFechasMinimas);
+    diasInscripSelect.addEventListener('change', actualizarFechasMinimas);
+    fechaInicioInput.addEventListener('change', actualizarFechaFinMinima);
+
+    // -------------------------------------------------------------------------
+    // 5. Envío del Formulario
+    // -------------------------------------------------------------------------
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        // --- Validaciones Manuales Previas ---
+        
+        // 1. Validar Hora (11:00 - 20:00)
+        const hora = horaInicioInput.value; // formato "HH:mm"
+        const [horas, minutos] = hora.split(':').map(Number);
+        if (horas < 11 || horas > 20 || (horas === 20 && minutos > 0)) {
+            Swal.fire('Horario Inválido', 'La hora de inicio debe estar entre las 11:00 AM y las 8:00 PM.', 'warning');
+            return;
         }
 
-        // Determinar estado inicial (solo al crear)
-        if (!isEditing) {
-            data.estado = 'PROXIMAMENTE';
+        // 2. Validar Jueces (Mínimo 3)
+        const juecesSeleccionados = Array.from(juecesSelect.selectedOptions).map(opt => parseInt(opt.value));
+        if (juecesSeleccionados.length < 3) {
+            Swal.fire('Jueces Insuficientes', 'Debe seleccionar al menos 3 jueces para el torneo.', 'warning');
+            return;
         }
+
+        // 3. Validar Categorías
+        const categoriasSeleccionadas = Array.from(categoriasSelect.selectedOptions).map(opt => parseInt(opt.value));
+        if (categoriasSeleccionadas.length === 0) {
+            Swal.fire('Categoría Requerida', 'Debe seleccionar al menos una categoría.', 'warning');
+            return;
+        }
+
+        // Construir objeto JSON
+        const torneoData = {
+            nombre: document.getElementById('nombre').value.trim(),
+            descripcion: document.getElementById('descripcion').value.trim(),
+            fechaInicioInscripcion: fechaInscripInput.value,
+            diasInscripcion: parseInt(diasInscripSelect.value),
+            fechaInicio: fechaInicioInput.value,
+            fechaFin: fechaFinInput.value,
+            horaInicio: `${hora}:00`, // Agregar segundos para formato LocalTime
+            sedeId: parseInt(sedeSelect.value),
+            categoriaIds: categoriasSeleccionadas,
+            juezIds: juecesSeleccionados,
+            estado: "PROXIMAMENTE"
+        };
 
         try {
-            const url = isEditing ? `${API_BASE_URL}/torneos/${torneoId}` : `${API_BASE_URL}/torneos`;
-            const method = isEditing ? 'PUT' : 'POST';
-
-            const response = await fetch(url, {
-                method: method,
-                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-                body: JSON.stringify(data)
+            // Mostrar loading
+            Swal.fire({
+                title: 'Creando Torneo...',
+                text: 'Por favor espere',
+                allowOutsideClick: false,
+                didOpen: () => { Swal.showLoading(); }
             });
 
-            if (!response.ok) {
-                const errorText = await response.text();
-                throw new Error(errorText || 'Error al guardar el torneo.');
+            const response = await fetch(`${API_BASE_URL}/torneos`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(torneoData)
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                Swal.fire({
+                    title: '¡Éxito!',
+                    text: 'El torneo ha sido creado correctamente.',
+                    icon: 'success'
+                }).then(() => {
+                    window.location.href = 'admintorneo.html'; // Redirigir a la lista
+                });
+            } else {
+                // Manejar errores del backend (ej: Nombre duplicado, validaciones de lógica)
+                // El backend devuelve { "message": "Error..." }
+                const errorMsg = data.message || 'Ocurrió un error desconocido.';
+                Swal.fire('Error de Validación', errorMsg, 'error');
             }
 
-            await swalWithBootstrapButtons.fire({
-                title: isEditing ? '¡Torneo Actualizado!' : '¡Torneo Creado!',
-                text: isEditing ? 'Los cambios se han guardado correctamente.' : 'El torneo se ha programado exitosamente.',
-                icon: 'success',
-                confirmButtonText: 'Ir a la lista'
-            });
-            window.location.href = 'admin_torneos.html'; 
         } catch (error) {
-            console.error('Error:', error);
-            swalWithBootstrapButtons.fire('Error', error.message, 'error');
-        } finally {
-            submitBtn.disabled = false;
-            submitBtn.textContent = isEditing ? 'Actualizar Torneo' : 'Guardar Torneo';
+            console.error('Error de red:', error);
+            Swal.fire('Error de Conexión', 'No se pudo conectar con el servidor.', 'error');
         }
-    }
-
-    if (protectPage()) {
-        loadInitialData();
-        form.addEventListener('submit', handleCreateTorneo);
-    }
+    });
 });

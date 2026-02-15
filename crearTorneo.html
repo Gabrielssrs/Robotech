@@ -8,6 +8,164 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <!-- SweetAlert2 para alertas bonitas -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        /* Estilos personalizados para formulario de crear torneo en 2 columnas */
+        .form-section {
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #0b0b0f 0%, #161616 100%);
+            min-height: 100vh;
+        }
+
+        .form-section .form-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, #1a1a20 0%, #131318 100%);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 191, 255, 0.1);
+            border: 1px solid rgba(0, 191, 255, 0.2);
+        }
+
+        .form-section .form-container h2 {
+            color: #00bfff;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .form-section .form-container .subtitle {
+            color: #889099;
+            font-size: 0.95rem;
+            display: block;
+            margin-bottom: 30px;
+        }
+
+        .form-section .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .form-section .form-grid .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-section .form-grid .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-section .form-grid .form-group label {
+            margin-bottom: 8px;
+            color: #cfcfcf;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .form-section .form-grid .form-group input,
+        .form-section .form-grid .form-group select,
+        .form-section .form-grid .form-group textarea {
+            padding: 12px 15px;
+            background-color: #0b0b0f;
+            border: 1px solid #1f1f25;
+            border-radius: 6px;
+            color: #e6eef6;
+            font-size: 0.95rem;
+            font-family: 'Poppins', sans-serif;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .form-section .form-grid .form-group input:focus,
+        .form-section .form-grid .form-group select:focus,
+        .form-section .form-grid .form-group textarea:focus {
+            outline: none;
+            border-color: #00bfff !important;
+            box-shadow: 0 0 0 3px rgba(0, 191, 255, 0.15) !important;
+        }
+
+        .form-section .form-grid .form-group small {
+            font-size: 0.85rem;
+            color: #889099;
+            margin-top: 5px;
+        }
+
+        .form-section .form-grid .form-group .error-msg {
+            color: #ff6b6b;
+            font-size: 0.8rem;
+            margin-top: 4px;
+        }
+
+        .form-section .form-container .form-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .form-section .form-container .form-actions button,
+        .form-section .form-container .form-actions a {
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .form-section .form-container .btn-main {
+            background: linear-gradient(135deg, #3fb36b 0%, #2d8a52 100%);
+            color: white;
+        }
+
+        .form-section .form-container .btn-main:hover {
+            filter: brightness(1.1);
+        }
+
+        .form-section .form-container .btn-secondary {
+            background: transparent;
+            color: #cfcfcf;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .form-section .form-container .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .form-section .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .form-section .form-container {
+                padding: 25px;
+            }
+
+            .form-section .form-container h2 {
+                font-size: 1.4rem;
+            }
+
+            .form-section .form-grid {
+                gap: 20px;
+            }
+
+            .form-section .form-container .form-actions {
+                flex-direction: column;
+            }
+
+            .form-section .form-container .form-actions button,
+            .form-section .form-container .form-actions a {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
     
@@ -36,38 +194,29 @@
                         <span class="error-msg" id="error-nombre"></span>
                     </div>
 
-                    <!-- Switch para modo automático -->
-                    <div class="form-group full-width" style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
-                        <input type="checkbox" id="tipoProgramacion" style="width: auto;">
-                        <label for="tipoProgramacion" style="margin: 0; cursor: pointer;">Usar Programación Automática (Recomendado)</label>
-                    </div>
-                    
-                    <!-- Bloque Manual -->
-                    <div id="fechas-manuales" style="display: contents;">
-                        <div class="form-group">
-                            <label for="fechaInicio">Fecha de Inicio</label>
-                            <input type="date" id="fechaInicio" name="fechaInicio" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="fechaFin">Fecha de Fin</label>
-                            <input type="date" id="fechaFin" name="fechaFin" required>
-                        </div>
+                    <!-- Fechas e inscripciones -->
+                    <div class="form-group">
+                        <label for="fechaInicioInscripcion">Inicio de Inscripciones</label>
+                        <input type="date" id="fechaInicioInscripcion" name="fechaInicioInscripcion" required>
                     </div>
 
-                    <!-- Bloque Automático -->
-                    <div id="fechas-automaticas" style="display: none;">
-                        <div class="form-group">
-                            <label for="fechaInicioInscripcion">Inicio de Inscripciones</label>
-                            <input type="date" id="fechaInicioInscripcion" name="fechaInicioInscripcion">
-                        </div>
-                        <div class="form-group">
-                            <label for="diasInscripcion">Duración Inscripción</label>
-                            <select id="diasInscripcion" name="diasInscripcion">
-                                <option value="1">1 Día (Express)</option>
-                                <option value="3">3 Días (Estándar)</option>
-                                <option value="5">5 Días (Extendido)</option>
-                            </select>
-                        </div>
+                    <div class="form-group">
+                        <label for="diasInscripcion">Duración Inscripción</label>
+                        <select id="diasInscripcion" name="diasInscripcion" required>
+                            <option value="1">1 Día (Express)</option>
+                            <option value="3">3 Días (Estándar)</option>
+                            <option value="5">5 Días (Extendido)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fechaInicio">Fecha de Inicio del Torneo</label>
+                        <input type="date" id="fechaInicio" name="fechaInicio" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fechaFin">Fecha de Fin del Torneo</label>
+                        <input type="date" id="fechaFin" name="fechaFin" required>
                     </div>
 
                     <div class="form-group">
@@ -117,9 +266,37 @@
         </div>
     </section>
 
-    <footer class="footer admin-footer">
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-about">
+                <h3>ROBOTech</h3>
+                <p>Innovación, competencia y pasión por la robótica. 
+                Únete a nuestra comunidad y lleva tus habilidades al siguiente nivel.</p>
+            </div>
+
+            <div class="footer-links">
+                <h4>Enlaces útiles</h4>
+                <ul>
+                    <li><a href="#">Términos y condiciones</a></li>
+                    <li><a href="#">Política de privacidad</a></li>
+                    <li><a href="#">Preguntas frecuentes</a></li>
+                    <li><a href="#">Contacto</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-social">
+                <h4>Síguenos</h4>
+                <div class="social-icons">
+                    <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook"></a>
+                    <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram"></a>
+                    <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/twitter.svg" alt="Twitter"></a>
+                    <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube"></a>
+                </div>
+            </div>
+        </div>
+
         <div class="footer-bottom">
-            <p>© 2025 ROBOTech | Consola de Administración</p>
+            <p>© 2025 ROBOTech | Innovación y competencia robótica</p>
         </div>
     </footer>
 
