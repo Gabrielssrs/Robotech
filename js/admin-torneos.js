@@ -237,26 +237,65 @@ function cargarTorneoEnModal(torneoId, token) {
         didOpen: () => { Swal.showLoading(); }
     });
 
-    fetch(`${API_BASE_URL}/torneos/${torneoId}`, {
-        headers: { 'Authorization': `Bearer ${token}` }
-    })
-    .then(res => res.json())
-    .then(torneo => {
+    // Cargar datos del torneo y listas necesarias en paralelo
+    Promise.all([
+        fetch(`${API_BASE_URL}/torneos/${torneoId}`, { headers: { 'Authorization': `Bearer ${token}` } }).then(r => r.json()),
+        fetch(`${API_BASE_URL}/sedes`, { headers: { 'Authorization': `Bearer ${token}` } }).then(r => r.json()),
+        fetch(`${API_BASE_URL}/categorias`, { headers: { 'Authorization': `Bearer ${token}` } }).then(r => r.json()),
+        fetch(`${API_BASE_URL}/jueces`, { headers: { 'Authorization': `Bearer ${token}` } }).then(r => r.json())
+    ])
+    .then(([torneo, sedes, categorias, jueces]) => {
         Swal.close();
-        
-        // Llenar el formulario con los datos del torneo
+
+        // Llenar campos básicos
         document.getElementById('nombre').value = torneo.nombre || '';
         document.getElementById('descripcion').value = torneo.descripcion || '';
         document.getElementById('fechaInicioInscripcion').value = torneo.fechaInicioInscripcion || '';
-        document.getElementById('diasInscripcion').value = torneo.diasInscripcion || '1';
+        document.getElementById('diasInscripcion').value = torneo.diasInscripcion || '';
         document.getElementById('fechaInicio').value = torneo.fechaInicio || '';
         document.getElementById('fechaFin').value = torneo.fechaFin || '';
-        
+
         // Hora: si viene formato "HH:mm:ss", extraer solo "HH:mm"
         if (torneo.horaInicio) {
             const horaPartes = torneo.horaInicio.split(':');
             document.getElementById('horaInicio').value = `${horaPartes[0]}:${horaPartes[1]}`;
+        } else {
+            document.getElementById('horaInicio').value = '';
         }
+
+        // Poblado de selects en el modal
+        const sedeSelect = document.getElementById('modal-sede');
+        sedeSelect.innerHTML = '<option value="" disabled>Seleccione una sede...</option>';
+        sedes.forEach(s => {
+            const opt = document.createElement('option');
+            opt.value = s.id;
+            opt.textContent = `${s.nombre} (${s.ciudad})`;
+            if (torneo.sedeId && String(torneo.sedeId) === String(s.id)) opt.selected = true;
+            sedeSelect.appendChild(opt);
+        });
+
+        const categoriasSelect = document.getElementById('modal-categorias');
+        categoriasSelect.innerHTML = '';
+        categorias.forEach(c => {
+            const opt = document.createElement('option');
+            opt.value = c.id;
+            opt.textContent = c.nombre;
+            // seleccionar si pertenece al torneo
+            if (Array.isArray(torneo.categoriaIds) && torneo.categoriaIds.map(String).includes(String(c.id))) opt.selected = true;
+            categoriasSelect.appendChild(opt);
+        });
+
+        const juecesSelect = document.getElementById('modal-jueces');
+        juecesSelect.innerHTML = '';
+        // Filtrar jueces activos si el backend lo proporciona
+        const juecesActivos = (jueces || []).filter(j => j.estado === 'ACTIVO' || !j.estado);
+        juecesActivos.forEach(j => {
+            const opt = document.createElement('option');
+            opt.value = j.id;
+            opt.textContent = `${j.nombre} (Nivel: ${j.nivelCredencial || 'N/A'})`;
+            if (Array.isArray(torneo.juezIds) && torneo.juezIds.map(String).includes(String(j.id))) opt.selected = true;
+            juecesSelect.appendChild(opt);
+        });
 
         // Guardar el ID del torneo en un atributo del formulario
         document.getElementById('formularioEditarTorneo').dataset.torneoId = torneoId;
@@ -265,8 +304,8 @@ function cargarTorneoEnModal(torneoId, token) {
         document.getElementById('modalEditTorneo').style.display = 'flex';
     })
     .catch(error => {
-        console.error('Error al cargar torneo:', error);
-        Swal.fire('Error', 'No se pudo cargar el torneo.', 'error');
+        console.error('Error al cargar torneo o listas:', error);
+        Swal.fire('Error', 'No se pudo cargar los datos necesarios para editar el torneo.', 'error');
     });
 }
 
@@ -294,14 +333,106 @@ document.addEventListener('DOMContentLoaded', () => {
             const token = localStorage.getItem('jwtToken');
             const API_BASE_URL = 'https://robotech-back.onrender.com/api';
 
+            // Recolectar valores del modal
+            const nombre = document.getElementById('nombre').value.trim();
+            const descripcion = document.getElementById('descripcion').value.trim();
+            const fechaInicioInscripcion = document.getElementById('fechaInicioInscripcion').value;
+            const diasInscripcion = parseInt(document.getElementById('diasInscripcion').value);
+            const fechaInicio = document.getElementById('fechaInicio').value;
+            const fechaFin = document.getElementById('fechaFin').value;
+            const horaInicio = document.getElementById('horaInicio').value;
+
+            const sedeId = parseInt(document.getElementById('modal-sede').value);
+            const categoriaIds = Array.from(document.getElementById('modal-categorias').selectedOptions).map(o => parseInt(o.value));
+            const juezIds = Array.from(document.getElementById('modal-jueces').selectedOptions).map(o => parseInt(o.value));
+
+            // Validaciones
+            if (!nombre) {
+                Swal.fire('Nombre Requerido', 'El nombre del torneo es obligatorio.', 'warning');
+                return;
+            }
+
+            // Nombre duplicado (excluir el torneo actual)
+            const existe = allTorneos.some(t => t.id !== Number(torneoId) && t.nombre && t.nombre.toLowerCase() === nombre.toLowerCase());
+            if (existe) {
+                Swal.fire('Nombre Duplicado', 'Ya existe otro torneo con este nombre.', 'warning');
+                return;
+            }
+
+            // Fecha inicio inscripciones >= mañana
+            const hoy = new Date();
+            const mañana = new Date(); mañana.setDate(hoy.getDate() + 1);
+            if (!fechaInicioInscripcion || new Date(fechaInicioInscripcion) < new Date(mañana.toISOString().split('T')[0])) {
+                Swal.fire('Fecha Inválida', 'La fecha de inicio de inscripciones debe ser a partir del día siguiente a hoy.', 'warning');
+                return;
+            }
+
+            if (!diasInscripcion || isNaN(diasInscripcion)) {
+                Swal.fire('Duración Requerida', 'Seleccione la duración de las inscripciones.', 'warning');
+                return;
+            }
+
+            // Calcular cierre y fecha sugerida inicio
+            const fechaCierre = new Date(fechaInicioInscripcion);
+            fechaCierre.setDate(fechaCierre.getDate() + diasInscripcion);
+            const fechaInicioSugerida = new Date(fechaCierre);
+            fechaInicioSugerida.setDate(fechaCierre.getDate() + 1);
+
+            if (!fechaInicio) {
+                Swal.fire({
+                    title: 'Fecha de Inicio Sugerida',
+                    html: `Las inscripciones cierran el <strong>${fechaCierre.toISOString().split('T')[0]}</strong>.<br>Se sugiere iniciar el torneo el <strong>${fechaInicioSugerida.toISOString().split('T')[0]}</strong>.`,
+                    icon: 'info'
+                }).then(() => {
+                    document.getElementById('fechaInicio').value = fechaInicioSugerida.toISOString().split('T')[0];
+                    // continuar validación abajo
+                });
+                // If user hasn't chosen fechaInicio, we stop here to let them confirm
+                return;
+            }
+
+            // fechaFin mínimo 12 días después del inicio
+            const fechaInicioDate = new Date(fechaInicio);
+            const minFechaFin = new Date(fechaInicioDate);
+            minFechaFin.setDate(fechaInicioDate.getDate() + 12);
+            if (!fechaFin || new Date(fechaFin) < minFechaFin) {
+                Swal.fire('Fecha Fin Inválida', `La fecha de fin debe ser al menos 12 días después del inicio (${minFechaFin.toISOString().split('T')[0]}).`, 'warning');
+                return;
+            }
+
+            // Hora válida 11:00 - 19:00
+            if (!horaInicio) {
+                Swal.fire('Hora Requerida', 'Por favor, ingresa una hora de inicio.', 'warning');
+                return;
+            }
+            const [h, m] = horaInicio.split(':').map(Number);
+            if (h < 11 || h > 19) {
+                Swal.fire('Horario Inválido', 'La hora de inicio debe estar entre las 11:00 AM y las 7:00 PM (19:00).', 'warning');
+                return;
+            }
+
+            // Jueces y categorías
+            if (juezIds.length < 3) {
+                Swal.fire('Jueces Insuficientes', 'Debe seleccionar al menos 3 jueces para el torneo.', 'warning');
+                return;
+            }
+
+            if (categoriaIds.length === 0) {
+                Swal.fire('Categorías Requeridas', 'Seleccione al menos una categoría.', 'warning');
+                return;
+            }
+
             const data = {
-                nombre: document.getElementById('nombre').value.trim(),
-                descripcion: document.getElementById('descripcion').value.trim(),
-                fechaInicioInscripcion: document.getElementById('fechaInicioInscripcion').value,
-                diasInscripcion: parseInt(document.getElementById('diasInscripcion').value),
-                fechaInicio: document.getElementById('fechaInicio').value,
-                fechaFin: document.getElementById('fechaFin').value,
-                horaInicio: `${document.getElementById('horaInicio').value}:00`
+                nombre,
+                descripcion,
+                fechaInicioInscripcion,
+                diasInscripcion,
+                fechaInicio,
+                fechaFin,
+                horaInicio: `${horaInicio}:00`,
+                sedeId,
+                categoriaIds,
+                juezIds
             };
 
             try {

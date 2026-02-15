@@ -98,6 +98,7 @@
                 <div class="form-group">
                     <label for="fechaInicioInscripcion">Fecha Inicio Inscripciones</label>
                     <input type="date" id="fechaInicioInscripcion" name="fechaInicioInscripcion" required>
+                    <small class="hint" id="hint-inscripcion">Debe ser a partir del día siguiente a hoy</small>
                 </div>
 
                 <div class="form-group">
@@ -122,6 +123,30 @@
                 <div class="form-group">
                     <label for="horaInicio">Hora de Inicio</label>
                     <input type="time" id="horaInicio" name="horaInicio" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="modal-sede">Sede / Ubicación</label>
+                    <select id="modal-sede" name="sedeId" required>
+                        <option value="" disabled selected>Seleccione una sede...</option>
+                    </select>
+                    <small class="hint">Selecciona la sede del torneo</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="modal-categorias">Categorías (Selección múltiple)</label>
+                    <select id="modal-categorias" name="categoriaIds" multiple size="5" required>
+                        <!-- Se llenará dinámicamente -->
+                    </select>
+                    <small class="hint">Mantén presionada la tecla Ctrl (o Cmd) para seleccionar varias.</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="modal-jueces">Jueces Asignados (Mínimo 3)</label>
+                    <select id="modal-jueces" name="juezIds" multiple size="5" required>
+                        <!-- Se llenará dinámicamente -->
+                    </select>
+                    <small class="hint">Solo se muestran jueces activos.</small>
                 </div>
 
                 <div class="modal-actions">
@@ -201,8 +226,8 @@
         #formularioEditarTorneo .form-group textarea {
             width: 100%;
             padding: 10px;
-            background-color: #0b0b0f;
-            border: 1px solid #1f1f25;
+            background-color: #12151a; /* slightly lighter for better contrast */
+            border: 1px solid #2b2f36;
             border-radius: 6px;
             color: #e6eef6;
             font-size: 0.9rem;
@@ -217,6 +242,14 @@
             border-color: #00bfff;
             box-shadow: 0 0 0 3px rgba(0, 191, 255, 0.15);
         }
+
+        /* Hacer el icono del calendario visible en fondos oscuros */
+        #formularioEditarTorneo input[type="date"]::-webkit-calendar-picker-indicator,
+        #formularioEditarTorneo input[type="time"]::-webkit-calendar-picker-indicator {
+            filter: invert(1) brightness(1.8) contrast(1.2);
+        }
+        /* Firefox */
+        input[type="date"]::-moz-focus-inner { }
 
         .modal-actions {
             display: flex;
