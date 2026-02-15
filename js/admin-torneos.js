@@ -1,3 +1,7 @@
+// Variables globales para que sean accesibles desde el HTML (onclick)
+let abrirEditarTorneo;
+let allTorneos = []; // Mover al ámbito global para que el modal pueda verificar duplicados
+
 document.addEventListener('DOMContentLoaded', () => {
     const token = localStorage.getItem('jwtToken');
     const tableBody = document.querySelector('.club-management-table tbody');
@@ -5,8 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.querySelector('.search-input-admin');
     const API_URL = 'https://robotech-back.onrender.com/api/torneos';
 
-    let allTorneos = [];
-    // Estado inicial por defecto (corresponde a la pestaña "Próximos")
+    // Estado inicial por defecto
     let currentStatusFilter = 'PROXIMAMENTE'; 
 
     // --- Funciones Auxiliares ---
@@ -39,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
             updateDashboard();
         } catch (error) {
             console.error(error);
-            tableBody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:red;">Error al cargar los datos.</td></tr>`;
+            if(tableBody) tableBody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:red;">Error al cargar los datos.</td></tr>`;
         }
     }
 
@@ -59,6 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function applyFilters() {
+        if (!searchInput) return;
         const searchTerm = searchInput.value.toLowerCase().trim();
 
         const filtered = allTorneos.filter(t => {
@@ -72,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const idStr = `TOR-${String(t.id).padStart(3, '0')}`.toLowerCase();
             const nameStr = (t.nombre || '').toLowerCase();
             const dateStr = (t.fechaInicio || '').toLowerCase();
-            const sedeStr = String(t.sede || '').toLowerCase();
+            const sedeStr = String(t.nombreSede || '').toLowerCase(); // Usar nombreSede del DTO actualizado
 
             return idStr.includes(searchTerm) || 
                    nameStr.includes(searchTerm) || 
@@ -84,6 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function renderTable(torneos) {
+        if (!tableBody) return;
         tableBody.innerHTML = '';
         if (torneos.length === 0) {
             tableBody.innerHTML = `<tr><td colspan="6" style="text-align:center;">No se encontraron torneos en esta sección.</td></tr>`;
@@ -94,15 +99,15 @@ document.addEventListener('DOMContentLoaded', () => {
             const row = document.createElement('tr');
             const idFormatted = `TOR-${String(t.id).padStart(3, '0')}`;
             const cats = (t.categorias && t.categorias.length > 0) ? t.categorias.join(', ') : 'Sin categorías';
-            const dateSede = `${formatDate(t.fechaInicio)} | ${t.sede || 'Sede por definir'}`;
+            const dateSede = `${formatDate(t.fechaInicio)} | ${t.nombreSede || 'Sede por definir'}`;
 
             let statusClass = '';
             let statusText = '';
             let actionsHtml = '';
 
-            // Botones comunes
             const btnVer = `<a class="btn-action btn-view" href="vista-torneo.html?id=${t.id}" style="text-decoration: none;">Ver</a>`;
             const btnReglas = `<a class="btn-action btn-rules" href="reglamento_torneo.html?id=${t.id}" style="background-color: #1f6feb; color: white; text-decoration: none;">Reglas</a>`;
+            // Llamada a la función global
             const btnEditar = `<button class="btn-action btn-edit" onclick="abrirEditarTorneo(${t.id}, '${t.estado}')" style="background-color: #d29922; color: white;">Editar</button>`;
 
             switch(t.estado) {
@@ -110,30 +115,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     statusClass = 'status-active';
                     statusText = 'Activo';
                     row.classList.add('highlight-active');
-                    actionsHtml = `
-                        ${btnVer}
-                        ${btnReglas}
-                        ${btnEditar}
-                        <button class="btn-action btn-manage" onclick="window.location.href='vista-torneo.html?id=${t.id}&simular=true'">Simular</button>
-                    `;
+                    actionsHtml = `${btnVer} ${btnReglas} ${btnEditar} <button class="btn-action btn-manage" onclick="window.location.href='vista-torneo.html?id=${t.id}&simular=true'">Simular</button>`;
                     break;
                 case 'PROXIMAMENTE':
                     statusClass = 'status-pending';
                     statusText = 'Próximo';
-                    actionsHtml = `
-                        ${btnVer}
-                        ${btnReglas}
-                        ${btnEditar}
-                    `;
+                    actionsHtml = `${btnVer} ${btnReglas} ${btnEditar}`;
                     break;
                 case 'FINALIZADO':
                     statusClass = 'status-suspended';
                     statusText = 'Finalizado';
-                    actionsHtml = `
-                        ${btnVer}
-                        ${btnEditar}
-                        <button class="btn-action btn-details" onclick="window.location.href='vista-torneo.html?id=${t.id}'">Resultados</button>
-                    `;
+                    actionsHtml = `${btnVer} ${btnEditar} <button class="btn-action btn-details" onclick="window.location.href='vista-torneo.html?id=${t.id}'">Resultados</button>`;
                     break;
                 case 'CANCELADO':
                     statusClass = 'status-suspended';
@@ -157,6 +149,20 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- Definición de la función global ---
+    abrirEditarTorneo = function(torneoId, estado) {
+        if (estado === 'EN_CURSO' || estado === 'FINALIZADO' || estado === 'CANCELADO') {
+            Swal.fire({
+                title: 'Acción Inválida',
+                text: `El torneo está ${estado.toLowerCase().replace('_', ' ')} y no puede ser editado.`,
+                icon: 'warning',
+                confirmButtonText: 'Entendido'
+            });
+            return;
+        }
+        cargarTorneoEnModal(torneoId, token);
+    };
+
     // --- Event Listeners ---
     filterTabs.forEach((tab, index) => {
         tab.addEventListener('click', (e) => {
@@ -179,65 +185,28 @@ document.addEventListener('DOMContentLoaded', () => {
     if (protectPage()) {
         fetchTorneos();
         
-        document.querySelector('.btn-logout').addEventListener('click', (e) => {
-            e.preventDefault();
-            localStorage.removeItem('jwtToken');
-            window.location.href = 'login.html';
-        }); 
+        const btnLogout = document.querySelector('.btn-logout');
+        if(btnLogout) {
+            btnLogout.addEventListener('click', (e) => {
+                e.preventDefault();
+                localStorage.removeItem('jwtToken');
+                window.location.href = 'login.html';
+            });
+        }
     }
 });
 
-// Funciones globales para el modal de edición
-function abrirEditarTorneo(torneoId, estado) {
-    const token = localStorage.getItem('jwtToken');
-    
-    if (estado === 'EN_CURSO') {
-        Swal.fire({
-            title: 'Acción Inválida',
-            text: 'El torneo se está llevando a cabo en este momento y no es posible editarlo.',
-            icon: 'warning',
-            confirmButtonText: 'Entendido'
-        });
-        return;
-    }
-    
-    if (estado === 'FINALIZADO') {
-        Swal.fire({
-            title: 'Acción Inválida',
-            text: 'El torneo ha finalizado y no puede ser editado.',
-            icon: 'warning',
-            confirmButtonText: 'Entendido'
-        });
-        return;
-    }
-
-    if (estado === 'CANCELADO') {
-        Swal.fire({
-            title: 'Acción Inválida',
-            text: 'El torneo ha sido cancelado y no puede ser editado.',
-            icon: 'warning',
-            confirmButtonText: 'Entendido'
-        });
-        return;
-    }
-
-    // Si es PROXIMAMENTE, abrir el modal
-    if (estado === 'PROXIMAMENTE') {
-        cargarTorneoEnModal(torneoId, token);
-    }
-}
+// --- Funciones del Modal (Fuera del DOMContentLoaded para limpieza) ---
 
 function cargarTorneoEnModal(torneoId, token) {
     const API_BASE_URL = 'https://robotech-back.onrender.com/api';
     
-    // Mostrar loading
     Swal.fire({
         title: 'Cargando...',
         allowOutsideClick: false,
         didOpen: () => { Swal.showLoading(); }
     });
 
-    // Cargar datos del torneo y listas necesarias en paralelo
     Promise.all([
         fetch(`${API_BASE_URL}/torneos/${torneoId}`, { headers: { 'Authorization': `Bearer ${token}` } }).then(r => r.json()),
         fetch(`${API_BASE_URL}/sedes`, { headers: { 'Authorization': `Bearer ${token}` } }).then(r => r.json()),
@@ -255,7 +224,6 @@ function cargarTorneoEnModal(torneoId, token) {
         document.getElementById('fechaInicio').value = torneo.fechaInicio || '';
         document.getElementById('fechaFin').value = torneo.fechaFin || '';
 
-        // Hora: si viene formato "HH:mm:ss", extraer solo "HH:mm"
         if (torneo.horaInicio) {
             const horaPartes = torneo.horaInicio.split(':');
             document.getElementById('horaInicio').value = `${horaPartes[0]}:${horaPartes[1]}`;
@@ -263,7 +231,7 @@ function cargarTorneoEnModal(torneoId, token) {
             document.getElementById('horaInicio').value = '';
         }
 
-        // Poblado de selects en el modal
+        // Llenar Sedes
         const sedeSelect = document.getElementById('modal-sede');
         sedeSelect.innerHTML = '<option value="" disabled>Seleccione una sede...</option>';
         sedes.forEach(s => {
@@ -274,33 +242,36 @@ function cargarTorneoEnModal(torneoId, token) {
             sedeSelect.appendChild(opt);
         });
 
+        // Llenar Categorías
         const categoriasSelect = document.getElementById('modal-categorias');
         categoriasSelect.innerHTML = '';
         categorias.forEach(c => {
             const opt = document.createElement('option');
             opt.value = c.id;
             opt.textContent = c.nombre;
-            // seleccionar si pertenece al torneo
-            if (Array.isArray(torneo.categoriaIds) && torneo.categoriaIds.map(String).includes(String(c.id))) opt.selected = true;
+            // Usamos categoriaIds que ahora viene del backend
+            if (Array.isArray(torneo.categoriaIds) && torneo.categoriaIds.map(String).includes(String(c.id))) {
+                opt.selected = true;
+            }
             categoriasSelect.appendChild(opt);
         });
 
+        // Llenar Jueces
         const juecesSelect = document.getElementById('modal-jueces');
         juecesSelect.innerHTML = '';
-        // Filtrar jueces activos si el backend lo proporciona
         const juecesActivos = (jueces || []).filter(j => j.estado === 'ACTIVO' || !j.estado);
         juecesActivos.forEach(j => {
             const opt = document.createElement('option');
             opt.value = j.id;
             opt.textContent = `${j.nombre} (Nivel: ${j.nivelCredencial || 'N/A'})`;
-            if (Array.isArray(torneo.juezIds) && torneo.juezIds.map(String).includes(String(j.id))) opt.selected = true;
+            // Usamos juezIds que ahora viene del backend
+            if (Array.isArray(torneo.juezIds) && torneo.juezIds.map(String).includes(String(j.id))) {
+                opt.selected = true;
+            }
             juecesSelect.appendChild(opt);
         });
 
-        // Guardar el ID del torneo en un atributo del formulario
         document.getElementById('formularioEditarTorneo').dataset.torneoId = torneoId;
-
-        // Abrir el modal
         document.getElementById('modalEditTorneo').style.display = 'flex';
     })
     .catch(error => {
@@ -313,7 +284,6 @@ function cerrarModalEdicion() {
     document.getElementById('modalEditTorneo').style.display = 'none';
 }
 
-// Cerrar modal al hacer click en el overlay
 document.addEventListener('click', (e) => {
     const modal = document.getElementById('modalEditTorneo');
     if (modal && e.target === modal) {
@@ -333,7 +303,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const token = localStorage.getItem('jwtToken');
             const API_BASE_URL = 'https://robotech-back.onrender.com/api';
 
-            // Recolectar valores del modal
             const nombre = document.getElementById('nombre').value.trim();
             const descripcion = document.getElementById('descripcion').value.trim();
             const fechaInicioInscripcion = document.getElementById('fechaInicioInscripcion').value;
@@ -346,74 +315,21 @@ document.addEventListener('DOMContentLoaded', () => {
             const categoriaIds = Array.from(document.getElementById('modal-categorias').selectedOptions).map(o => parseInt(o.value));
             const juezIds = Array.from(document.getElementById('modal-jueces').selectedOptions).map(o => parseInt(o.value));
 
-            // Validaciones
+            // Validaciones básicas
             if (!nombre) {
                 Swal.fire('Nombre Requerido', 'El nombre del torneo es obligatorio.', 'warning');
                 return;
             }
-
-            // Nombre duplicado (excluir el torneo actual)
+            
+            // Validación de duplicados usando la lista global
             const existe = allTorneos.some(t => t.id !== Number(torneoId) && t.nombre && t.nombre.toLowerCase() === nombre.toLowerCase());
             if (existe) {
                 Swal.fire('Nombre Duplicado', 'Ya existe otro torneo con este nombre.', 'warning');
                 return;
             }
 
-            // Fecha inicio inscripciones >= mañana
-            const hoy = new Date();
-            const mañana = new Date(); mañana.setDate(hoy.getDate() + 1);
-            if (!fechaInicioInscripcion || new Date(fechaInicioInscripcion) < new Date(mañana.toISOString().split('T')[0])) {
-                Swal.fire('Fecha Inválida', 'La fecha de inicio de inscripciones debe ser a partir del día siguiente a hoy.', 'warning');
-                return;
-            }
-
-            if (!diasInscripcion || isNaN(diasInscripcion)) {
-                Swal.fire('Duración Requerida', 'Seleccione la duración de las inscripciones.', 'warning');
-                return;
-            }
-
-            // Calcular cierre y fecha sugerida inicio
-            const fechaCierre = new Date(fechaInicioInscripcion);
-            fechaCierre.setDate(fechaCierre.getDate() + diasInscripcion);
-            const fechaInicioSugerida = new Date(fechaCierre);
-            fechaInicioSugerida.setDate(fechaCierre.getDate() + 1);
-
-            if (!fechaInicio) {
-                Swal.fire({
-                    title: 'Fecha de Inicio Sugerida',
-                    html: `Las inscripciones cierran el <strong>${fechaCierre.toISOString().split('T')[0]}</strong>.<br>Se sugiere iniciar el torneo el <strong>${fechaInicioSugerida.toISOString().split('T')[0]}</strong>.`,
-                    icon: 'info'
-                }).then(() => {
-                    document.getElementById('fechaInicio').value = fechaInicioSugerida.toISOString().split('T')[0];
-                    // continuar validación abajo
-                });
-                // If user hasn't chosen fechaInicio, we stop here to let them confirm
-                return;
-            }
-
-            // fechaFin mínimo 12 días después del inicio
-            const fechaInicioDate = new Date(fechaInicio);
-            const minFechaFin = new Date(fechaInicioDate);
-            minFechaFin.setDate(fechaInicioDate.getDate() + 12);
-            if (!fechaFin || new Date(fechaFin) < minFechaFin) {
-                Swal.fire('Fecha Fin Inválida', `La fecha de fin debe ser al menos 12 días después del inicio (${minFechaFin.toISOString().split('T')[0]}).`, 'warning');
-                return;
-            }
-
-            // Hora válida 11:00 - 19:00
-            if (!horaInicio) {
-                Swal.fire('Hora Requerida', 'Por favor, ingresa una hora de inicio.', 'warning');
-                return;
-            }
-            const [h, m] = horaInicio.split(':').map(Number);
-            if (h < 11 || h > 19) {
-                Swal.fire('Horario Inválido', 'La hora de inicio debe estar entre las 11:00 AM y las 7:00 PM (19:00).', 'warning');
-                return;
-            }
-
-            // Jueces y categorías
             if (juezIds.length < 3) {
-                Swal.fire('Jueces Insuficientes', 'Debe seleccionar al menos 3 jueces para el torneo.', 'warning');
+                Swal.fire('Jueces Insuficientes', 'Debe seleccionar al menos 3 jueces.', 'warning');
                 return;
             }
 
@@ -458,7 +374,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         icon: 'success'
                     }).then(() => {
                         cerrarModalEdicion();
-                        // Recargar la tabla
                         location.reload();
                     });
                 } else {
