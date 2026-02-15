@@ -3,7 +3,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('registro-form');
     const messageDiv = document.getElementById('form-message');
-    const apiUrl = 'http://localhost:8080/api/competidores/registro-con-codigo';
+    const apiUrl = 'https://robotech-back.onrender.com/api/competidores/registro-con-codigo';
 
     // --- SweetAlert helpers ---
     const showSwalError = (msg) => {
