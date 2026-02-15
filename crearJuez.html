@@ -5,7 +5,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Formulario de Juez - ROBOTech Admin</title>
     <link rel="stylesheet" href="css/styles.css" /> 
+    <link rel="stylesheet" href="css/otro.css" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos personalizados para formulario de crear juez en 2 columnas */
+        .form-container .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .form-container .form-grid .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-container .form-grid .form-group label {
+            margin-bottom: 8px;
+            color: #cfcfcf;
+            font-weight: 500;
+        }
+
+        .form-container .form-grid .form-group input,
+        .form-container .form-grid .form-group select {
+            padding: 12px 15px;
+            background-color: #0b0b0f;
+            border: 1px solid #1f1f25;
+            border-radius: 6px;
+            color: #e6eef6;
+            font-size: 0.95rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .form-container .form-grid .form-group input:focus,
+        .form-container .form-grid .form-group select:focus {
+            outline: none;
+            border-color: #00bfff !important;
+            box-shadow: 0 0 0 3px rgba(0, 191, 255, 0.15) !important;
+        }
+
+        .form-container .form-grid .form-group small {
+            font-size: 0.85rem;
+            color: #889099;
+            margin-top: 5px;
+        }
+
+        /* Media query para pantallas pequeñas */
+        @media (max-width: 900px) {
+            .form-container .form-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .form-container .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
     
@@ -13,8 +71,8 @@
         <div class="logo">ROBOTech Admin</div>
         <nav class="nav">
             <ul>
-                <li><a href="admin_dashboard.html">Dashboard</a></li> 
-                <li><a href="admin_jueces.html" class="active">Jueces</a></li> 
+                <li><a href="perfiladmin.html">Dashboard</a></li> 
+                <li><a href="adminjueces.html" class="active">Jueces</a></li> 
                 <li><a href="login.html" class="btn-logout">Cerrar Sesión</a></li> 
             </ul>
         </nav>
@@ -47,8 +105,8 @@
                     </div>
                     
                     <div class="form-group">
-                        <label for="telefono_juez">Teléfono</label>
-                        <input type="tel" id="telefono_juez" placeholder="Ej: 987654321" inputmode="numeric" pattern="[0-9]{9}" maxlength="9" minlength="9" title="Ingrese exactamente 9 dígitos numéricos">
+                        <label for="telefono_juez">Teléfono *</label>
+                        <input type="tel" id="telefono_juez" required placeholder="Ej: 987654321 (Campo obligatorio)" inputmode="numeric" pattern="[0-9]{9}" maxlength="9" minlength="9" title="Ingrese exactamente 9 dígitos numéricos">
                     </div>
 
                     <div class="form-group">
@@ -75,7 +133,7 @@
                     </div>
                     
                     <div class="form-group">
-                        <label for="categorias_juez">Categorías de Especialidad</label>
+                        <label for="categorias_juez">Categorías de Especialidad (Opcional)</label>
                         <select id="categorias_juez" name="categoriaIds" multiple>
                             <!-- Opciones cargadas por JavaScript -->
                         </select>
@@ -86,19 +144,47 @@
 
                 <div class="form-actions">
                     <button type="submit" class="btn-main">Guardar Juez</button>
-                    <button type="button" class="btn-main" onclick="window.location.href='admin_jueces.html'">Cancelar/Volver</button>
+                    <button type="button" class="btn-main" onclick="window.location.href='adminjueces.html'">Cancelar/Volver</button>
                 </div>
             </form>
         </div>
     </section>
 
-    <footer class="footer admin-footer">
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-about">
+                <h3>ROBOTech</h3>
+                <p>Innovación, competencia y pasión por la robótica. 
+                Únete a nuestra comunidad y lleva tus habilidades al siguiente nivel.</p>
+            </div>
+
+            <div class="footer-links">
+                <h4>Enlaces útiles</h4>
+                <ul>
+                    <li><a href="#">Términos y condiciones</a></li>
+                    <li><a href="#">Política de privacidad</a></li>
+                    <li><a href="#">Preguntas frecuentes</a></li>
+                    <li><a href="#">Contacto</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-social">
+                <h4>Síguenos</h4>
+                <div class="social-icons">
+                    <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook"></a>
+                    <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram"></a>
+                    <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/twitter.svg" alt="Twitter"></a>
+                    <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube"></a>
+                </div>
+            </div>
+        </div>
+
         <div class="footer-bottom">
-            <p>© 2025 ROBOTech | Consola de Administración</p>
+            <p>© 2025 ROBOTech | Innovación y competencia robótica</p>
         </div>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="js/admin-crear-juez.js"></script>
+    <!-- <script src="js/admin-crear-juez.js"></script> -->
 
 </body>
 </html>

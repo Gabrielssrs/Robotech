@@ -1319,6 +1319,46 @@ input[disabled].status-pending { background: rgba(255,204,0,0.06); border-color:
     grid-column: 1 / -1;
 }
 
+/* Robots: hacer que la sección de robots ocupe el mismo ancho que la info personal */
+.robots-section {
+    grid-column: 1 / -1;
+}
+
+/* Asegurar que la tabla ocupe el 100% del ancho de la sección (evitar centrados con max-width) */
+.robots-section .table-responsive {
+    max-width: none !important;
+    width: 100% !important;
+}
+
+/* Botón de agregar robot: reducir tamaño para que sea más discreto */
+.add-robot-btn {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    border-radius: 8px;
+}
+
+/* Reglas más específicas para garantizar la aplicación sobre otras reglas */
+.profile-container.competitor-page .robots-section {
+    grid-column: 1 / -1 !important;
+}
+.profile-container.competitor-page .robots-section .table-responsive {
+    max-width: none !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+.profile-container.competitor-page .robots-section .robots-table.wide-table {
+    width: 100% !important;
+    table-layout: auto !important;
+}
+
+/* Ajustes visuales del botón cuando se usa la clase small-btn */
+.profile-container.competitor-page .robots-section .add-robot-btn.small-btn {
+    padding: 6px 10px !important;
+    font-size: 0.85rem !important;
+    border-radius: 6px !important;
+}
+
 .info-grid {
     display: grid;
     grid-template-columns: 200px repeat(3, 1fr);
@@ -1358,7 +1398,7 @@ input[disabled].status-pending { background: rgba(255,204,0,0.06); border-color:
 
 /* Tablas de Perfil */
 .robots-section {
-    grid-column: 1 / 2;
+    grid-column: 1 / -1;
 }
 .tournament-history-section {
     grid-column: 2 / 3;
@@ -1375,8 +1415,16 @@ input[disabled].status-pending { background: rgba(255,204,0,0.06); border-color:
     border-radius: 5px;
 }
 .add-robot-btn {
-    width: 100%;
+    width: auto;
     margin-top: 20px;
+}
+
+/* Forzar ancho específico cuando se utiliza la clase small-btn (200px solicitados) */
+.profile-container.competitor-page .robots-section .add-robot-btn.small-btn {
+    width: 200px !important;
+    max-width: 200px !important;
+    display: inline-block !important;
+    text-align: center;
 }
 
 /* Gráfico (Placeholder) */

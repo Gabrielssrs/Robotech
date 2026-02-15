@@ -163,39 +163,86 @@ document.addEventListener('DOMContentLoaded', () => {
         // Validaciones básicas en el frontend
         let isValid = true;
         let errorFields = [];
+        
+        // Limpiar errores previos
         clearFieldError(nombreInput);
         const tipoCompeticionInput = document.getElementById('tipoCompeticion');
-        if (tipoCompeticionInput) clearFieldError(tipoCompeticionInput);
+        const pesoInput = document.getElementById('pesoMaximoKg');
+        const anchoInput = document.getElementById('anchoMaximoCm');
+        const altoInput = document.getElementById('altoMaximoCm');
+        const largoInput = document.getElementById('largoMaximoCm');
+        const velocidadInput = document.getElementById('velocidadMaximaPermitidaKmh');
+        const descripcionInput = document.getElementById('descripcion');
 
+        if (tipoCompeticionInput) clearFieldError(tipoCompeticionInput);
+        if (pesoInput) clearFieldError(pesoInput);
+        if (anchoInput) clearFieldError(anchoInput);
+        if (altoInput) clearFieldError(altoInput);
+        if (largoInput) clearFieldError(largoInput);
+        if (velocidadInput) clearFieldError(velocidadInput);
+        if (descripcionInput) clearFieldError(descripcionInput);
+
+        // Validación de campos obligatorios
         if (!categoriaData.nombre) {
             setFieldError(nombreInput, 'El nombre de la categoría es obligatorio.');
             isValid = false;
-            errorFields.push('Nombre');
+            errorFields.push('Nombre de Categoría');
         }
         if (!categoriaData.tipoCompeticion) {
             if (tipoCompeticionInput) setFieldError(tipoCompeticionInput, 'El tipo de competición es obligatorio.');
             isValid = false;
-            errorFields.push('Tipo de competición');
+            errorFields.push('Tipo de Competición');
+        }
+        if (categoriaData.pesoMaximoKg === null || categoriaData.pesoMaximoKg === '') {
+            if (pesoInput) setFieldError(pesoInput, 'El peso máximo es obligatorio.');
+            isValid = false;
+            errorFields.push('Peso Máximo');
+        }
+        if (categoriaData.anchoMaximoCm === null || categoriaData.anchoMaximoCm === '') {
+            if (anchoInput) setFieldError(anchoInput, 'El ancho máximo es obligatorio.');
+            isValid = false;
+            errorFields.push('Ancho Máximo');
+        }
+        if (categoriaData.altoMaximoCm === null || categoriaData.altoMaximoCm === '') {
+            if (altoInput) setFieldError(altoInput, 'El alto máximo es obligatorio.');
+            isValid = false;
+            errorFields.push('Alto Máximo');
+        }
+        if (categoriaData.largoMaximoCm === null || categoriaData.largoMaximoCm === '') {
+            if (largoInput) setFieldError(largoInput, 'El largo máximo es obligatorio.');
+            isValid = false;
+            errorFields.push('Largo Máximo');
+        }
+        if (categoriaData.velocidadMaximaPermitidaKmh === null || categoriaData.velocidadMaximaPermitidaKmh === '') {
+            if (velocidadInput) setFieldError(velocidadInput, 'La velocidad máxima es obligatoria.');
+            isValid = false;
+            errorFields.push('Velocidad Máxima');
+        }
+        if (!categoriaData.descripcion) {
+            if (descripcionInput) setFieldError(descripcionInput, 'La descripción es obligatoria.');
+            isValid = false;
+            errorFields.push('Descripción');
         }
 
         // Validar valores negativos en campos numéricos
         const numericFields = [
-            { name: 'pesoMaximoKg', label: 'El peso' },
-            { name: 'anchoMaximoCm', label: 'El ancho' },
-            { name: 'altoMaximoCm', label: 'El alto' },
-            { name: 'largoMaximoCm', label: 'El largo' },
-            { name: 'velocidadMaximaPermitidaKmh', label: 'La velocidad' }
+            { name: 'pesoMaximoKg', label: 'El peso', input: pesoInput },
+            { name: 'anchoMaximoCm', label: 'El ancho', input: anchoInput },
+            { name: 'altoMaximoCm', label: 'El alto', input: altoInput },
+            { name: 'largoMaximoCm', label: 'El largo', input: largoInput },
+            { name: 'velocidadMaximaPermitidaKmh', label: 'La velocidad', input: velocidadInput }
         ];
 
         numericFields.forEach(field => {
-            const input = categoryForm.querySelector(`[name="${field.name}"]`);
+            const input = field.input || categoryForm.querySelector(`[name="${field.name}"]`);
             if (input) {
-                clearFieldError(input);
                 if (categoriaData[field.name] !== null && categoriaData[field.name] < 0) {
                     setFieldError(input, `${field.label} no puede ser negativo.`);
                     isValid = false;
                     const fieldName = field.label.replace(/^(El|La)\s+/i, '');
-                    errorFields.push(fieldName.charAt(0).toUpperCase() + fieldName.slice(1));
+                    if (!errorFields.includes(fieldName.charAt(0).toUpperCase() + fieldName.slice(1))) {
+                        errorFields.push(fieldName.charAt(0).toUpperCase() + fieldName.slice(1));
+                    }
                 }
             }
         });

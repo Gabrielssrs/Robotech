@@ -5,7 +5,86 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Crear Categoría - ROBOTech Admin</title>
     <link rel="stylesheet" href="css/styles.css" /> 
+    <link rel="stylesheet" href="css/otro.css" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos personalizados para formulario de crear categoría en 2 columnas */
+        .admin-form .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .admin-form .form-column {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .admin-form .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .admin-form .form-group label {
+            margin-bottom: 8px;
+            color: #cfcfcf;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .admin-form .form-group input,
+        .admin-form .form-group textarea,
+        .admin-form .form-group select {
+            padding: 12px 15px;
+            background-color: #0b0b0f;
+            border: 1px solid #1f1f25;
+            border-radius: 6px;
+            color: #e6eef6;
+            font-size: 0.95rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            font-family: inherit;
+        }
+
+        .admin-form .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .admin-form .form-group input:focus,
+        .admin-form .form-group textarea:focus,
+        .admin-form .form-group select:focus {
+            outline: none;
+            border-color: #00bfff !important;
+            box-shadow: 0 0 0 3px rgba(0, 191, 255, 0.15) !important;
+        }
+
+        .admin-form .form-row.two-cols {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .admin-form .full-width-group {
+            grid-column: 1 / -1;
+        }
+
+        /* Media query para pantallas pequeñas */
+        @media (max-width: 1024px) {
+            .admin-form .form-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .admin-form .form-row.two-cols {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+        }
+    </style>
 </head>
 <body>
     
@@ -14,7 +93,7 @@
         <nav class="nav">
             <ul>
                 <li><a href="perfiladmin.html">Dashboard</a></li> 
-                <li><a href="admin_categorias.html" class="active">Categorías</a></li> 
+                <li><a href="administrarCategorias.html" class="active">Categorías</a></li> 
                 <li><a href="login.html" class="btn-logout">Cerrar Sesión</a></li> 
             </ul>
         </nav>
@@ -29,77 +108,88 @@
             <form id="create-category-form" class="admin-form">
                 
                 <div class="form-grid">
-                    <!-- Columna 1 -->
+                    <!-- SECCIÓN DE CAMPOS OBLIGATORIOS EN LAS PRIMERAS FILAS -->
+                    
+                    <!-- Fila 1: Nombre y Tipo de Competición -->
                     <div class="form-column">
                         <div class="form-group">
-                            <label for="nombre">Nombre de Categoría</label>
+                            <label for="nombre">Nombre de Categoría *</label>
                             <input type="text" id="nombre" name="nombre" placeholder="Ej: Combate Peso Pesado" required>
                         </div>
 
-                        <!-- CAMPO MODIFICADO A INPUT TEXT -->
                         <div class="form-group">
-                            <label for="tipoCompeticion">Tipo de Competición</label>
+                            <label for="tipoCompeticion">Tipo de Competición *</label>
                             <input type="text" id="tipoCompeticion" name="tipoCompeticion" placeholder="Ej: Combate, Sumo, Carrera" required>
                         </div>
-
-                        <!-- Peso y Ancho en la misma línea -->
-                        <div class="form-row two-cols">
-                            <div class="form-group">
-                                <label for="pesoMaximoKg">Peso Máximo (kg)</label>
-                                <input type="number" id="pesoMaximoKg" name="pesoMaximoKg" placeholder="Ej: 120" step="0.1">
-                            </div>
-                            <div class="form-group">
-                                <label for="anchoMaximoCm">Ancho Máximo (cm)</label>
-                                <input type="number" id="anchoMaximoCm" name="anchoMaximoCm" placeholder="Ej: 100" step="0.1">
-                            </div>
-                        </div>
-
-                        <!-- Alto y Largo en la misma línea -->
-                        <div class="form-row two-cols">
-                            <div class="form-group">
-                                <label for="altoMaximoCm">Alto Máximo (cm)</label>
-                                <input type="number" id="altoMaximoCm" name="altoMaximoCm" placeholder="Ej: 100" step="0.1">
-                            </div>
-                            <div class="form-group">
-                                <label for="largoMaximoCm">Largo Máximo (cm)</label>
-                                <input type="number" id="largoMaximoCm" name="largoMaximoCm" placeholder="Ej: 80" step="0.1">
-                            </div>
-                        </div>
                     </div>
-    
-                    <!-- Columna 2 -->
+
+                    <!-- Fila 1 (derecha): Peso y Ancho -->
                     <div class="form-column">
                         <div class="form-group">
-                            <label for="velocidadMaximaPermitidaKmh">Velocidad Máxima (km/h)</label>
-                            <input type="number" id="velocidadMaximaPermitidaKmh" name="velocidadMaximaPermitidaKmh" placeholder="Ej: 25" step="0.5">
+                            <label for="pesoMaximoKg">Peso Máximo (kg) *</label>
+                            <input type="number" id="pesoMaximoKg" name="pesoMaximoKg" placeholder="Ej: 120" step="0.1" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="anchoMaximoCm">Ancho Máximo (cm) *</label>
+                            <input type="number" id="anchoMaximoCm" name="anchoMaximoCm" placeholder="Ej: 100" step="0.1" required>
+                        </div>
+                    </div>
+
+                    <!-- Fila 2: Alto y Largo -->
+                    <div class="form-column">
+                        <div class="form-group">
+                            <label for="altoMaximoCm">Alto Máximo (cm) *</label>
+                            <input type="number" id="altoMaximoCm" name="altoMaximoCm" placeholder="Ej: 100" step="0.1" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="largoMaximoCm">Largo Máximo (cm) *</label>
+                            <input type="number" id="largoMaximoCm" name="largoMaximoCm" placeholder="Ej: 80" step="0.1" required>
+                        </div>
+                    </div>
+
+                    <!-- Fila 2 (derecha): Velocidad y Campo opcional -->
+                    <div class="form-column">
+                        <div class="form-group">
+                            <label for="velocidadMaximaPermitidaKmh">Velocidad Máxima (km/h) *</label>
+                            <input type="number" id="velocidadMaximaPermitidaKmh" name="velocidadMaximaPermitidaKmh" placeholder="Ej: 25" step="0.5" required>
                         </div>
 
                         <div class="form-group">
                             <label for="armaPrincipalPermitida">Arma Principal Permitida</label>
                             <input type="text" id="armaPrincipalPermitida" name="armaPrincipalPermitida" placeholder="Ej: Solo impacto, sin fuego">
                         </div>
-    
+                    </div>
+
+                    <!-- SECCIÓN DE CAMPOS OPCIONALES -->
+                    
+                    <!-- Fila 3: Terreno y Tracción -->
+                    <div class="form-column">
                         <div class="form-group">
                             <label for="terrenoCompeticion">Terreno de Competición</label>
                             <input type="text" id="terrenoCompeticion" name="terrenoCompeticion" placeholder="Ej: Arena de acero">
                         </div>
-    
+
                         <div class="form-group">
                             <label for="tipoTraccionPermitido">Tracción Permitida</label>
                             <input type="text" id="tipoTraccionPermitido" name="tipoTraccionPermitido" placeholder="Ej: Solo ruedas">
                         </div>
-                        
+                    </div>
+
+                    <!-- Fila 3 (derecha): Materiales -->
+                    <div class="form-column">
                         <div class="form-group">
                             <label for="materialesPermitidos">Materiales Permitidos</label>
-                            <textarea id="materialesPermitidos" name="materialesPermitidos" rows="3" placeholder="Ej: Prohibido el titanio"></textarea>
+                            <textarea id="materialesPermitidos" name="materialesPermitidos" rows="4" placeholder="Ej: Prohibido el titanio"></textarea>
                         </div>
                     </div>
                 </div>
 
-                <!-- Campo de descripción -->
+                <!-- Campo de descripción (Obligatorio) -->
                 <div class="form-group full-width-group">
-                    <label for="descripcion">Descripción General y Reglas</label>
-                    <textarea id="descripcion" name="descripcion" rows="5" placeholder="Describe las reglas principales, objetivos y espíritu de la categoría."></textarea>
+                    <label for="descripcion">Descripción General y Reglas *</label>
+                    <textarea id="descripcion" name="descripcion" rows="5" placeholder="Describe las reglas principales, objetivos y espíritu de la categoría." required></textarea>
                 </div>
     
                 <div class="form-actions">
@@ -113,12 +203,41 @@
         
     </section>
 
-    <footer class="footer admin-footer">
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-about">
+                <h3>ROBOTech</h3>
+                <p>Innovación, competencia y pasión por la robótica.  
+                Únete a nuestra comunidad y lleva tus habilidades al siguiente nivel.</p>
+            </div>
+
+            <div class="footer-links">
+                <h4>Enlaces útiles</h4>
+                <ul>
+                    <li><a href="#">Términos y condiciones</a></li>
+                    <li><a href="#">Política de privacidad</a></li>
+                    <li><a href="#">Preguntas frecuentes</a></li>
+                    <li><a href="#">Contacto</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-social">
+                <h4>Síguenos</h4>
+                <div class="social-icons">
+                    <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook"></a>
+                    <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram"></a>
+                    <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/twitter.svg" alt="Twitter"></a>
+                    <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube"></a>
+                </div>
+            </div>
+        </div>
+
         <div class="footer-bottom">
-            <p>© 2025 ROBOTech | Consola de Administración</p>
+            <p>© 2025 ROBOTech | Innovación y competencia robótica</p>
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="js/crear-categoria.js"></script>
 
 </body>

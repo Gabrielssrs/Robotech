@@ -14,7 +14,7 @@
         <nav class="nav">
             <ul>
                 <li><a href="perfiladmin.html">Dashboard</a></li> 
-                <li><a href="#" class="active">Categorías</a></li> 
+                <li><a href="administrarCategorias.html" class="active">Categorías</a></li> 
                 <li><a href="login.html" class="btn-logout">Cerrar Sesión</a></li> 
             </ul>
         </nav>
@@ -27,12 +27,10 @@
         
         <section class="admin-filters-search">
             <div class="admin-filters-container">
-                <a href="#" class="admin-filter-tab active">Activas (6)</a>
-                <a href="#" class="admin-filter-tab suspended-tab">Inactivas (2)</a>
+                <a href="#" class="admin-filter-tab active" data-filter="activas">Activas <span class="filter-count">(6)</span></a>
+                <a href="#" class="admin-filter-tab" data-filter="inactivas">Inactivas <span class="filter-count">(2)</span></a>
                 
-                <a href="#" class="admin-filter-tab filter-dropdown">Tipo de Robot</a>
-                
-                <input type="text" placeholder="Buscar categoría, peso o ID..." class="search-input-admin">
+                <input type="text" id="search-input" placeholder="Buscar por nombre, tipo o ID..." class="search-input-admin">
             </div>
         </section>
 
@@ -68,34 +66,7 @@
         
     </section>
 
-    <footer class="footer admin-footer">
-        <div class="footer-container">
-            <div class="footer-about">
-                <h3>About</h3>
-                <p>ROBOTech Admin es la consola para gestionar clubes, jueces y torneos de robótica.</p>
-            </div>
-            <div class="footer-links">
-                <h4>Links</h4>
-                <ul>
-                    <li><a href="#">Soporte</a></li>
-                    <li><a href="#">Políticas</a></li>
-                    <li><a href="#">Estado del sistema</a></li>
-                </ul>
-            </div>
-            <div class="footer-social">
-                <h4>Social</h4>
-                <ul>
-                    <li><a href="#">X / Twitter</a></li>
-                    <li><a href="#">LinkedIn</a></li>
-                    <li><a href="#">GitHub</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>© 2025 ROBOTech | Consola de Administración</p>
-        </div>
-
-            <!-- Modal para editar categoría -->
+    <!-- Modal para editar categoría -->
     <div id="edit-category-modal" class="modal">
         <div class="modal-content form-container">
             <span class="close-btn" id="close-category-modal">&times;</span>
@@ -176,10 +147,42 @@
         </div>
     </div>
 
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-about">
+                <h3>ROBOTech</h3>
+                <p>Innovación, competencia y pasión por la robótica.  
+                Únete a nuestra comunidad y lleva tus habilidades al siguiente nivel.</p>
+            </div>
+
+            <div class="footer-links">
+                <h4>Enlaces útiles</h4>
+                <ul>
+                    <li><a href="#">Términos y condiciones</a></li>
+                    <li><a href="#">Política de privacidad</a></li>
+                    <li><a href="#">Preguntas frecuentes</a></li>
+                    <li><a href="#">Contacto</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-social">
+                <h4>Síguenos</h4>
+                <div class="social-icons">
+                    <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook"></a>
+                    <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram"></a>
+                    <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/twitter.svg" alt="Twitter"></a>
+                    <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube"></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2025 ROBOTech | Innovación y competencia robótica</p>
+        </div>
     </footer>
         
     
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="js/admin-categorias.js"></script>
+    <!-- <script src="js/admin-categorias.js"></script> -->
 </body>
 </html>

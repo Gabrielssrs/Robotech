@@ -15,6 +15,94 @@ document.addEventListener('DOMContentLoaded', () => {
         return true;
     }
 
+    // --- Función de validación completa ---
+    function validateForm() {
+        const fields = {
+            nombre_juez: { element: document.getElementById('nombre_juez'), label: 'Nombre' },
+            apellido_juez: { element: document.getElementById('apellido_juez'), label: 'Apellido' },
+            dni_juez: { element: document.getElementById('dni_juez'), label: 'DNI' },
+            email_juez: { element: document.getElementById('email_juez'), label: 'Correo Electrónico' },
+            telefono_juez: { element: document.getElementById('telefono_juez'), label: 'Teléfono' },
+            contrasena_juez: { element: document.getElementById('contrasena_juez'), label: 'Contraseña' },
+            credencial: { element: document.getElementById('credencial'), label: 'Nivel de Credencial' },
+            sede_juez: { element: document.getElementById('sede_juez'), label: 'Sede Asignada' }
+        };
+
+        const errors = [];
+
+        // Validar que todos los campos obligatorios estén completos
+        for (const [key, field] of Object.entries(fields)) {
+            const value = field.element.value.trim();
+
+            if (!value) {
+                errors.push(`${field.label} es obligatorio.`);
+                highlightField(field.element, true);
+            } else {
+                highlightField(field.element, false);
+            }
+        }
+
+        // Validación específica para DNI (8 dígitos)
+        const dniValue = fields.dni_juez.element.value.trim();
+        if (dniValue && !/^\d{8}$/.test(dniValue)) {
+            errors.push('DNI debe contener exactamente 8 dígitos.');
+            highlightField(fields.dni_juez.element, true);
+        }
+
+        // Validación específica para Teléfono (9 dígitos)
+        const telefonoValue = fields.telefono_juez.element.value.trim();
+        if (telefonoValue && !/^\d{9}$/.test(telefonoValue)) {
+            errors.push('Teléfono debe contener exactamente 9 dígitos.');
+            highlightField(fields.telefono_juez.element, true);
+        }
+
+        // Validación específica para Email
+        const emailValue = fields.email_juez.element.value.trim();
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (emailValue && !emailRegex.test(emailValue)) {
+            errors.push('Correo Electrónico debe ser válido.');
+            highlightField(fields.email_juez.element, true);
+        }
+
+        // Validación de Contraseña (mínimo 6 caracteres)
+        const passwordValue = fields.contrasena_juez.element.value;
+        if (passwordValue && passwordValue.length < 6) {
+            errors.push('Contraseña debe tener al menos 6 caracteres.');
+            highlightField(fields.contrasena_juez.element, true);
+        }
+
+        // Validar que Sede tenga un valor válido (no sea vacío)
+        const sedeValue = fields.sede_juez.element.value;
+        if (!sedeValue) {
+            errors.push('Debe seleccionar una Sede Asignada.');
+            highlightField(fields.sede_juez.element, true);
+        }
+
+        return errors;
+    }
+
+    // --- Función para resaltar campos con error ---
+    function highlightField(element, hasError) {
+        if (hasError) {
+            element.style.borderColor = '#dc3545';
+            element.style.boxShadow = '0 0 0 3px rgba(220, 53, 69, 0.15)';
+        } else {
+            element.style.borderColor = '#1f1f25';
+            element.style.boxShadow = 'none';
+        }
+    }
+
+    // --- Remover highlight al escribir ---
+    const inputFields = document.querySelectorAll('input, select');
+    inputFields.forEach(field => {
+        field.addEventListener('input', () => {
+            highlightField(field, false);
+        });
+        field.addEventListener('change', () => {
+            highlightField(field, false);
+        });
+    });
+
     // --- Cargar categorías en el select ---
     async function loadCategorias() {
         try {
@@ -79,13 +167,26 @@ document.addEventListener('DOMContentLoaded', () => {
     form.addEventListener('submit', async (event) => {
         event.preventDefault();
 
-        const nombre = document.getElementById('nombre_juez').value + ' ' + document.getElementById('apellido_juez').value;
-        const dni = document.getElementById('dni_juez').value;
-        const correo = document.getElementById('email_juez').value;
-        const telefono = document.getElementById('telefono_juez').value;
+        // Validar formulario
+        const validationErrors = validateForm();
+        if (validationErrors.length > 0) {
+            const errorMessage = validationErrors.join('\n');
+            await Swal.fire({
+                icon: 'error',
+                title: 'Campos Incompletos',
+                html: errorMessage.replace(/\n/g, '<br>'),
+                confirmButtonColor: '#dc3545'
+            });
+            return;
+        }
+
+        const nombre = document.getElementById('nombre_juez').value.trim() + ' ' + document.getElementById('apellido_juez').value.trim();
+        const dni = document.getElementById('dni_juez').value.trim();
+        const correo = document.getElementById('email_juez').value.trim();
+        const telefono = document.getElementById('telefono_juez').value.trim();
         const contrasena = document.getElementById('contrasena_juez').value;
         const nivelCredencialValue = document.getElementById('credencial').value;
-        const sedeId = document.getElementById('sede_juez').value; // Obtener ID de sede
+        const sedeId = document.getElementById('sede_juez').value;
         
         const nivelCredencialMap = {
             "1": "NIVEL_1_JUNIOR",
@@ -104,13 +205,8 @@ document.addEventListener('DOMContentLoaded', () => {
             contrasena,
             nivelCredencial,
             categoriaIds,
-            sedeId: sedeId ? parseInt(sedeId) : null // Enviar ID de sede
+            sedeId: sedeId ? parseInt(sedeId) : null
         };
-
-        if (telefono && telefono.length !== 9) {
-            await Swal.fire({ icon: 'error', title: 'Teléfono inválido', text: 'El teléfono debe contener exactamente 9 dígitos.' });
-            return;
-        }
 
         try {
             const response = await fetch(`${API_BASE_URL}/jueces`, {
@@ -159,6 +255,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Inicialización ---
     if (protectPage()) {
         loadCategorias();
-        loadSedes(); // Cargar sedes al iniciar
+        loadSedes();
     }
 });
