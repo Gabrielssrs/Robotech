@@ -75,6 +75,17 @@
             transition: border-color 0.3s, box-shadow 0.3s;
         }
 
+        /* Hacer icono del calendario y selector de hora blanco/visible en fondos oscuros */
+        .form-section input[type="date"]::-webkit-calendar-picker-indicator,
+        .form-section input[type="time"]::-webkit-calendar-picker-indicator {
+            filter: invert(1) brightness(1.5) contrast(1.2);
+        }
+        /* Para mejorar visibilidad en Firefox (no soporta el pseudo-elemento) */
+        .form-section input[type="date"],
+        .form-section input[type="time"] {
+            background-color: #121316; /* ligeramente más claro para contraste */
+        }
+
         .form-section .form-grid .form-group input:focus,
         .form-section .form-grid .form-group select:focus,
         .form-section .form-grid .form-group textarea:focus {
