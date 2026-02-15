@@ -15,38 +15,57 @@
         <li><a href="index.html">Inicio</a></li>
         <li><a href="torneo.html">Torneos</a></li>
         <li><a href="ranking.html">Ranking</a></li>
-        <li><a href="noticias.html">Noticias</a></li>
         <li><a href="login.html" class="btn-login active">Iniciar sesión</a></li>
-        <li><a href="registro.html" class="btn-register">Registrarme</a></li>
+        <li><a href="registro_competidor.html" class="btn-register">Registrarme</a></li>
       </ul>
     </nav>
   </header>
 
-  <section class="form-section">
-  <div class="form-container">
-    <h2>Iniciar Sesión</h2>
-    <p class="form-desc">Bienvenido de nuevo. Ingresa tus credenciales para acceder a tu cuenta.</p>
-    <!-- 1. Añade un ID al formulario -->
-    <form id="login-form">
-      <div class="form-group">
-        <label>Correo Electrónico</label>
-        <!-- 2. Añade id y name a cada input -->
-        <input type="email" id="correoElectronico" name="correoElectronico" placeholder="ejemplo@correo.com" required>
-      </div>
-      <div class="form-group">
-        <label>Contraseña</label>
-        <input type="password" id="contrasena" name="contrasena" placeholder="Tu contraseña" required>
+  <section class="form-section login-section">
+    <div class="login-container">
+      <!-- Columna Izquierda: Formulario -->
+      <div class="login-form-column">
+        <div class="login-logo">
+          
+        </div>
+        <h2>Iniciar Sesión</h2>
+        <p class="form-desc">Ingresa tus credenciales para acceder a tu cuenta.</p>
+        
+        <form id="login-form">
+          <div class="form-group">
+            <label>Correo Electrónico</label>
+            <input type="email" id="correoElectronico" name="correoElectronico" placeholder="ejemplo@correo.com" required>
+          </div>
+          <div class="form-group">
+            <label>Contraseña</label>
+            <input type="password" id="contrasena" name="contrasena" placeholder="Tu contraseña" required>
+          </div>
+
+          <div id="form-message" style="display:none; padding: 15px; margin-bottom: 20px; border-radius: 5px; text-align: center; font-weight: bold;"></div>
+
+          <button type="submit" class="btn-main">Entrar</button>
+          <p class="form-login-text" style="margin-top: 15px; margin-bottom: 5px;">
+            <a href="recuperar_password.html" style="color: #00bfff; font-size: 0.9rem;">¿Olvidaste tu contraseña?</a>
+          </p>
+        </form>
       </div>
 
-      <!-- 3. Añade un div para mostrar mensajes de éxito o error -->
-      <div id="form-message" style="display:none; padding: 15px; margin-bottom: 20px; border-radius: 5px; text-align: center; font-weight: bold;"></div>
-
-      <button type="submit" class="btn-main">Entrar</button>
-      <p class="form-login-text" style="margin-top: 15px; margin-bottom: 5px;"><a href="recuperar_password.html" style="color: #aaa; font-size: 0.9rem;">¿Olvidaste tu contraseña?</a></p>
-      <p class="form-login-text">¿No tienes cuenta? <a href="registro.html">Regístrate aquí</a></p>
-    </form>
-  </div>
-</section>
+      <!-- Columna Derecha: Panel Decorativo -->
+      <div class="login-promo-column">
+        <div class="promo-content">
+          <h3>¿No tienes cuenta?</h3>
+          <p>Únete a ROBOTech y comienza a competir en emocionantes torneos de robótica con otros apasionados.</p>
+          <ul class="promo-benefits">
+            <li>✓ Participa en torneos</li>
+            <li>✓ Gestiona tu club</li>
+            <li>✓ Conecta con otros robots</li>
+            <li>✓ Sube en el ranking</li>
+          </ul>
+          <a href="solitud_codigo.html" class="btn-register-promo">Registrar Solicitud</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
 <footer class="footer">
   <div class="footer-container">

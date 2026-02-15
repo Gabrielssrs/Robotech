@@ -15,48 +15,63 @@
         <li><a href="index.html">Inicio</a></li>
         <li><a href="torneo.html">Torneos</a></li>
         <li><a href="ranking.html">Ranking</a></li>
-        <li><a href="noticias.html">Noticias</a></li>
         <li><a href="login.html" class="btn-login">Iniciar sesión</a></li>
-        <li><a href="registro.html" class="btn-register active">Registrarme</a></li>
+        <li><a href="registro_competidor.html" class="btn-register active">Registrarme</a></li>
       </ul>
     </nav>
   </header>
 
-  <section class="form-section">
-    <div class="form-container">
-      <h2>Solicitud de Inscripción a Club</h2>
-      <p class="form-desc">Completa los datos para solicitar tu inscripción en un club de ROBOTech.</p>
-      <!-- Añadimos un ID al formulario -->
-      <form id="registro-form">
-        <div class="form-group">
-          <label for="nombre">Nombre Completo</label>
-          <!-- Añadimos id y name -->
-          <input type="text" id="nombre" name="nombre" placeholder="Ej. Carlos Perez Quiroz" required>
+  <section class="form-section login-section">
+    <div class="login-container solicitud-container">
+      <!-- Columna Izquierda: Panel Decorativo (Azul) -->
+      <div class="login-promo-column">
+        <div class="promo-content">
+          <h3>¿Ya conoces ROBOTech?</h3>
+          <p>Si ya tienes tu cuenta, accede a la plataforma ahora.</p>
+          <ul class="promo-benefits">
+            <li>✓ Accede a tu cuenta</li>
+            <li>✓ Gestiona tu perfil</li>
+            <li>✓ Participa en torneos</li>
+            <li>✓ Conecta con otros</li>
+          </ul>
+          <a href="login.html" class="btn-register-promo">Ir al Login</a>
         </div>
-        <div class="form-group">
-          <label for="correoElectronico">Correo Electrónico</label>
-          <!-- Añadimos id y name -->
-          <input type="email" id="correoElectronico" name="correoElectronico" placeholder="ejemplo@correo.com" required>
-        </div>
-        <div class="form-group">
-          <label for="club">Seleccionar Club:</label>
-          <select id="club" name="club" required>
-            <option value="" disabled selected>Elige un club...</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="descripcion">Descripción de Solicitud(Agregar si tienes algun robot):</label>
-          <!-- Añadimos id y name -->
-          <textarea id="descripcion" name="descripcion" rows="4" placeholder="Ej: Me gustaría unirme porque tengo experiencia en programación de Arduino..."></textarea>
-        </div>
+      </div>
 
-        <!-- Añadimos un div para mostrar mensajes de éxito o error -->
-        <div id="form-message" class="form-message"></div>
+      <!-- Columna Derecha: Formulario -->
+      <div class="login-form-column">
+        <div class="login-logo">
+          
+        </div>
+        <h2>Solicita tu Código</h2>
+        <p class="form-desc">Completa los datos para obtener tu código de invitación.</p>
+        
+        <form id="registro-form">
+          <div class="form-group">
+            <label for="nombre">Nombre Completo</label>
+            <input type="text" id="nombre" name="nombre" placeholder="Ej. Carlos Perez Quiroz" required>
+          </div>
+          <div class="form-group">
+            <label for="correoElectronico">Correo Electrónico</label>
+            <input type="email" id="correoElectronico" name="correoElectronico" placeholder="ejemplo@correo.com" required>
+          </div>
+          <div class="form-group">
+            <label for="club">Seleccionar Club</label>
+            <select id="club" name="club" required>
+              <option value="" disabled selected>Elige un club...</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="descripcion">Descripción de Solicitud</label>
+            <textarea id="descripcion" name="descripcion" rows="3" placeholder="Ej: Me gustaría unirme porque tengo experiencia en programación de Arduino..."></textarea>
+          </div>
 
-        <button type="submit" class="btn-main">Enviar Solicitud</button>
-        <p class="form-login-text">¿Ya tienes tu codigo de invitacion? <a href="registro_competidor.html">Terminar registro</a></p>
-      </form>
-    </div>
+          <div id="form-message" class="form-message"></div>
+
+          <button type="submit" class="btn-main">Ingresar</button>
+          <p class="form-login-text">¿Ya tienes tu código de invitación? <a href="registro_competidor.html" style="color: #00bfff;">Terminar registro</a></p>
+        </form>
+      </div>
   </section>
 
 <footer class="footer">

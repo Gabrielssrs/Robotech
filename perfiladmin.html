@@ -250,23 +250,23 @@
             <form id="create-subadmin-form">
                 <div class="form-group">
                     <label for="sub-nombre">Nombre</label>
-                    <input type="text" id="sub-nombre" name="nombre" required>
+                    <input type="text" id="sub-nombre" name="nombre" placeholder="ejm:Daniel (Campo Oblogatorio)" required>
                 </div>
                 <div class="form-group">
                     <label for="sub-dni">DNI</label>
-                    <input type="text" id="sub-dni" name="dni" required maxlength="8" pattern="\d{8}">
+                    <input type="text" id="sub-dni" name="dni" required maxlength="8" pattern="\d{8}" placeholder="8 digitos(campo obligatorio)">
                 </div>
                 <div class="form-group">
                     <label for="sub-telefono">Teléfono</label>
-                    <input type="tel" id="sub-telefono" name="telefono" required pattern="9\d{8}" placeholder="Ej: 912345678">
+                    <input type="tel" id="sub-telefono" name="telefono" required pattern="9\d{8}" placeholder="Ej: 912345678(Campo obligatorio)">
                 </div>
                 <div class="form-group">
                     <label for="sub-correo">Correo</label>
-                    <input type="email" id="sub-correo" name="correo" required>
+                    <input type="email" id="sub-correo" name="correo" placeholder="ejmplo@correo.com (Campo Obligatorio)" required>
                 </div>
                 <div class="form-group">
                     <label for="sub-password">Contraseña</label>
-                    <input type="password" id="sub-password" name="contrasena" required minlength="6">
+                    <input type="password" id="sub-password" name="contrasena" required minlength="8" placeholder="Minimo 8 caracteres" >
                 </div>
                 <div class="form-actions">
                     <button type="button" class="btn-secondary" id="cancel-create-subadmin">Cancelar</button>

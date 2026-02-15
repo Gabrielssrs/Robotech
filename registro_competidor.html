@@ -8,7 +8,18 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <!-- ... tu header ... -->
+  <header class="header">
+    <div class="logo">ROBOTech</div>
+    <nav class="nav">
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="torneo.html">Torneos</a></li>
+        <li><a href="ranking.html">Ranking</a></li>
+        <li><a href="login.html" class="btn-login">Iniciar sesión</a></li>
+        <li><a href="registro_competidor.html" class="btn-register active">Registrarme</a></li>
+      </ul>
+    </nav>
+  </header>
 
   <section class="form-section">
     <div class="form-container">
@@ -16,45 +27,59 @@
       <p class="form-desc">Completa tus datos y el código de registro que recibiste por correo.</p>
       
       <form id="registro-form">
-        <div class="form-group">
-          <label for="nombre">Nombre</label>
-          <input type="text" id="nombre" name="nombre" placeholder="Ej. Carlos" required>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="nombre">Nombre*</label>
+            <input type="text" id="nombre" name="nombre" placeholder="Ej. Carlos" required>
+          </div>
+          <div class="form-group">
+            <label for="apellido">Apellido*</label>
+            <input type="text" id="apellido" name="apellido" placeholder="Ej. Ramírez" required>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="apellido">Apellido</label>
-          <input type="text" id="apellido" name="apellido" placeholder="Ej. Ramírez" required>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="codigo">Código de Registro*</label>
+            <input type="text" id="codigo" name="codigo" placeholder="El código que recibiste por correo" required>
+          </div>
+          <div class="form-group">
+            <label for="dni">DNI*</label>
+            <input type="text" id="dni" name="dni" placeholder="8 dígitos" maxlength="8" required>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="alias">Alias (Opcional)</label>
-          <input type="text" id="alias" name="alias" placeholder="Ej. 'El Titán'">
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="telefono">Teléfono*</label>
+            <input type="tel" id="telefono" name="telefono" placeholder="9 dígitos" maxlength="9" required>
+          </div>
+          <div class="form-group">
+            <label for="correoElectronico">Correo Electrónico*</label>
+            <input type="email" id="correoElectronico" name="correoElectronico" placeholder="El correo donde recibiste la invitación" required>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="dni">DNI</label>
-          <input type="text" id="dni" name="dni" placeholder="8 dígitos" maxlength="8" required>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="direccion">Dirección*</label>
+            <input type="text" id="direccion" name="direccion" placeholder="Ej. Av. Los Robles 123" required>
+          </div>
+          <div class="form-group">
+            <label for="contrasena">Contraseña*</label>
+            <input type="password" id="contrasena" name="contrasena" placeholder="Mínimo 8 caracteres" required>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="telefono">Teléfono</label>
-          <input type="tel" id="telefono" name="telefono" placeholder="9 dígitos" maxlength="9" required>
-        </div>
-        <div class="form-group">
-          <label for="correoElectronico">Correo Electrónico</label>
-          <input type="email" id="correoElectronico" name="correoElectronico" placeholder="El correo donde recibiste la invitación" required>
-        </div>
-        <div class="form-group">
-          <label for="direccion">Dirección</label>
-          <input type="text" id="direccion" name="direccion" placeholder="Ej. Av. Los Robles 123" required>
-        </div>
-        <div class="form-group">
-          <label for="categoria">Categoría Principal (Opcional)</label>
-          <input type="text" id="categoria" name="categoria" placeholder="Ej. 'Sumo' o 'Seguidor de Línea'">
-        </div>
-        <div class="form-group">
-          <label for="codigo">Código de Registro</label>
-          <input type="text" id="codigo" name="codigo" placeholder="El código que recibiste por correo" required>
-        </div>
-        <div class="form-group">
-          <label for="contrasena">Contraseña</label>
-          <input type="password" id="contrasena" name="contrasena" placeholder="Mínimo 8 caracteres" required>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="alias">Alias (Opcional)</label>
+            <input type="text" id="alias" name="alias" placeholder="Ej. 'El Titán'">
+          </div>
+          <div class="form-group">
+            <label for="categoria">Categoría Principal (Opcional)</label>
+            <input type="text" id="categoria" name="categoria" placeholder="Ej. 'Sumo' o 'Seguidor de Línea'">
+          </div>
         </div>
         
         <div id="form-message" class="form-message" style="display:none;"></div>
@@ -65,7 +90,39 @@
     </div>
   </section>
 
-  <!-- ... tu footer ... -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-about">
+        <h3>ROBOTech</h3>
+        <p>Innovación, competencia y pasión por la robótica.  
+        Únete a nuestra comunidad y lleva tus habilidades al siguiente nivel.</p>
+      </div>
+
+      <div class="footer-links">
+        <h4>Enlaces útiles</h4>
+        <ul>
+          <li><a href="#">Términos y condiciones</a></li>
+          <li><a href="#">Política de privacidad</a></li>
+          <li><a href="#">Preguntas frecuentes</a></li>
+          <li><a href="#">Contacto</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-social">
+        <h4>Síguenos</h4>
+        <div class="social-icons">
+          <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook"></a>
+          <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram"></a>
+          <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/twitter.svg" alt="Twitter"></a>
+          <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube"></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2025 ROBOTech | Innovación y competencia robótica</p>
+    </div>
+  </footer>
   
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="js/registro-competidor.js"></script>

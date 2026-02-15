@@ -60,12 +60,13 @@ document.addEventListener('DOMContentLoaded', function() {
         const correo = document.getElementById('correo').value;
         const telefono = document.getElementById('telefono').value;
         const contrasenaInput = document.getElementById('contrasena');
+        const representante = document.getElementById('representante').value;
 
-        // 1. Nombre del club no debe contener números
-        /* if (/\d/.test(nombre)) {
-            showValidationError('El nombre del club no puede contener números.');
+        // 1. Nombre del club no debe estar vacío
+        if (!nombre.trim()) {
+            showValidationError('El nombre del club es requerido.');
             return false;
-        } */
+        }
 
         // 2. Correo debe tener un @ y un formato válido
         if (!correo.includes('@')) {
@@ -84,6 +85,12 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!passwordRegex.test(contrasenaInput.value)) {
             showValidationError('La contraseña debe tener al menos 8 caracteres, incluir mayúsculas, minúsculas, números y un símbolo (@$!%*?&).');
             contrasenaInput.value = ''; // Limpiar el campo de contraseña
+            return false;
+        }
+
+        // 5. Nombre del administrador del club es requerido
+        if (!representante.trim()) {
+            showValidationError('El nombre del administrador del club es requerido.');
             return false;
         }
 
