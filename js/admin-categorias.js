@@ -342,8 +342,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // --- INICIO DE LA EJECUCIÓN ---
     fetchCategorias();
-});        }
-    }
+});        
+    
 
     /**
      * Muestra las categorías en la tabla HTML.
@@ -509,4 +509,4 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // --- INICIO DE LA EJECUCIÓN ---
     fetchCategorias();
-});
+;
