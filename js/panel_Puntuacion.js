@@ -8,15 +8,67 @@ let timerInterval = null;
 let timeRemaining = 600; // 10 minutos en segundos
 let isTimerRunning = false;
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     const urlParams = new URLSearchParams(window.location.search);
-    const encuentroId = urlParams.get('encuentroId');
-    const torneoId = urlParams.get('torneoId');
+    let encuentroId = urlParams.get('encuentroId');
+    let torneoId = urlParams.get('torneoId');
+    const token = localStorage.getItem('jwtToken');
 
+    // Si no hay encuentroId, buscarlo dinámicamente
     if (!encuentroId) {
-        Swal.fire('Error', 'No se especificó un encuentro.', 'error')
-            .then(() => window.location.href = 'perfil-juez.html');
-        return;
+        try {
+            Swal.fire({ title: 'Buscando encuentro pendiente...', didOpen: () => Swal.showLoading() });
+            
+            if (!token) {
+                throw new Error('No hay sesión activa');
+            }
+
+            // Obtener todos los torneos
+            const resTorneos = await fetch(`${API_BASE_URL}/torneos`, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+
+            if (!resTorneos.ok) throw new Error('No se pudieron obtener torneos');
+
+            const torneos = await resTorneos.json();
+            let primerEncuentroPendiente = null;
+            let torneoActivo = null;
+
+            // Buscar el primer encuentro sin ganador
+            for (const torneo of torneos) {
+                const resEncuentros = await fetch(`${API_BASE_URL}/torneos/${torneo.id}/encuentros`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                if (resEncuentros.ok) {
+                    const encuentros = await resEncuentros.json();
+                    const encuentroPendiente = encuentros.find(e => !e.ganador);
+
+                    if (encuentroPendiente) {
+                        primerEncuentroPendiente = encuentroPendiente;
+                        torneoActivo = torneo;
+                        break;
+                    }
+                }
+            }
+
+            if (!primerEncuentroPendiente) {
+                Swal.fire('Info', 'No hay encuentros pendientes para calificar en este momento.', 'info')
+                    .then(() => window.location.href = 'perfil-juez.html');
+                return;
+            }
+
+            // Actualizar variables con los datos obtenidos
+            encuentroId = primerEncuentroPendiente.id;
+            torneoId = torneoActivo.id;
+            Swal.close();
+
+        } catch (error) {
+            console.error('Error buscando encuentro:', error);
+            Swal.fire('Error', 'No se pudo obtener el encuentro. ' + error.message, 'error')
+                .then(() => window.location.href = 'perfil-juez.html');
+            return;
+        }
     }
 
     loadEncuentroData(encuentroId);
