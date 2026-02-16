@@ -2,7 +2,11 @@
    ROBOTech: ESTILOS GLOBAL CONSOLIDADO (styles.css)
    ARQUITECTURA: Base, Layout, Componentes, Páginas, Admin
    ==================================================== */
-
+.juez-status-active {
+    background-color: rgba(46, 164, 79, 0.2);
+    color: #2ea44f; /* Verde */
+    border: 1px solid #2ea44f;
+}
 /* ======================== */
 /*   1. BASE Y RESET        */
 /*   (Estilos de alto nivel)*/

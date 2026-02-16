@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/header.css">
     <style>
-        /* Panel-specific penalty button overrides (rojizos) */
+        /* Estilos específicos del panel */
         .panel-score .controls-grid button.penalty { font-weight: 800; color: #fff; border-width: 1px; border-style: solid; }
         .panel-score .controls-grid button.penalty.minor {
             background: linear-gradient(180deg, rgba(139,27,27,0.06), rgba(60,18,18,0.02));
@@ -23,18 +23,71 @@
         .panel-score .controls-grid button.penalty.major small { color: rgba(255,255,255,0.9); font-weight:700; }
         .panel-score .controls-grid button.penalty.minor:hover,
         .panel-score .controls-grid button.penalty.major:hover { filter: brightness(1.08); transform: translateY(-2px); }
+
+        /* Input de puntaje */
+        .score-input {
+            background: transparent;
+            border: 2px solid #30363d;
+            color: #fff;
+            font-size: 4rem;
+            font-weight: 700;
+            text-align: center;
+            width: 100%;
+            max-width: 150px;
+            border-radius: 12px;
+            margin: 10px 0;
+            padding: 10px;
+        }
+        .score-input:focus { outline: none; border-color: #58a6ff; }
+        /* Quitar flechas del input number */
+        .score-input::-webkit-outer-spin-button,
+        .score-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+
+        /* Estado de Jueces */
+        .judges-status-container {
+            margin-top: 20px;
+            padding: 15px;
+            background: #161b22;
+            border-radius: 8px;
+            border: 1px solid #30363d;
+            width: 100%;
+        }
+        .judges-grid {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        .judge-box {
+            padding: 8px 15px;
+            border-radius: 6px;
+            background: #21262d;
+            color: #8b949e;
+            border: 1px solid #30363d;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .judge-box.ready {
+            background: rgba(46, 164, 79, 0.15);
+            color: #2ea44f;
+            border-color: #2ea44f;
+        }
+        .judge-box i { font-size: 0.8rem; }
     </style>
+    <!-- SweetAlert2 para alertas bonitas -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body class="panel-score">
 
-      <header class="header">
+    <header class="header">
         <div class="logo">ROBOTech</div>
         <nav class="nav">
             <ul>
                 <li><a href="index.html">Inicio</a></li>
                 <li><a href="torneo.html">Torneos</a></li>
-                <li><a href="ranking.html">Ranking</a></li>
-                <li><a href="noticias.html">Noticias</a></li>
                 <li class="nav-profile-name"><a href="perfil-juez.html" class="active">Mi Perfil Juez</a></li> 
                 <li><a href="login.html" class="btn-logout">Cerrar Sesión</a></li>
             </ul>
@@ -42,13 +95,16 @@
     </header>
 
     <main class="dashboard">
+        <!-- Equipo Azul -->
         <section class="team blue">
             <div class="header-card">
-                <h2>Titán Prime</h2>
-                <p>Robótica Alfa • Chile</p>
+                <h2>Cargando...</h2>
+                <p>Competidor A</p>
                 <span class="tag">AZUL</span>
             </div>
-            <div class="score-display" id="score-blue">12</div>
+            <!-- Input editable -->
+            <input type="number" id="score-blue" class="score-input" value="0" min="0" max="20">
+            
             <div class="controls-grid">
                 <button onclick="addPoints('blue', 1)">+1 <br><small>IMPACTO</small></button>
                 <button onclick="addPoints('blue', 2)">+2 <br><small>AGRESIÓN</small></button>
@@ -59,34 +115,48 @@
             </div>
         </section>
 
+        <!-- Información Central -->
         <section class="match-info">
             <div class="event-title">
-                <h3>Final Nacional 2025</h3>
-                <p>Combate 1kg • Arena A</p>
+                <h3>Encuentro</h3>
+                <p>Combate • Arena Principal</p>
             </div>
+            
             <div class="timer-box">
-                <div class="time" id="timer">02:45</div>
-                <div class="status">EN CURSO</div>
+                <div class="time" id="timer">10:00</div>
+                <div class="status" id="match-status">EN CURSO</div>
             </div>
-            <button class="btn-pause">Pausar Cronómetro</button>
-            <button class="btn-finish">Finalizar Combate</button>
+            
+            <div style="display: flex; gap: 10px; justify-content: center; width: 100%;">
+                <button class="btn-pause" id="btn-toggle-timer">Iniciar</button>
+                <button class="btn-finish" id="btn-finalize">Finalizar Combate</button>
+            </div>
+
+            <!-- Estado de los Jueces -->
+            <div class="judges-status-container">
+                <h4 style="text-align: center; margin: 0; font-size: 0.9rem; color: #e6eef6;">Estado de Jueces</h4>
+                <div class="judges-grid" id="judges-grid">
+                    <!-- Se llena dinámicamente -->
+                    <div class="judge-box">Cargando...</div>
+                </div>
+            </div>
 
             <div class="history">
                 <h4>Historial de Eventos</h4>
-                <ul id="event-log">
-                    <li><span>2:48</span> Control de Arena <strong>+3</strong></li>
-                    <li><span>2:52</span> Impacto Directo <strong>+1</strong></li>
-                </ul>
+                <ul id="event-log"></ul>
             </div>
         </section>
 
+        <!-- Equipo Rojo -->
         <section class="team red">
             <div class="header-card">
-                <h2>Destructor X</h2>
-                <p>Laboratorios Omega • Perú</p>
+                <h2>Cargando...</h2>
+                <p>Competidor B</p>
                 <span class="tag">ROJO</span>
             </div>
-            <div class="score-display" id="score-red">08</div>
+            <!-- Input editable -->
+            <input type="number" id="score-red" class="score-input" value="0" min="0" max="20">
+
             <div class="controls-grid">
                 <button onclick="addPoints('red', 1)">+1 <br><small>IMPACTO</small></button>
                 <button onclick="addPoints('red', 2)">+2 <br><small>AGRESIÓN</small></button>
@@ -98,39 +168,36 @@
         </section>
     </main>
 
-<footer class="footer">
-  <div class="footer-container">
-    <div class="footer-about">
-      <h3>ROBOTech</h3>
-      <p>Innovación, competencia y pasión por la robótica.  
-      Únete a nuestra comunidad y lleva tus habilidades al siguiente nivel.</p>
-    </div>
-
-    <div class="footer-links">
-      <h4>Enlaces útiles</h4>
-      <ul>
-        <li><a href="#">Términos y condiciones</a></li>
-        <li><a href="#">Política de privacidad</a></li>
-        <li><a href="#">Preguntas frecuentes</a></li>
-        <li><a href="#">Contacto</a></li>
-      </ul>
-    </div>
-
-    <div class="footer-social">
-      <h4>Síguenos</h4>
-      <div class="social-icons">
-        <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook"></a>
-        <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram"></a>
-        <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/twitter.svg" alt="Twitter"></a>
-        <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube"></a>
-      </div>
-    </div>
-  </div>
-
-  <div class="footer-bottom">
-    <p>© 2025 ROBOTech | Innovación y competencia robótica</p>
-  </div>
-</footer>
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-about">
+                <h3>ROBOTech</h3>
+                <p>Innovación, competencia y pasión por la robótica.  
+                Únete a nuestra comunidad y lleva tus habilidades al siguiente nivel.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Enlaces útiles</h4>
+                <ul>
+                    <li><a href="#">Términos y condiciones</a></li>
+                    <li><a href="#">Política de privacidad</a></li>
+                    <li><a href="#">Preguntas frecuentes</a></li>
+                    <li><a href="#">Contacto</a></li>
+                </ul>
+            </div>
+            <div class="footer-social">
+                <h4>Síguenos</h4>
+                <div class="social-icons">
+                    <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook"></a>
+                    <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram"></a>
+                    <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/twitter.svg" alt="Twitter"></a>
+                    <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube"></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 ROBOTech | Innovación y competencia robótica</p>
+        </div>
+    </footer>
 
     <script src="js/panel_Puntuacion.js"></script>
 </body>

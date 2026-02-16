@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reglamento para Jueces - ROBOTech</title>
+    <link rel="stylesheet" href="css/styles.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .reglamento-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .reglamento-header {
+            text-align: center;
+            margin-bottom: 50px;
+            color: #e6eef6;
+        }
+
+        .reglamento-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #58a6ff, #79c0ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .reglamento-header p {
+            font-size: 1.1rem;
+            color: #8b949e;
+        }
+
+        .reglamento-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .reglamento-card {
+            background: linear-gradient(135deg, rgba(88, 166, 255, 0.05), rgba(121, 192, 255, 0.02));
+            border: 1px solid rgba(88, 166, 255, 0.3);
+            border-radius: 12px;
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .reglamento-card:hover {
+            border-color: #58a6ff;
+            box-shadow: 0 0 20px rgba(88, 166, 255, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .reglamento-card h2 {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            color: #79c0ff;
+            font-size: 1.5rem;
+        }
+
+        .reglamento-card h2 i {
+            font-size: 1.8rem;
+            color: #58a6ff;
+        }
+
+        .reglamento-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .reglamento-card li {
+            padding: 10px 0;
+            padding-left: 25px;
+            position: relative;
+            color: #8b949e;
+            line-height: 1.6;
+            border-bottom: 1px solid rgba(88, 166, 255, 0.1);
+        }
+
+        .reglamento-card li:last-child {
+            border-bottom: none;
+        }
+
+        .reglamento-card li:before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: #58a6ff;
+            font-weight: bold;
+        }
+
+        .reglamento-card li strong {
+            color: #e6eef6;
+        }
+
+        .principles-section {
+            background: linear-gradient(135deg, rgba(88, 166, 255, 0.1), rgba(121, 192, 255, 0.05));
+            border: 2px solid rgba(88, 166, 255, 0.4);
+            border-radius: 12px;
+            padding: 40px;
+            margin-bottom: 50px;
+        }
+
+        .principles-section h2 {
+            color: #79c0ff;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .principles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .principle {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .principle:hover {
+            border-color: #58a6ff;
+            background: rgba(88, 166, 255, 0.05);
+        }
+
+        .principle-icon {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+            color: #58a6ff;
+        }
+
+        .principle-title {
+            font-weight: 600;
+            color: #79c0ff;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .principle-desc {
+            color: #8b949e;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .conduct-section {
+            background: rgba(139, 27, 27, 0.1);
+            border: 1px solid rgba(255, 75, 75, 0.3);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .conduct-section h3 {
+            color: #ff7b72;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .conduct-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .conduct-item {
+            background: #161b22;
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 4px solid #ff7b72;
+        }
+
+        .conduct-item strong {
+            color: #ff7b72;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .conduct-item span {
+            color: #8b949e;
+            font-size: 0.9rem;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: rgba(88, 166, 255, 0.1);
+            border: 1px solid #58a6ff;
+            color: #79c0ff;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            margin-top: 30px;
+        }
+
+        .back-button:hover {
+            background: rgba(88, 166, 255, 0.2);
+            transform: translateX(-5px);
+        }
+    </style>
+</head>
+<body class="juez-theme">
+
+    <header class="header">
+        <div class="logo">ROBOTech</div>
+        <nav class="nav">
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="torneo.html">Torneos</a></li>
+                <li><a href="ranking.html">Ranking</a></li>
+                <li><a href="perfil-juez.html">Mi Perfil Juez</a></li> 
+                <li><a href="login.html" class="btn-logout">Cerrar Sesión</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="juez-profile-main">
+        <div class="reglamento-container">
+            <div class="reglamento-header">
+                <h1><i class="fas fa-scroll"></i> Reglamento para Jueces</h1>
+                <p>Principios, alineamientos éticos y directrices de conducta</p>
+            </div>
+
+            <!-- Principios Fundamentales -->
+            <div class="principles-section">
+                <h2><i class="fas fa-heart"></i> Principios Fundamentales</h2>
+                <div class="principles-grid">
+                    <div class="principle">
+                        <div class="principle-icon"><i class="fas fa-balance-scale"></i></div>
+                        <div class="principle-title">Imparcialidad</div>
+                        <div class="principle-desc">Evaluar sin prejudicios, priorizando la justicia y equidad para todos los competidores.</div>
+                    </div>
+                    <div class="principle">
+                        <div class="principle-icon"><i class="fas fa-lock"></i></div>
+                        <div class="principle-title">Transparencia</div>
+                        <div class="principle-desc">Actuar con total honestidad y claridad en todas las decisiones y evaluaciones.</div>
+                    </div>
+                    <div class="principle">
+                        <div class="principle-icon"><i class="fas fa-user-shield"></i></div>
+                        <div class="principle-title">Integridad</div>
+                        <div class="principle-desc">Mantener los más altos estándares éticos en cada evaluación y decisión.</div>
+                    </div>
+                    <div class="principle">
+                        <div class="principle-icon"><i class="fas fa-handshake"></i></div>
+                        <div class="principle-title">Respeto</div>
+                        <div class="principle-desc">Tratar a todos los participantes con dignidad, respeto y profesionalismo.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reglas de Validación y Puntuación -->
+            <div class="reglamento-grid">
+                <div class="reglamento-card">
+                    <h2><i class="fas fa-gavel"></i> Criterios de Evaluación</h2>
+                    <ul>
+                        <li><strong>Daño Crítico (+5):</strong> Impacto severo que afecta significativamente el desempeño del robot.</li>
+                        <li><strong>Control (+3):</strong> Demostración clara de dominio estratégico y táctico en el combate.</li>
+                        <li><strong>Agresión (+2):</strong> Ofensiva sostenida y efectiva contra el oponente.</li>
+                        <li><strong>Impacto (+1):</strong> Golpe efectivo que demuestra precisión y técnica.</li>
+                        <li><strong>Falta Leve (-1):</strong> Violaciones menores de las reglas sin daño intencional.</li>
+                        <li><strong>Falta Grave (-3):</strong> Infracciones serias que comprometén la seguridad o equidad.</li>
+                    </ul>
+                </div>
+
+                <div class="reglamento-card">
+                    <h2><i class="fas fa-check-circle"></i> Obligaciones del Juez</h2>
+                    <ul>
+                        <li>Conocer completamente las reglas del torneo antes de cualquier evaluación.</li>
+                        <li>Mantener total imparcialidad sin importar origen o afiliación de competidores.</li>
+                        <li>Documentar todas las decisiones de manera clara y justificada.</li>
+                        <li>Comunicar decisiones de forma profesional y respetuosa.</li>
+                        <li>Participar en actualizaciones regularmente para mantenerse informado.</li>
+                        <li>Abstenerse de participar si existe conflicto de interés.</li>
+                    </ul>
+                </div>
+
+                <div class="reglamento-card">
+                    <h2><i class="fas fa-exclamation-triangle"></i> Situaciones Prohibidas</h2>
+                    <ul>
+                        <li>Aceptar sobornos o beneficios personales de competidores.</li>
+                        <li>Mostrar favoritismo explícito o implícito hacia competidores.</li>
+                        <li>Juzgar si existe conflicto de interés personal o profesional.</li>
+                        <li>Compartir información confidencial sobre decisiones futuras.</li>
+                        <li>Influenciar a otros jueces o personal del torneo.</li>
+                        <li>Realizar evaluaciones bajo influencia de alcohol o drogas.</li>
+                    </ul>
+                </div>
+
+                <div class="reglamento-card">
+                    <h2><i class="fas fa-cogs"></i> Protocolos de Operación</h2>
+                    <ul>
+                        <li>Arribar 15 minutos antes de cada sesión de juzgamiento.</li>
+                        <li>Revisar fichas de competidores antes de iniciar.</li>
+                        <li>Registrar todas las puntuaciones en tiempo real.</li>
+                        <li>Mantener registro de las razones de cada penalización.</li>
+                        <li>Participar en reuniones de coordinación con otros jueces.</li>
+                        <li>Reportar anomalías o irregularidades inmediatamente.</li>
+                    </ul>
+                </div>
+
+                <div class="reglamento-card">
+                    <h2><i class="fas fa-graduation-cap"></i> Código de Conducta</h2>
+                    <ul>
+                        <li>Mantener comportamiento profesional en todo momento.</li>
+                        <li>Vestir apropiadamente según estándares del torneo.</li>
+                        <li>Ser puntual en todas las asignaciones y compromisos.</li>
+                        <li>Responder profesionalmente a preguntas de coordinadores.</li>
+                        <li>Evitar discusiones públicas sobre decisiones controversiales.</li>
+                        <li>Buscar consenso y retroalimentación de otros jueces.</li>
+                    </ul>
+                </div>
+
+                <div class="reglamento-card">
+                    <h2><i class="fas fa-headset"></i> Resolución de Conflictos</h2>
+                    <ul>
+                        <li>Escuchar respetuosamente las inquietudes de competidores.</li>
+                        <li>No reconsiderar decisiones bajo presión emotiva.</li>
+                        <li>Remitir apelaciones formales al coordinador de torneo.</li>
+                        <li>Documentar toda comunicación sobre disputas.</li>
+                        <li>Mantener compostura y profesionalismo en todo momento.</li>
+                        <li>Solicitar mediación de superiores si es necesario.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Sección de Conducta Prohibida -->
+            <div class="conduct-section">
+                <h3><i class="fas fa-ban"></i> Conducta Prohibida - Puede Resultar en Destitución</h3>
+                <div class="conduct-list">
+                    <div class="conduct-item">
+                        <strong>Corrupción</strong>
+                        <span>Aceptar dinero, favores o bienes a cambio de decisiones sesgadas.</span>
+                    </div>
+                    <div class="conduct-item">
+                        <strong>Discriminación</strong>
+                        <span>Tratar de manera desigual basado en raza, género, origen o creencias.</span>
+                    </div>
+                    <div class="conduct-item">
+                        <strong>Abuso de Autoridad</strong>
+                        <span>Usar la posición de juez para ventaja personal o para castigar injustamente.</span>
+                    </div>
+                    <div class="conduct-item">
+                        <strong>Falsificación de Registros</strong>
+                        <span>Alterar o fabricar documentos de puntuación o decisiones.</span>
+                    </div>
+                    <div class="conduct-item">
+                        <strong>Confidencialidad Rota</strong>
+                        <span>Revelar información privada de competidores o decisiones confidenciales.</span>
+                    </div>
+                    <div class="conduct-item">
+                        <strong>Falta de Profesionalismo</strong>
+                        <span>Comportamiento abusivo, agresivo o irrespetuoso hacia participantes.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Valores y Ética -->
+            <div class="principles-section">
+                <h2><i class="fas fa-star"></i> Valores Éticos Fundamentales</h2>
+                <div class="principles-grid">
+                    <div class="principle">
+                        <div class="principle-icon"><i class="fas fa-lightbulb"></i></div>
+                        <div class="principle-title">Honestidad</div>
+                        <div class="principle-desc">Ser veraz en todas las situaciones, incluso cuando es difícil o incómodo.</div>
+                    </div>
+                    <div class="principle">
+                        <div class="principle-icon"><i class="fas fa-brain"></i></div>
+                        <div class="principle-title">Justicia</div>
+                        <div class="principle-desc">Asegurar que cada competidor reciba un trato justo e igual.</div>
+                    </div>
+                    <div class="principle">
+                        <div class="principle-icon"><i class="fas fa-leaf"></i></div>
+                        <div class="principle-title">Excelencia</div>
+                        <div class="principle-desc">Esforzarse constantemente por mejorar tu desempeño como juez.</div>
+                    </div>
+                    <div class="principle">
+                        <div class="principle-icon"><i class="fas fa-globe"></i></div>
+                        <div class="principle-title">Comunidad</div>
+                        <div class="principle-desc">Promover un ambiente positivo y colaborativo en la comunidad de robótica.</div>
+                    </div>
+                </div>
+            </div>
+
+            <a href="perfil-juez.html" class="back-button">
+                <i class="fas fa-arrow-left"></i> Volver a Mi Perfil
+            </a>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-about">
+                <h3>ROBOTech</h3>
+                <p>Innovación, competencia y pasión por la robótica.  
+                Únete a nuestra comunidad y lleva tus habilidades al siguiente nivel.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Enlaces útiles</h4>
+                <ul>
+                    <li><a href="#">Términos y condiciones</a></li>
+                    <li><a href="#">Política de privacidad</a></li>
+                    <li><a href="#">Preguntas frecuentes</a></li>
+                    <li><a href="#">Contacto</a></li>
+                </ul>
+            </div>
+            <div class="footer-social">
+                <h4>Síguenos</h4>
+                <div class="social-icons">
+                    <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook"></a>
+                    <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram"></a>
+                    <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/twitter.svg" alt="Twitter"></a>
+                    <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube"></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 ROBOTech | Innovación y competencia robótica</p>
+        </div>
+    </footer>
+
+</body>
+</html>
