@@ -265,27 +265,27 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // Validar ancho máximo (<= 35 cm)
-        if (anchoInput && categoriaData.anchoMaximoCm !== null && categoriaData.anchoMaximoCm > 35) {
-            setFieldError(anchoInput, 'El ancho no puede ser mayor a 35 cm.');
+        // Validar ancho mínimo (>= 35 cm)
+        if (anchoInput && categoriaData.anchoMaximoCm !== null && categoriaData.anchoMaximoCm < 35) {
+            setFieldError(anchoInput, 'El ancho debe ser mayor o igual a 35 cm.');
             isValid = false;
             if (!errorFields.includes('Ancho Máximo')) {
                 errorFields.push('Ancho Máximo');
             }
         }
 
-        // Validar alto máximo (<= 35 cm)
-        if (altoInput && categoriaData.altoMaximoCm !== null && categoriaData.altoMaximoCm > 35) {
-            setFieldError(altoInput, 'El alto no puede ser mayor a 35 cm.');
+        // Validar alto mínimo (>= 35 cm)
+        if (altoInput && categoriaData.altoMaximoCm !== null && categoriaData.altoMaximoCm < 35) {
+            setFieldError(altoInput, 'El alto debe ser mayor o igual a 35 cm.');
             isValid = false;
             if (!errorFields.includes('Alto Máximo')) {
                 errorFields.push('Alto Máximo');
             }
         }
 
-        // Validar largo máximo (<= 35 cm)
-        if (largoInput && categoriaData.largoMaximoCm !== null && categoriaData.largoMaximoCm > 35) {
-            setFieldError(largoInput, 'El largo no puede ser mayor a 35 cm.');
+        // Validar largo mínimo (>= 35 cm)
+        if (largoInput && categoriaData.largoMaximoCm !== null && categoriaData.largoMaximoCm < 35) {
+            setFieldError(largoInput, 'El largo debe ser mayor o igual a 35 cm.');
             isValid = false;
             if (!errorFields.includes('Largo Máximo')) {
                 errorFields.push('Largo Máximo');
