@@ -14,6 +14,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnIniciar = document.getElementById('btn-iniciar-torneo');
     const bracketContainer = document.querySelector('.bracket-container');
 
+    // Deshabilitar botón "Iniciar" por defecto
+    if (btnIniciar) {
+        btnIniciar.disabled = true;
+        btnIniciar.style.opacity = '0.5';
+        btnIniciar.style.cursor = 'not-allowed';
+    }
+
     // 1. Verificar Rol para mostrar botones
     if (token) {
         const payload = JSON.parse(atob(token.split('.')[1]));
@@ -240,11 +247,65 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 5. Botón Iniciar (Simulación Rápida)
     if (btnIniciar) {
+        let pollingInterval = null;
+        
+        // Función para verificar estado del primer encuentro
+        async function verificarCalificaciones() {
+            try {
+                const resEncuentros = await fetch(`${API_BASE_URL}/torneos/${torneoId}/encuentros`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                
+                if (!resEncuentros.ok) return;
+                
+                const encuentros = await resEncuentros.json();
+                const primerEncuentro = encuentros.find(e => !e.ganador);
+                
+                if (!primerEncuentro) {
+                    // El primer encuentro ya tiene ganador
+                    btnIniciar.disabled = false;
+                    btnIniciar.style.opacity = '1';
+                    btnIniciar.style.cursor = 'pointer';
+                    
+                    if (pollingInterval) clearInterval(pollingInterval);
+                    
+                    // Mostrar notificación
+                    Swal.fire({
+                        title: '✓ Calificaciones Recibidas',
+                        text: 'Los 3 jueces completaron sus calificaciones. Ya puedes iniciar el torneo.',
+                        icon: 'success',
+                        timer: 3000
+                    });
+                }
+            } catch (error) {
+                console.error('Error verificando calificaciones:', error);
+            }
+        }
+        
         btnIniciar.addEventListener('click', async () => {
             try {
+                // Verificar si hay calificación del primer encuentro
+                const resEncuentros = await fetch(`${API_BASE_URL}/torneos/${torneoId}/encuentros`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                
+                if (!resEncuentros.ok) throw new Error('Error al verificar encuentros');
+                
+                const encuentros = await resEncuentros.json();
+                const primerEncuentro = encuentros.find(e => !e.ganador);
+                
+                if (primerEncuentro) {
+                    Swal.fire({
+                        title: 'Esperando Calificaciones',
+                        text: 'Los jueces aún no han completado sus calificaciones. Por favor espera.',
+                        icon: 'warning'
+                    });
+                    return;
+                }
+                
                 const confirm = await Swal.fire({
                     title: '¿Iniciar Simulación Rápida?',
-                    text: 'Esto completará el torneo automáticamente. Asegúrese de haber calificado el primer encuentro manualmente.',
+                    text: 'Esto completará el torneo automáticamente con las calificaciones registradas.',
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonText: 'Sí, iniciar',
@@ -271,5 +332,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 Swal.fire('Error', 'Fallo de conexión', 'error');
             }
         });
+        
+        // Iniciar polling cada 5 segundos para verificar calificaciones
+        pollingInterval = setInterval(verificarCalificaciones, 5000);
+        
+        // Iniciar verificación inmediata
+        verificarCalificaciones();
     }
 });
