@@ -58,10 +58,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Validación específica para Email
         const emailValue = fields.email_juez.element.value.trim();
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (emailValue && !emailRegex.test(emailValue)) {
-            errors.push('Correo Electrónico debe ser válido.');
+        
+        // Validar presencia de @
+        if (emailValue && !emailValue.includes('@')) {
+            errors.push('El correo electrónico debe contener un símbolo @ (Ej: juez@dominio.com).');
             highlightField(fields.email_juez.element, true);
+        } else {
+            // Validación con expresión regular: usuario@dominio.extension
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
+            if (emailValue && !emailRegex.test(emailValue)) {
+                errors.push('El formato del correo electrónico no es válido. Debe ser: usuario@dominio.extensión (Ej: juez@example.com).');
+                highlightField(fields.email_juez.element, true);
+            } else {
+                // Validar que tenga una extensión válida
+                const partes = emailValue.split('.');
+                const extension = partes[partes.length - 1].toLowerCase();
+                
+                const extensionesValidas = ['com', 'org', 'net', 'es', 'co', 'ar', 'mx', 'pe', 'cl', 've', 'cu', 'do', 'bo', 'py', 'uy', 'ec', 'br', 'info', 'biz', 'edu', 'gov', 'io', 'dev', 'tech', 'app', 'pro'];
+                
+                if (emailValue && !extensionesValidas.includes(extension)) {
+                    errors.push(`La extensión ".${extension}" no es válida. Use dominios como .com, .org, .net, .es, .edu, etc.`);
+                    highlightField(fields.email_juez.element, true);
+                } else {
+                    highlightField(fields.email_juez.element, false);
+                }
+            }
         }
 
         // Validación de Contraseña (mínimo 6 caracteres)

@@ -68,9 +68,28 @@ document.addEventListener('DOMContentLoaded', function() {
             return false;
         }
 
-        // 2. Correo debe tener un @ y un formato válido
+        // 2. Validación estricta del correo: debe tener @ y un dominio válido con extensión
+        // Expresión regular que valida: usuario@dominio.extension
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
+        
         if (!correo.includes('@')) {
-            showValidationError('El formato del correo electrónico no es válido.');
+            showValidationError('El correo electrónico debe contener un símbolo @ (Ej: correo@dominio.com).');
+            return false;
+        }
+
+        if (!emailRegex.test(correo)) {
+            showValidationError('El formato del correo electrónico no es válido. Debe ser: usuario@dominio.extensión (Ej: club@example.com).');
+            return false;
+        }
+
+        // Validar que tenga una extensión válida (.com, .org, .net, .es, etc)
+        const partes = correo.split('.');
+        const extension = partes[partes.length - 1].toLowerCase();
+        
+        const extensionesValidas = ['com', 'org', 'net', 'es', 'co', 'ar', 'mx', 'pe', 'cl', 've', 'cu', 'do', 'bo', 'py', 'uy', 'ec', 'br', 'co', 'info', 'biz', 'edu', 'gov', 'io', 'dev', 'tech', 'app', 'pro'];
+        
+        if (!extensionesValidas.includes(extension)) {
+            showValidationError(`La extensión ".${extension}" no es válida. Use dominios como .com, .org, .net, .es, .edu, etc.`);
             return false;
         }
 

@@ -9,16 +9,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body class="vista-torneo-page">
-    <header class="navbar">
-        <div class="logo">ROBOJUDGE</div>
-        <nav>
-            <a href="torneo.html">Torneos</a>
-            <a href="#">Calendario</a>
-            <a href="#">Historial</a>
+    <header class="header admin-header">
+        <div class="logo">ROBOTech Admin</div>
+        <nav class="nav">
+            <ul>
+                <li><a href="perfiladmin.html">Dashboard</a></li>
+                <li><a href="torneo.html">Torneos</a></li>
+                <li><a href="#" id="btn-logout" class="btn-logout">Cerrar Sesión</a></li> 
+            </ul>
         </nav>
-        <!-- <div class="user-menu">
-            <span>Juez Principal</span> <i class="fa-solid fa-chevron-down"></i>
-        </div> -->
     </header>
 
     <div class="main-layout">
@@ -243,6 +242,40 @@
             </div>
         </main>
     </div>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-about">
+                <h3>ROBOTech</h3>
+                <p>Innovación, competencia y pasión por la robótica.  
+                Únete a nuestra comunidad y lleva tus habilidades al siguiente nivel.</p>
+            </div>
+
+            <div class="footer-links">
+                <h4>Enlaces útiles</h4>
+                <ul>
+                    <li><a href="#">Términos y condiciones</a></li>
+                    <li><a href="#">Política de privacidad</a></li>
+                    <li><a href="#">Preguntas frecuentes</a></li>
+                    <li><a href="#">Contacto</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-social">
+                <h4>Síguenos</h4>
+                <div class="social-icons">
+                    <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook"></a>
+                    <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram"></a>
+                    <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/twitter.svg" alt="Twitter"></a>
+                    <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube"></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2025 ROBOTech | Innovación y competencia robótica</p>
+        </div>
+    </footer>
 
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>    

@@ -247,6 +247,51 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
+        // Validar peso mínimo (>= 0.5 kg)
+        if (pesoInput && categoriaData.pesoMaximoKg !== null && categoriaData.pesoMaximoKg < 0.5) {
+            setFieldError(pesoInput, 'El peso debe ser mayor o igual a 0.5 kg.');
+            isValid = false;
+            if (!errorFields.includes('Peso Máximo')) {
+                errorFields.push('Peso Máximo');
+            }
+        }
+
+        // Validar velocidad mínima (>= 0.5 km/h)
+        if (velocidadInput && categoriaData.velocidadMaximaPermitidaKmh !== null && categoriaData.velocidadMaximaPermitidaKmh < 0.5) {
+            setFieldError(velocidadInput, 'La velocidad debe ser mayor o igual a 0.5 km/h.');
+            isValid = false;
+            if (!errorFields.includes('Velocidad Máxima')) {
+                errorFields.push('Velocidad Máxima');
+            }
+        }
+
+        // Validar ancho máximo (<= 35 cm)
+        if (anchoInput && categoriaData.anchoMaximoCm !== null && categoriaData.anchoMaximoCm > 35) {
+            setFieldError(anchoInput, 'El ancho no puede ser mayor a 35 cm.');
+            isValid = false;
+            if (!errorFields.includes('Ancho Máximo')) {
+                errorFields.push('Ancho Máximo');
+            }
+        }
+
+        // Validar alto máximo (<= 35 cm)
+        if (altoInput && categoriaData.altoMaximoCm !== null && categoriaData.altoMaximoCm > 35) {
+            setFieldError(altoInput, 'El alto no puede ser mayor a 35 cm.');
+            isValid = false;
+            if (!errorFields.includes('Alto Máximo')) {
+                errorFields.push('Alto Máximo');
+            }
+        }
+
+        // Validar largo máximo (<= 35 cm)
+        if (largoInput && categoriaData.largoMaximoCm !== null && categoriaData.largoMaximoCm > 35) {
+            setFieldError(largoInput, 'El largo no puede ser mayor a 35 cm.');
+            isValid = false;
+            if (!errorFields.includes('Largo Máximo')) {
+                errorFields.push('Largo Máximo');
+            }
+        }
+
         if (!isValid) {
             let message = 'Por favor corrija los errores en el formulario.';
             if (errorFields.length > 0) {
