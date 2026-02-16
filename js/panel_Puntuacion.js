@@ -8,67 +8,14 @@ let timerInterval = null;
 let timeRemaining = 600; // 10 minutos en segundos
 let isTimerRunning = false;
 
-document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
-    let encuentroId = urlParams.get('encuentroId');
-    let torneoId = urlParams.get('torneoId');
-    const token = localStorage.getItem('jwtToken');
+    const encuentroId = urlParams.get('encuentroId'); // O 'torneoId' si vienes del perfil y buscas el activo
 
-    // Si no hay encuentroId, buscarlo dinámicamente
     if (!encuentroId) {
-        try {
-            Swal.fire({ title: 'Buscando encuentro pendiente...', didOpen: () => Swal.showLoading() });
-            
-            if (!token) {
-                throw new Error('No hay sesión activa');
-            }
-
-            // Obtener todos los torneos
-            const resTorneos = await fetch(`${API_BASE_URL}/torneos`, {
-                headers: { 'Authorization': `Bearer ${token}` }
-            });
-
-            if (!resTorneos.ok) throw new Error('No se pudieron obtener torneos');
-
-            const torneos = await resTorneos.json();
-            let primerEncuentroPendiente = null;
-            let torneoActivo = null;
-
-            // Buscar el primer encuentro sin ganador
-            for (const torneo of torneos) {
-                const resEncuentros = await fetch(`${API_BASE_URL}/torneos/${torneo.id}/encuentros`, {
-                    headers: { 'Authorization': `Bearer ${token}` }
-                });
-
-                if (resEncuentros.ok) {
-                    const encuentros = await resEncuentros.json();
-                    const encuentroPendiente = encuentros.find(e => !e.ganador);
-
-                    if (encuentroPendiente) {
-                        primerEncuentroPendiente = encuentroPendiente;
-                        torneoActivo = torneo;
-                        break;
-                    }
-                }
-            }
-
-            if (!primerEncuentroPendiente) {
-                Swal.fire('Info', 'No hay encuentros pendientes para calificar en este momento.', 'info')
-                    .then(() => window.location.href = 'perfil-juez.html');
-                return;
-            }
-
-            // Actualizar variables con los datos obtenidos
-            encuentroId = primerEncuentroPendiente.id;
-            torneoId = torneoActivo.id;
-            Swal.close();
-
-        } catch (error) {
-            console.error('Error buscando encuentro:', error);
-            Swal.fire('Error', 'No se pudo obtener el encuentro. ' + error.message, 'error')
-                .then(() => window.location.href = 'perfil-juez.html');
-            return;
-        }
+        Swal.fire('Error', 'No se especificó un encuentro.', 'error')
+            .then(() => window.location.href = 'perfil-juez.html');
+        return;
     }
 
     loadEncuentroData(encuentroId);
@@ -81,49 +28,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     setupScoreInput('score-red');
 
     // Botones
-    document.getElementById('btn-finalize').addEventListener('click', () => finalizarCombate(encuentroId, torneoId));
+    document.getElementById('btn-finalize').addEventListener('click', () => finalizarCombate(encuentroId));
     document.getElementById('btn-toggle-timer').addEventListener('click', toggleTimer);
-
-    // Botones del modal
-    const modalVolver = document.getElementById('btn-volver-torneo');
-    const modalSiguiente = document.getElementById('btn-siguiente-encuentro');
-
-    if (modalVolver) {
-        modalVolver.addEventListener('click', () => {
-            if (torneoId) {
-                window.location.href = `vista-torneo.html?id=${torneoId}`;
-            } else {
-                window.location.href = 'vista-torneo.html';
-            }
-        });
-    }
-
-    if (modalSiguiente) {
-        modalSiguiente.addEventListener('click', async () => {
-            try {
-                // Obtener siguiente encuentro
-                const token = localStorage.getItem('jwtToken');
-                const resEncuentros = await fetch(`${API_BASE_URL}/torneos/${torneoId}/encuentros`, {
-                    headers: { 'Authorization': `Bearer ${token}` }
-                });
-                
-                if (!resEncuentros.ok) throw new Error('No se pudieron obtener encuentros');
-                
-                const encuentros = await resEncuentros.json();
-                // Obtener el primero sin ganador
-                const siguienteEncuentro = encuentros.find(e => !e.ganador);
-                
-                if (siguienteEncuentro) {
-                    window.location.href = `panel_Puntuacion.html?encuentroId=${siguienteEncuentro.id}&torneoId=${torneoId}`;
-                } else {
-                    Swal.fire('Info', 'No hay más encuentros pendientes.', 'info')
-                        .then(() => window.location.href = `vista-torneo.html?id=${torneoId}`);
-                }
-            } catch (e) {
-                Swal.fire('Error', 'No se pudo obtener el siguiente encuentro.', 'error');
-            }
-        });
-    }
 });
 
 function setupScoreInput(id) {
@@ -272,7 +178,7 @@ function renderJudgeStatus(jueces) {
 }
 
 // --- Finalizar ---
-async function finalizarCombate(encuentroId, torneoId) {
+async function finalizarCombate(encuentroId) {
     const scoreBlue = parseInt(document.getElementById('score-blue').value);
     const scoreRed = parseInt(document.getElementById('score-red').value);
 
@@ -309,21 +215,13 @@ async function finalizarCombate(encuentroId, torneoId) {
         Swal.fire({ title: 'Enviando...', didOpen: () => Swal.showLoading() });
         await Promise.all([reqA, reqB]);
         
-        // Mostrar mensaje de éxito
-        await Swal.fire({
-            title: '¡Calificación Enviada!',
-            text: 'Tus puntajes han sido registrados exitosamente. Regresando a vista del torneo...',
-            icon: 'success',
-            confirmButtonText: 'OK',
-            allowOutsideClick: false
-        });
+        await Swal.fire('Enviado', 'Tus calificaciones han sido registradas.', 'success');
         
-        // Redirigir a vista-torneo
-        if (torneoId) {
-            window.location.href = `vista-torneo.html?id=${torneoId}`;
-        } else {
-            window.location.href = 'vista-torneo.html';
-        }
+        // Recargar estado de jueces para ver mi propio check verde
+        loadJudgeStatus(encuentroId);
+        
+        // Opcional: Redirigir
+        // window.location.href = 'perfil-juez.html';
 
     } catch (error) {
         console.error(error);

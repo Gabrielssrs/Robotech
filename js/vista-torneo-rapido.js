@@ -14,13 +14,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnIniciar = document.getElementById('btn-iniciar-torneo');
     const bracketContainer = document.querySelector('.bracket-container');
 
-    // Deshabilitar botón "Iniciar" por defecto
-    if (btnIniciar) {
-        btnIniciar.disabled = true;
-        btnIniciar.style.opacity = '0.5';
-        btnIniciar.style.cursor = 'not-allowed';
-    }
-
     // 1. Verificar Rol para mostrar botones
     if (token) {
         const payload = JSON.parse(atob(token.split('.')[1]));
@@ -146,166 +139,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
                 
                 if (res.ok) {
-                    // Obtener el primer encuentro para información
-                    const resEncuentros = await fetch(`${API_BASE_URL}/torneos/${torneoId}/encuentros`, {
-                        headers: { 'Authorization': `Bearer ${token}` }
-                    });
-                    
-                    if (!resEncuentros.ok) throw new Error('No se pudieron obtener encuentros');
-                    
-                    const encuentros = await resEncuentros.json();
-                    const primerEncuentro = encuentros.find(e => !e.ganador);
-                    
-                    Swal.close();
-                    
-                    // Mostrar modal con instrucciones
-                    if (primerEncuentro) {
-                        const enlacePanel = `panel_Puntuacion.html?encuentroId=${primerEncuentro.id}&torneoId=${torneoId}`;
-                        Swal.fire({
-                            title: '¡Competidores Insertados!',
-                            html: `
-                                <div style="text-align: left; color: #e6eef6;">
-                                    <p><strong>✓ Fixture generado correctamente</strong></p>
-                                    <div style="
-                                        background: rgba(0, 191, 255, 0.1);
-                                        border: 1px solid #58a6ff;
-                                        border-radius: 8px;
-                                        padding: 15px;
-                                        margin: 20px 0;
-                                        text-align: center;
-                                    ">
-                                        <h3 style="margin-top: 0; color: #79c0ff;">Primer Encuentro</h3>
-                                        <p style="margin: 10px 0; font-size: 1.1rem;">
-                                            <strong>${primerEncuentro?.robotA || '---'}</strong> vs <strong>${primerEncuentro?.robotB || '---'}</strong>
-                                        </p>
-                                    </div>
-                                    
-                                    <p style="color: #ffd700; margin-bottom: 15px;">
-                                        <i class="fas fa-exclamation-circle"></i> <strong>Próximo paso:</strong>
-                                    </p>
-                                    <p style="margin: 10px 0; color: #8b949e;">
-                                        Los <strong>3 jueces</strong> deben acceder al panel de calificación y verificar sus puntajes.
-                                    </p>
-                                    
-                                    <div style="
-                                        background: rgba(46, 164, 79, 0.1);
-                                        border: 1px solid #2ea44f;
-                                        border-radius: 8px;
-                                        padding: 12px;
-                                        margin: 15px 0;
-                                        text-align: center;
-                                    ">
-                                        <p style="margin: 0 0 10px 0; color: #8b949e; font-size: 0.9rem;">
-                                            Enlace para jueces:
-                                        </p>
-                                        <a href="${enlacePanel}" target="_blank" style="
-                                            display: inline-block;
-                                            background: #2ea44f;
-                                            color: white;
-                                            padding: 10px 15px;
-                                            border-radius: 6px;
-                                            text-decoration: none;
-                                            font-weight: 600;
-                                            transition: all 0.3s;
-                                        " onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">
-                                            <i class="fas fa-external-link-alt"></i> Ir a Panel de Puntuación
-                                        </a>
-                                    </div>
-                                    
-                                    <p style="margin: 15px 0 0 0; color: #8b949e; font-size: 0.9rem;">
-                                        Una vez que los 3 jueces completen sus calificaciones, regresa a esta página y haz clic en <strong>"Iniciar"</strong>
-                                    </p>
-                                </div>
-                            `,
-                            icon: 'info',
-                            confirmButtonText: 'Entendido',
-                            allowOutsideClick: false
-                        }).then(() => {
-                            // Recargar la página para actualizar el fixture
-                            location.reload();
-                        });
-                    } else {
-                        Swal.fire({
-                            title: '¡Competidores Insertados!',
-                            text: 'Fixture generado correctamente. Esperando calificaciones...',
-                            icon: 'success',
-                            confirmButtonText: 'OK',
-                            allowOutsideClick: false
-                        }).then(() => {
-                            location.reload();
-                        });
-                    }
+                    Swal.fire('Éxito', 'Competidores insertados y fixture generado.', 'success')
+                        .then(() => location.reload());
                 } else {
                     const err = await res.json();
                     Swal.fire('Error', err.message || 'No se pudo insertar.', 'error');
                 }
             } catch (e) {
-                Swal.fire('Error', 'Fallo de conexión: ' + e.message, 'error');
+                Swal.fire('Error', 'Fallo de conexión', 'error');
             }
         });
     }
 
     // 5. Botón Iniciar (Simulación Rápida)
     if (btnIniciar) {
-        let pollingInterval = null;
-        
-        // Función para verificar estado del primer encuentro
-        async function verificarCalificaciones() {
-            try {
-                const resEncuentros = await fetch(`${API_BASE_URL}/torneos/${torneoId}/encuentros`, {
-                    headers: { 'Authorization': `Bearer ${token}` }
-                });
-                
-                if (!resEncuentros.ok) return;
-                
-                const encuentros = await resEncuentros.json();
-                const primerEncuentro = encuentros.find(e => !e.ganador);
-                
-                if (!primerEncuentro) {
-                    // El primer encuentro ya tiene ganador
-                    btnIniciar.disabled = false;
-                    btnIniciar.style.opacity = '1';
-                    btnIniciar.style.cursor = 'pointer';
-                    
-                    if (pollingInterval) clearInterval(pollingInterval);
-                    
-                    // Mostrar notificación
-                    Swal.fire({
-                        title: '✓ Calificaciones Recibidas',
-                        text: 'Los 3 jueces completaron sus calificaciones. Ya puedes iniciar el torneo.',
-                        icon: 'success',
-                        timer: 3000
-                    });
-                }
-            } catch (error) {
-                console.error('Error verificando calificaciones:', error);
-            }
-        }
-        
         btnIniciar.addEventListener('click', async () => {
             try {
-                // Verificar si hay calificación del primer encuentro
-                const resEncuentros = await fetch(`${API_BASE_URL}/torneos/${torneoId}/encuentros`, {
-                    headers: { 'Authorization': `Bearer ${token}` }
-                });
-                
-                if (!resEncuentros.ok) throw new Error('Error al verificar encuentros');
-                
-                const encuentros = await resEncuentros.json();
-                const primerEncuentro = encuentros.find(e => !e.ganador);
-                
-                if (primerEncuentro) {
-                    Swal.fire({
-                        title: 'Esperando Calificaciones',
-                        text: 'Los jueces aún no han completado sus calificaciones. Por favor espera.',
-                        icon: 'warning'
-                    });
-                    return;
-                }
-                
                 const confirm = await Swal.fire({
                     title: '¿Iniciar Simulación Rápida?',
-                    text: 'Esto completará el torneo automáticamente con las calificaciones registradas.',
+                    text: 'Esto completará el torneo automáticamente. Asegúrese de haber calificado el primer encuentro manualmente.',
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonText: 'Sí, iniciar',
@@ -332,11 +184,5 @@ document.addEventListener('DOMContentLoaded', () => {
                 Swal.fire('Error', 'Fallo de conexión', 'error');
             }
         });
-        
-        // Iniciar polling cada 5 segundos para verificar calificaciones
-        pollingInterval = setInterval(verificarCalificaciones, 5000);
-        
-        // Iniciar verificación inmediata
-        verificarCalificaciones();
     }
 });
