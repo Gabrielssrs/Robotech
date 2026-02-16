@@ -252,7 +252,7 @@ document.addEventListener('DOMContentLoaded', () => {
             setFieldError(pesoInput, 'El peso debe ser mayor o igual a 0.5 kg.');
             isValid = false;
             if (!errorFields.includes('Peso Máximo')) {
-                errorFields.push('Peso Máximo');
+                errorFields.push('Peso Máximo (mínimo 0.5 kg)');
             }
         }
 
@@ -261,7 +261,7 @@ document.addEventListener('DOMContentLoaded', () => {
             setFieldError(velocidadInput, 'La velocidad debe ser mayor o igual a 0.5 km/h.');
             isValid = false;
             if (!errorFields.includes('Velocidad Máxima')) {
-                errorFields.push('Velocidad Máxima');
+                errorFields.push('Velocidad Máxima (mínimo 0.5 km/h)');
             }
         }
 
@@ -270,7 +270,7 @@ document.addEventListener('DOMContentLoaded', () => {
             setFieldError(anchoInput, 'El ancho debe ser mayor o igual a 35 cm.');
             isValid = false;
             if (!errorFields.includes('Ancho Máximo')) {
-                errorFields.push('Ancho Máximo');
+                errorFields.push('Ancho Máximo (mínimo 35 cm)');
             }
         }
 
@@ -279,7 +279,7 @@ document.addEventListener('DOMContentLoaded', () => {
             setFieldError(altoInput, 'El alto debe ser mayor o igual a 35 cm.');
             isValid = false;
             if (!errorFields.includes('Alto Máximo')) {
-                errorFields.push('Alto Máximo');
+                errorFields.push('Alto Máximo (mínimo 35 cm)');
             }
         }
 
@@ -288,7 +288,7 @@ document.addEventListener('DOMContentLoaded', () => {
             setFieldError(largoInput, 'El largo debe ser mayor o igual a 35 cm.');
             isValid = false;
             if (!errorFields.includes('Largo Máximo')) {
-                errorFields.push('Largo Máximo');
+                errorFields.push('Largo Máximo (mínimo 35 cm)');
             }
         }
 
@@ -297,6 +297,28 @@ document.addEventListener('DOMContentLoaded', () => {
             if (errorFields.length > 0) {
                 message += ` Revise: ${errorFields.join(', ')}.`;
             }
+            
+            // Mostrar alerta SweetAlert2 por los errores
+            Swal.fire({
+                icon: 'error',
+                title: '❌ Validación fallida',
+                html: `
+                    <div style="text-align: left;">
+                        <p style="color: #c9d1d9; margin-bottom: 1rem;">${message}</p>
+                        <div style="background-color: rgba(248, 81, 73, 0.1); border: 1px solid #f85149; border-radius: 6px; padding: 12px; color: #f85149;">
+                            <strong>Errores encontrados:</strong>
+                            <ul style="margin: 8px 0 0 0; padding-left: 20px;">
+                                ${errorFields.map(field => `<li>${field}</li>`).join('')}
+                            </ul>
+                        </div>
+                    </div>
+                `,
+                confirmButtonColor: '#238636',
+                confirmButtonText: 'Entendido',
+                allowOutsideClick: false,
+                allowEscapeKey: false
+            });
+            
             showFeedback(message, true);
             submitButton.disabled = false;
             submitButton.textContent = 'Guardar Categoría';
