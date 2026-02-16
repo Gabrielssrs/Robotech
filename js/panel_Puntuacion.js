@@ -10,7 +10,8 @@ let isTimerRunning = false;
 
 document.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
-    const encuentroId = urlParams.get('encuentroId'); // O 'torneoId' si vienes del perfil y buscas el activo
+    const encuentroId = urlParams.get('encuentroId');
+    const torneoId = urlParams.get('torneoId');
 
     if (!encuentroId) {
         Swal.fire('Error', 'No se especificó un encuentro.', 'error')
@@ -28,8 +29,49 @@ document.addEventListener('DOMContentLoaded', () => {
     setupScoreInput('score-red');
 
     // Botones
-    document.getElementById('btn-finalize').addEventListener('click', () => finalizarCombate(encuentroId));
+    document.getElementById('btn-finalize').addEventListener('click', () => finalizarCombate(encuentroId, torneoId));
     document.getElementById('btn-toggle-timer').addEventListener('click', toggleTimer);
+
+    // Botones del modal
+    const modalVolver = document.getElementById('btn-volver-torneo');
+    const modalSiguiente = document.getElementById('btn-siguiente-encuentro');
+
+    if (modalVolver) {
+        modalVolver.addEventListener('click', () => {
+            if (torneoId) {
+                window.location.href = `vista-torneo.html?id=${torneoId}`;
+            } else {
+                window.location.href = 'vista-torneo.html';
+            }
+        });
+    }
+
+    if (modalSiguiente) {
+        modalSiguiente.addEventListener('click', async () => {
+            try {
+                // Obtener siguiente encuentro
+                const token = localStorage.getItem('jwtToken');
+                const resEncuentros = await fetch(`${API_BASE_URL}/torneos/${torneoId}/encuentros`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                
+                if (!resEncuentros.ok) throw new Error('No se pudieron obtener encuentros');
+                
+                const encuentros = await resEncuentros.json();
+                // Obtener el primero sin ganador
+                const siguienteEncuentro = encuentros.find(e => !e.ganador);
+                
+                if (siguienteEncuentro) {
+                    window.location.href = `panel_Puntuacion.html?encuentroId=${siguienteEncuentro.id}&torneoId=${torneoId}`;
+                } else {
+                    Swal.fire('Info', 'No hay más encuentros pendientes.', 'info')
+                        .then(() => window.location.href = `vista-torneo.html?id=${torneoId}`);
+                }
+            } catch (e) {
+                Swal.fire('Error', 'No se pudo obtener el siguiente encuentro.', 'error');
+            }
+        });
+    }
 });
 
 function setupScoreInput(id) {
@@ -178,7 +220,7 @@ function renderJudgeStatus(jueces) {
 }
 
 // --- Finalizar ---
-async function finalizarCombate(encuentroId) {
+async function finalizarCombate(encuentroId, torneoId) {
     const scoreBlue = parseInt(document.getElementById('score-blue').value);
     const scoreRed = parseInt(document.getElementById('score-red').value);
 
@@ -215,13 +257,21 @@ async function finalizarCombate(encuentroId) {
         Swal.fire({ title: 'Enviando...', didOpen: () => Swal.showLoading() });
         await Promise.all([reqA, reqB]);
         
-        await Swal.fire('Enviado', 'Tus calificaciones han sido registradas.', 'success');
+        // Mostrar mensaje de éxito
+        await Swal.fire({
+            title: '¡Calificación Enviada!',
+            text: 'Tus puntajes han sido registrados exitosamente. Regresando a vista del torneo...',
+            icon: 'success',
+            confirmButtonText: 'OK',
+            allowOutsideClick: false
+        });
         
-        // Recargar estado de jueces para ver mi propio check verde
-        loadJudgeStatus(encuentroId);
-        
-        // Opcional: Redirigir
-        // window.location.href = 'perfil-juez.html';
+        // Redirigir a vista-torneo
+        if (torneoId) {
+            window.location.href = `vista-torneo.html?id=${torneoId}`;
+        } else {
+            window.location.href = 'vista-torneo.html';
+        }
 
     } catch (error) {
         console.error(error);

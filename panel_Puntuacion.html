@@ -168,6 +168,63 @@
         </section>
     </main>
 
+    <!-- Modal: Combate Finalizado -->
+    <div id="combate-finalizado-modal" style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    ">
+        <div style="
+            background: #161b22;
+            border: 2px solid #58a6ff;
+            border-radius: 12px;
+            padding: 40px;
+            text-align: center;
+            max-width: 500px;
+        ">
+            <div style="font-size: 3rem; color: #2ea44f; margin-bottom: 20px;">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h2 style="color: #e6eef6; margin-bottom: 10px;">¡Combate Finalizado!</h2>
+            <p style="color: #8b949e; margin-bottom: 30px;">
+                Los resultados han sido registrados exitosamente.
+            </p>
+            <div style="display: flex; gap: 10px; justify-content: center;">
+                <button id="btn-volver-torneo" style="
+                    background: linear-gradient(135deg, #58a6ff, #79c0ff);
+                    color: #0d1117;
+                    border: none;
+                    padding: 12px 24px;
+                    border-radius: 6px;
+                    font-weight: 600;
+                    cursor: pointer;
+                    transition: all 0.3s;
+                " onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">
+                    <i class="fas fa-arrow-left"></i> Volver a Torneos
+                </button>
+                <button id="btn-siguiente-encuentro" style="
+                    background: rgba(88, 166, 255, 0.1);
+                    color: #79c0ff;
+                    border: 1px solid #58a6ff;
+                    padding: 12px 24px;
+                    border-radius: 6px;
+                    font-weight: 600;
+                    cursor: pointer;
+                    transition: all 0.3s;
+                " onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">
+                    Siguiente Encuentro
+                </button>
+            </div>
+        </div>
+    </div>
+
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-about">
